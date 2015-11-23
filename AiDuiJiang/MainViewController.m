@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"HELLO WORLD");
     // Do any additional setup after loading the view.
 }
 
