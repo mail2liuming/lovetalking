@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "f8497773-2003-41d8-ac0c-315b0ebc4917++6555",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "f8497773-2003-41d8-ac0c-315b0ebc4917++6555" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "f8497773-2003-41d8-ac0c-315b0ebc4917++6555" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2EF9564C-097B-4CD0-9162-05CE6079A7B0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "f8497773-2003-41d8-ac0c-315b0ebc4917++6555" : "Aiduijiang-ios\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AiDuiJiang",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AiDuiJiang.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/svn.sogou-inc.com\/svn\/PDAAssistant",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "f8497773-2003-41d8-ac0c-315b0ebc4917++6555"
+    }
+  ]
+}
