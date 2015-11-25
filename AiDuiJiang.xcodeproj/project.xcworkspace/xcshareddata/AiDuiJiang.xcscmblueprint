@@ -1,21 +1,28 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "f8497773-2003-41d8-ac0c-315b0ebc4917++6555",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "42075C40E98B7A05E3D84EFDF80D9488F04A2171",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
     "f8497773-2003-41d8-ac0c-315b0ebc4917++6555" : {
 
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "f8497773-2003-41d8-ac0c-315b0ebc4917++6555" : 0
+    "f8497773-2003-41d8-ac0c-315b0ebc4917++6555" : 0,
+    "42075C40E98B7A05E3D84EFDF80D9488F04A2171" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2EF9564C-097B-4CD0-9162-05CE6079A7B0",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "f8497773-2003-41d8-ac0c-315b0ebc4917++6555" : "Aiduijiang-ios\/"
+    "f8497773-2003-41d8-ac0c-315b0ebc4917++6555" : "Aiduijiang-ios\/",
+    "42075C40E98B7A05E3D84EFDF80D9488F04A2171" : "lovetalking\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "AiDuiJiang",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AiDuiJiang.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mail2liuming\/lovetalking.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "42075C40E98B7A05E3D84EFDF80D9488F04A2171"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/svn.sogou-inc.com\/svn\/PDAAssistant",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
