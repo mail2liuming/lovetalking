@@ -25,8 +25,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.drawer = [[DrawerLayout alloc] initWithParent:self.navigationController.view ];
     [self.navigationController.view addSubview:self.drawer];
+
     // Do any additional setup after loading the view.
 }
 
