@@ -7,22 +7,28 @@
 //
 
 #import "MainViewController.h"
-#import "Widgets/DrawerLayout.h"
+#import "DrawerLayout.h"
+
 
 
 @interface MainViewController ()
+
+@property (nonatomic,strong) DrawerLayout* drawer;
 
 @end
 
 @implementation MainViewController
 
 - (IBAction)openDrawer:(id)sender {
-    
+    [self.drawer toggle];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"HELLO WORLD");
+
+    self.drawer = [[DrawerLayout alloc] initWithParent:self.navigationController.view ];
+    [self.navigationController.view addSubview:self.drawer];
+
     // Do any additional setup after loading the view.
 }
 
