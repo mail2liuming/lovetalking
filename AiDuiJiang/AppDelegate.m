@@ -23,6 +23,7 @@
 
 - (void)configAPIKey {
     [AMapNaviServices sharedServices].apiKey = @"4363c3b646260c230109ff20b2a0ccac";
+    [MAMapServices sharedServices].apiKey = @"4363c3b646260c230109ff20b2a0ccac";
 }
 
 - (void)configIFlySpeech
@@ -48,7 +49,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [self configAPIKey];
+    [self configIFlySpeech];
+
     return YES;
 }
 

@@ -16,6 +16,10 @@
 		402814BA1C05CDB900765D3F /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402814B81C05CDB900765D3F /* iflyMSC.framework */; };
 		402814BD1C05CE0200765D3F /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 402814BB1C05CE0200765D3F /* AMap.bundle */; };
 		402814BE1C05CE0200765D3F /* AMapNavi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 402814BC1C05CE0200765D3F /* AMapNavi.bundle */; };
+		40A0F3DA1C0BF922005E5FCD /* DrawerLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */; };
+		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
+		40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E21C0C037E005E5FCD /* SharedMapView.m */; };
+		40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */; };
 		47EC91291C015B24008B69C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC91281C015B24008B69C8 /* main.m */; };
 		47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC912B1C015B24008B69C8 /* AppDelegate.m */; };
 		47EC91321C015B24008B69C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EC91301C015B24008B69C8 /* Main.storyboard */; };
@@ -57,6 +61,14 @@
 		402814B81C05CDB900765D3F /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = sdk/iflyMSC.framework; sourceTree = "<group>"; };
 		402814BB1C05CE0200765D3F /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = sdk/AMap.bundle; sourceTree = "<group>"; };
 		402814BC1C05CE0200765D3F /* AMapNavi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMapNavi.bundle; path = sdk/AMapNavi.bundle; sourceTree = "<group>"; };
+		40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawerLayout.h; sourceTree = "<group>"; };
+		40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerLayout.m; sourceTree = "<group>"; };
+		40A0F3DE1C0BFE6E005E5FCD /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
+		40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
+		40A0F3E11C0C037E005E5FCD /* SharedMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedMapView.h; sourceTree = "<group>"; };
+		40A0F3E21C0C037E005E5FCD /* SharedMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedMapView.m; sourceTree = "<group>"; };
+		40A0F3E41C0C2306005E5FCD /* NavPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavPointAnnotation.h; sourceTree = "<group>"; };
+		40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavPointAnnotation.m; sourceTree = "<group>"; };
 		47EC91241C015B24008B69C8 /* AiDuiJiang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AiDuiJiang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EC91281C015B24008B69C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		47EC912A1C015B24008B69C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -109,6 +121,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40A0F3DB1C0BFCCF005E5FCD /* navi */ = {
+			isa = PBXGroup;
+			children = (
+				40A0F3DE1C0BFE6E005E5FCD /* RouteViewController.h */,
+				40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */,
+				40A0F3E11C0C037E005E5FCD /* SharedMapView.h */,
+				40A0F3E21C0C037E005E5FCD /* SharedMapView.m */,
+				40A0F3E41C0C2306005E5FCD /* NavPointAnnotation.h */,
+				40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */,
+			);
+			name = navi;
+			sourceTree = "<group>";
+		};
 		47EC911B1C015B24008B69C8 = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +168,9 @@
 		47EC91261C015B24008B69C8 /* AiDuiJiang */ = {
 			isa = PBXGroup;
 			children = (
+				40A0F3DB1C0BFCCF005E5FCD /* navi */,
+				40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */,
+				40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */,
 				47EC91681C02D714008B69C8 /* Widgets */,
 				47EC912A1C015B24008B69C8 /* AppDelegate.h */,
 				47EC912B1C015B24008B69C8 /* AppDelegate.m */,
@@ -318,8 +346,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				47EC91351C015B24008B69C8 /* AiDuiJiang.xcdatamodeld in Sources */,
+				40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */,
 				47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */,
+				40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */,
 				47EC91291C015B24008B69C8 /* main.m in Sources */,
+				40A0F3DA1C0BF922005E5FCD /* DrawerLayout.m in Sources */,
+				40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */,
 				47EC915F1C015DAB008B69C8 /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
