@@ -79,8 +79,8 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _startPoint = [AMapNaviPoint locationWithLatitude:39.989614 longitude:116.481763];
-        _endPoint   = [AMapNaviPoint locationWithLatitude:39.983456 longitude:116.315495];
+        _startPoint = [AMapNaviPoint locationWithLatitude:39.993548 longitude:116.332722];
+        _endPoint   = [AMapNaviPoint locationWithLatitude:40.072833 longitude:116.339680];
         
         NavPointAnnotation *beginAnnotation = [[NavPointAnnotation alloc] init];
         
