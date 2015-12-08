@@ -8,9 +8,13 @@
 
 #import "MainViewController.h"
 #import "DrawerLayout.h"
+
 #import "DrawerContentView.h"
 #import "DrawerContentConfig.h"
 #import "UIView+Extend.h"
+
+
+#import "RouteViewController.h"
 
 
 
@@ -31,8 +35,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+
     [self.navigationController.view addSubview: self.drawer];
-    // Do any additional setup after loading the view.
+    
+    UIButton *mapButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    mapButton.frame = CGRectMake(self.view.frame.size.width / 2 - 50, 100, 80, 44);
+    [mapButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [mapButton setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
+    [mapButton setTitle:@"导航" forState:UIControlStateNormal];
+    
+    mapButton.titleLabel.font = [UIFont systemFontOfSize:18.f];
+    [mapButton addTarget:self action:@selector(navigation:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:mapButton];
+}
+
+- (void)navigation:(id)sender {
+    RouteViewController *viewController = [[RouteViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
