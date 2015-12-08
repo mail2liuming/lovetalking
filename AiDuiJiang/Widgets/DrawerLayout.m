@@ -259,6 +259,42 @@ const static  int VELOCITY_THRETHHOLD_FOR_SWIPING = 800;
     }
 }
 
+
+- (void) setContentview:(UIView *)contentView
+{
+    [self.containerview.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    //contentView.frame = CGRectMake(0, 0, self.containerView.bounds.size.width, self.containerView.bounds.size.height);
+    [self.containerview addSubview:contentView];
+    _contentview = contentView;
+    _contentview.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.containerview addConstraint:[NSLayoutConstraint constraintWithItem:_contentview
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.containerview
+                                                                   attribute:NSLayoutAttributeTop
+                                                                  multiplier:1.0 constant:0]];
+    [self.containerview addConstraint:[NSLayoutConstraint constraintWithItem:_contentview
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.containerview
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0 constant:0]];
+    [self.containerview addConstraint:[NSLayoutConstraint constraintWithItem:_contentview
+                                                                   attribute:NSLayoutAttributeLeft
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.containerview
+                                                                   attribute:NSLayoutAttributeLeft
+                                                                  multiplier:1.0 constant:0]];
+    [self.containerview addConstraint:[NSLayoutConstraint constraintWithItem:_contentview
+                                                                   attribute:NSLayoutAttributeRight
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.containerview
+                                                                   attribute:NSLayoutAttributeRight
+                                                                  multiplier:1.0 constant:0]];
+    
+    NSLog(@"add into container");
+}
+
 #pragma  - UIGestureRecognizerDelegate
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     CGPoint point = [touch locationInView:self.superview];
@@ -275,5 +311,7 @@ const static  int VELOCITY_THRETHHOLD_FOR_SWIPING = 800;
     
     return NO;
 }
+
+
 
 @end

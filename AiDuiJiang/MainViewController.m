@@ -8,12 +8,17 @@
 
 #import "MainViewController.h"
 #import "DrawerLayout.h"
+#import "DrawerContentView.h"
+#import "DrawerContentConfig.h"
+#import "UIView+Extend.h"
 
 
 
-@interface MainViewController ()
+@interface MainViewController () <DrawerContentViewDelegate>
 
 @property (nonatomic,strong) DrawerLayout* drawer;
+@property (nonatomic,strong) DrawerContentView * drawerContent;
+@property (nonatomic,strong) DrawerContentConfig* drawerMenuConfig;
 
 @end
 
@@ -26,9 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.drawer = [[DrawerLayout alloc] initWithParent:self.navigationController.view ];
-    [self.navigationController.view addSubview:self.drawer];
-
+    [self.navigationController.view addSubview: self.drawer];
     // Do any additional setup after loading the view.
 }
 
@@ -46,5 +49,55 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (DrawerLayout*)drawer{
+    if(!_drawer){
+        _drawer = [[DrawerLayout alloc] initWithParent:self.navigationController.view ];
+        _drawer.contentview = self.drawerContent;
+    }
+    
+    return _drawer;
+}
+
+- (DrawerContentView*)drawerContent{
+    if(!_drawerContent){
+        _drawerContent = [UIView loadFromNibWithName:@"DrawerContent"];
+        NSLog(@"add content");
+        _drawerContent.delegate = self;
+        _drawerContent.headerTitle = @"Loading";
+        _drawerContent.footerTitle = @"退出登录";
+        _drawerContent.menuConfig = [[DrawerContentConfig alloc]init];
+    }
+    
+    return _drawerContent;
+}
+
+-(void) onHeaderSelect{
+    NSLog(@"onHeaderSelect");
+    [self.drawer close];
+}
+-(void) onFooterSelect{
+    [self.drawer close];
+}
+-(void) onListItemSelect:(NSInteger)listIndex{
+    NSLog(@"onListItemSelect %ld",(long)listIndex);
+    switch (listIndex) {
+        case 0:
+            [self performSegueWithIdentifier:@"show_friends_vc" sender:self];
+            break;
+        case 1:
+            [self performSegueWithIdentifier:@"show_setting_vc" sender:self];
+            break;
+        default:
+            break;
+    }
+    
+    [self.drawer close];
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    //TODO
+}
+
 
 @end
