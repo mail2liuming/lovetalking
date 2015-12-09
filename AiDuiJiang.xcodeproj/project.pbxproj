@@ -20,10 +20,10 @@
 		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
 		40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E21C0C037E005E5FCD /* SharedMapView.m */; };
 		40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */; };
-		474B5C011C18152F00E6770D /* DrawerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C001C18152F00E6770D /* DrawerContentView.m */; };
 		474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C031C18161300E6770D /* DrawerContentConfig.m */; };
 		474B5C061C18168200E6770D /* DrawerContent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B5C051C18168200E6770D /* DrawerContent.xib */; };
 		474B5C091C181AEF00E6770D /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C081C181AEF00E6770D /* UIView+Extend.m */; };
+		474B5C0E1C1824B200E6770D /* DrawerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C0D1C1824B200E6770D /* DrawerContentView.m */; };
 		47EC91291C015B24008B69C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC91281C015B24008B69C8 /* main.m */; };
 		47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC912B1C015B24008B69C8 /* AppDelegate.m */; };
 		47EC91321C015B24008B69C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EC91301C015B24008B69C8 /* Main.storyboard */; };
@@ -72,13 +72,13 @@
 		40A0F3E21C0C037E005E5FCD /* SharedMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedMapView.m; sourceTree = "<group>"; };
 		40A0F3E41C0C2306005E5FCD /* NavPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavPointAnnotation.h; sourceTree = "<group>"; };
 		40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavPointAnnotation.m; sourceTree = "<group>"; };
-		474B5BFF1C18152F00E6770D /* DrawerContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawerContentView.h; path = Widgets/DrawerContentView.h; sourceTree = "<group>"; };
-		474B5C001C18152F00E6770D /* DrawerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawerContentView.m; path = Widgets/DrawerContentView.m; sourceTree = "<group>"; };
 		474B5C021C18161300E6770D /* DrawerContentConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerContentConfig.h; sourceTree = "<group>"; };
 		474B5C031C18161300E6770D /* DrawerContentConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerContentConfig.m; sourceTree = "<group>"; };
 		474B5C051C18168200E6770D /* DrawerContent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DrawerContent.xib; path = ../DrawerContent.xib; sourceTree = "<group>"; };
 		474B5C071C181AEF00E6770D /* UIView+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extend.h"; sourceTree = "<group>"; };
 		474B5C081C181AEF00E6770D /* UIView+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extend.m"; sourceTree = "<group>"; };
+		474B5C0C1C1824B200E6770D /* DrawerContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerContentView.h; sourceTree = "<group>"; };
+		474B5C0D1C1824B200E6770D /* DrawerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerContentView.m; sourceTree = "<group>"; };
 		47EC91241C015B24008B69C8 /* AiDuiJiang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AiDuiJiang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EC91281C015B24008B69C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		47EC912A1C015B24008B69C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -185,9 +185,9 @@
 				474B5C071C181AEF00E6770D /* UIView+Extend.h */,
 				474B5C081C181AEF00E6770D /* UIView+Extend.m */,
 				40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */,
-				474B5BFF1C18152F00E6770D /* DrawerContentView.h */,
-				474B5C001C18152F00E6770D /* DrawerContentView.m */,
 				47EC912A1C015B24008B69C8 /* AppDelegate.h */,
+				474B5C0C1C1824B200E6770D /* DrawerContentView.h */,
+				474B5C0D1C1824B200E6770D /* DrawerContentView.m */,
 				47EC912B1C015B24008B69C8 /* AppDelegate.m */,
 				47EC915D1C015DAB008B69C8 /* MainViewController.h */,
 				47EC915E1C015DAB008B69C8 /* MainViewController.m */,
@@ -363,9 +363,9 @@
 			files = (
 				474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */,
 				47EC91351C015B24008B69C8 /* AiDuiJiang.xcdatamodeld in Sources */,
-				474B5C011C18152F00E6770D /* DrawerContentView.m in Sources */,
 				40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */,
 				47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */,
+				474B5C0E1C1824B200E6770D /* DrawerContentView.m in Sources */,
 				40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */,
 				47EC91291C015B24008B69C8 /* main.m in Sources */,
 				474B5C091C181AEF00E6770D /* UIView+Extend.m in Sources */,
