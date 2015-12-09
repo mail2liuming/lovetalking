@@ -10,4 +10,8 @@
 
 @implementation DrawerContentConfig
 
+-(NSArray*) labelList{
+    return @[@"我的车友",@"设置"];
+}
+
 @end

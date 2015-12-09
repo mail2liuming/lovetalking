@@ -10,4 +10,7 @@
 
 @interface DrawerContentConfig : NSObject
 
+@property (nonatomic,strong) NSArray* labelList;
+@property (nonatomic,strong) NSArray* iconList;
+
 @end

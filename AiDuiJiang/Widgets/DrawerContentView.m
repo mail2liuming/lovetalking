@@ -10,9 +10,9 @@
 
 @interface DrawerContentView() <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *logoutLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *logoutImage;
 @property (weak, nonatomic) IBOutlet UITableView *menuList;
 
+@property (weak, nonatomic) IBOutlet UIImageView *logoutImage;
 
 @end
 
