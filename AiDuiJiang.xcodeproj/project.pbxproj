@@ -335,7 +335,10 @@
 				402814BE1C05CE0200765D3F /* AMapNavi.bundle in Resources */,
 				47EC913A1C015B24008B69C8 /* LaunchScreen.storyboard in Resources */,
 				47EC91371C015B24008B69C8 /* Assets.xcassets in Resources */,
+
 				474B5C061C18168200E6770D /* DrawerContent.xib in Resources */,
+
+
 				47EC91321C015B24008B69C8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
