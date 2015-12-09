@@ -29,7 +29,6 @@
 		47EC91451C015B24008B69C8 /* AiDuiJiangTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC91441C015B24008B69C8 /* AiDuiJiangTests.m */; };
 		47EC91501C015B24008B69C8 /* AiDuiJiangUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC914F1C015B24008B69C8 /* AiDuiJiangUITests.m */; };
 		47EC915F1C015DAB008B69C8 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC915E1C015DAB008B69C8 /* MainViewController.m */; };
-		47EC91691C02D714008B69C8 /* Widgets in Resources */ = {isa = PBXBuildFile; fileRef = 47EC91681C02D714008B69C8 /* Widgets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +85,6 @@
 		47EC91511C015B24008B69C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47EC915D1C015DAB008B69C8 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		47EC915E1C015DAB008B69C8 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		47EC91681C02D714008B69C8 /* Widgets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Widgets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +169,6 @@
 				40A0F3DB1C0BFCCF005E5FCD /* navi */,
 				40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */,
 				40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */,
-				47EC91681C02D714008B69C8 /* Widgets */,
 				47EC912A1C015B24008B69C8 /* AppDelegate.h */,
 				47EC912B1C015B24008B69C8 /* AppDelegate.m */,
 				47EC915D1C015DAB008B69C8 /* MainViewController.h */,
@@ -320,7 +317,6 @@
 				402814BE1C05CE0200765D3F /* AMapNavi.bundle in Resources */,
 				47EC913A1C015B24008B69C8 /* LaunchScreen.storyboard in Resources */,
 				47EC91371C015B24008B69C8 /* Assets.xcassets in Resources */,
-				47EC91691C02D714008B69C8 /* Widgets in Resources */,
 				47EC91321C015B24008B69C8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
