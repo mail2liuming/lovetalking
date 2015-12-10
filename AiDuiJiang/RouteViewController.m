@@ -10,6 +10,7 @@
 #import "SharedMapView.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "NavPointAnnotation.h"
+#import "ChannelViewController.h"
 
 @interface RouteViewController ()
 
@@ -49,7 +50,21 @@
     
     [self configMapView];
     
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"ic_nav.png"] forState:UIControlStateNormal];
+    button.frame = CGRectMake(width - 10 - 60, height - 10 - 60, 60, 60);
+    [button addTarget:self action:@selector(setDestination) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    
     [self routeCal];
+}
+
+- (void)setDestination {
+    ChannelViewController *controller = [[ChannelViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)configMapView
