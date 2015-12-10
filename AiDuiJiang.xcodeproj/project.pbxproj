@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4014C49B1C19696C00735DA6 /* ic_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 4014C49A1C19696C00735DA6 /* ic_indicator.png */; };
+		4014C49E1C196F8900735DA6 /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4014C49D1C196F8900735DA6 /* DestinationViewController.m */; };
+		4014C4A01C19768500735DA6 /* ic_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 4014C49F1C19768500735DA6 /* ic_search.png */; };
+		4014C4A21C1982C300735DA6 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4014C4A11C1982C300735DA6 /* AMapSearchKit.framework */; };
 		402814A61C05B72500765D3F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402814A51C05B72500765D3F /* AudioToolbox.framework */; };
 		402814A81C05B72F00765D3F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402814A71C05B72F00765D3F /* AVFoundation.framework */; };
 		402814AA1C05B74100765D3F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402814A91C05B74100765D3F /* AddressBook.framework */; };
@@ -55,6 +59,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4014C49A1C19696C00735DA6 /* ic_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_indicator.png; sourceTree = "<group>"; };
+		4014C49C1C196F8900735DA6 /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
+		4014C49D1C196F8900735DA6 /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
+		4014C49F1C19768500735DA6 /* ic_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_search.png; sourceTree = "<group>"; };
+		4014C4A11C1982C300735DA6 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = sdk/AMapSearchKit.framework; sourceTree = "<group>"; };
 		402814A51C05B72500765D3F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		402814A71C05B72F00765D3F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		402814A91C05B74100765D3F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -108,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4014C4A21C1982C300735DA6 /* AMapSearchKit.framework in Frameworks */,
 				402814B91C05CDB900765D3F /* AMapNaviKit.framework in Frameworks */,
 				402814BA1C05CDB900765D3F /* iflyMSC.framework in Frameworks */,
 				402814AE1C05B8F000765D3F /* libstdc++.6.0.9.dylib in Frameworks */,
@@ -138,6 +148,8 @@
 		4061225B1C191EFC00EFE9F2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4014C49F1C19768500735DA6 /* ic_search.png */,
+				4014C49A1C19696C00735DA6 /* ic_indicator.png */,
 				4061225C1C191F0A00EFE9F2 /* ic_nav.png */,
 			);
 			name = images;
@@ -148,6 +160,8 @@
 			children = (
 				4061225F1C1924F600EFE9F2 /* ChannelViewController.h */,
 				406122601C1924F600EFE9F2 /* ChannelViewController.m */,
+				4014C49C1C196F8900735DA6 /* DestinationViewController.h */,
+				4014C49D1C196F8900735DA6 /* DestinationViewController.m */,
 			);
 			name = channel;
 			sourceTree = "<group>";
@@ -168,6 +182,7 @@
 		47EC911B1C015B24008B69C8 = {
 			isa = PBXGroup;
 			children = (
+				4014C4A11C1982C300735DA6 /* AMapSearchKit.framework */,
 				402814BB1C05CE0200765D3F /* AMap.bundle */,
 				402814BC1C05CE0200765D3F /* AMapNavi.bundle */,
 				402814B71C05CDB900765D3F /* AMapNaviKit.framework */,
@@ -356,8 +371,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				402814BD1C05CE0200765D3F /* AMap.bundle in Resources */,
+				4014C4A01C19768500735DA6 /* ic_search.png in Resources */,
 				402814BE1C05CE0200765D3F /* AMapNavi.bundle in Resources */,
 				4061225D1C191F0A00EFE9F2 /* ic_nav.png in Resources */,
+				4014C49B1C19696C00735DA6 /* ic_indicator.png in Resources */,
 				47EC913A1C015B24008B69C8 /* LaunchScreen.storyboard in Resources */,
 				47EC91371C015B24008B69C8 /* Assets.xcassets in Resources */,
 				474B5C061C18168200E6770D /* DrawerContent.xib in Resources */,
@@ -388,6 +405,7 @@
 			files = (
 				474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */,
 				47EC91351C015B24008B69C8 /* AiDuiJiang.xcdatamodeld in Sources */,
+				4014C49E1C196F8900735DA6 /* DestinationViewController.m in Sources */,
 				40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */,
 				47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */,
 				474B5C0E1C1824B200E6770D /* DrawerContentView.m in Sources */,
