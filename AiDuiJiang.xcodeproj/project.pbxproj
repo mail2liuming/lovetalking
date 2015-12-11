@@ -22,6 +22,7 @@
 		402814BE1C05CE0200765D3F /* AMapNavi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 402814BC1C05CE0200765D3F /* AMapNavi.bundle */; };
 		4061225D1C191F0A00EFE9F2 /* ic_nav.png in Resources */ = {isa = PBXBuildFile; fileRef = 4061225C1C191F0A00EFE9F2 /* ic_nav.png */; };
 		406122611C1924F600EFE9F2 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 406122601C1924F600EFE9F2 /* ChannelViewController.m */; };
+		408775031C1AD75100AE7407 /* SearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 408775021C1AD75000AE7407 /* SearchItem.m */; };
 		40A0F3DA1C0BF922005E5FCD /* DrawerLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */; };
 		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
 		40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E21C0C037E005E5FCD /* SharedMapView.m */; };
@@ -78,6 +79,8 @@
 		4061225C1C191F0A00EFE9F2 /* ic_nav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav.png; sourceTree = "<group>"; };
 		4061225F1C1924F600EFE9F2 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		406122601C1924F600EFE9F2 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		408775011C1AD75000AE7407 /* SearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItem.h; sourceTree = "<group>"; };
+		408775021C1AD75000AE7407 /* SearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchItem.m; sourceTree = "<group>"; };
 		40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawerLayout.h; sourceTree = "<group>"; };
 		40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerLayout.m; sourceTree = "<group>"; };
 		40A0F3DE1C0BFE6E005E5FCD /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
@@ -162,6 +165,8 @@
 				406122601C1924F600EFE9F2 /* ChannelViewController.m */,
 				4014C49C1C196F8900735DA6 /* DestinationViewController.h */,
 				4014C49D1C196F8900735DA6 /* DestinationViewController.m */,
+				408775011C1AD75000AE7407 /* SearchItem.h */,
+				408775021C1AD75000AE7407 /* SearchItem.m */,
 			);
 			name = channel;
 			sourceTree = "<group>";
@@ -409,6 +414,7 @@
 				40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */,
 				47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */,
 				474B5C0E1C1824B200E6770D /* DrawerContentView.m in Sources */,
+				408775031C1AD75100AE7407 /* SearchItem.m in Sources */,
 				40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */,
 				406122611C1924F600EFE9F2 /* ChannelViewController.m in Sources */,
 				47EC91291C015B24008B69C8 /* main.m in Sources */,

@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
+@class SearchItem;
 
+@protocol SendDataProtocol <NSObject>
 
-@interface DestinationViewController : UIViewController <UITextFieldDelegate, AMapSearchDelegate>
+-(void)sendDataBack:(SearchItem *)item;
+
+@end
+
+@interface DestinationViewController : UIViewController <UITextFieldDelegate, AMapSearchDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, assign) id delegate;
 
 @end

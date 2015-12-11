@@ -7,6 +7,9 @@
 //
 
 #import "DestinationViewController.h"
+#import "SearchItem.h"
+
+static NSString* const cellIdentifier = @"cell_id";
 
 @interface DestinationViewController ()
 
@@ -14,10 +17,19 @@
 
 @implementation DestinationViewController {
     AMapSearchAPI *search;
+    
+    NSMutableArray *dataArray;
+    
+    UITableView *dataTableView;
+    
+    UITextField *searchField;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    dataArray = [[NSMutableArray alloc] initWithCapacity:0];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.backgroundColor = [UIColor clearColor];
@@ -38,29 +50,38 @@
     view.frame = CGRectMake(0, 64, width, 77.f);
     [self.view addSubview:view];
     
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, (77.f - 37.f) / 2.f, width - 2 * 10.f, 37)];
+    searchField = [[UITextField alloc] initWithFrame:CGRectMake(10, (77.f - 37.f) / 2.f, width - 2 * 10.f, 37)];
     
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    textField.backgroundColor = [UIColor clearColor];
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.textColor = [UIColor colorWithRed:109.f / 255 green:176.f / 255 blue:79.f / 255 alpha:1.f];
-    textField.font = [UIFont systemFontOfSize:16.f];
-    textField.returnKeyType = UIReturnKeySearch;
-    textField.delegate = self;
-    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    textField.leftView = [self getPaddingView];
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.layer.borderWidth = 1;
-    textField.layer.cornerRadius = 19.f;
-    textField.placeholder = @"请输入关键字";
-    textField.layer.borderColor = [[UIColor colorWithRed:54.0f/255 green:152.0f/255 blue:14.0f/255 alpha:1.0f] CGColor];
+    searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    searchField.backgroundColor = [UIColor clearColor];
+    searchField.autocorrectionType = UITextAutocorrectionTypeNo;
+    searchField.textColor = [UIColor colorWithRed:109.f / 255 green:176.f / 255 blue:79.f / 255 alpha:1.f];
+    searchField.font = [UIFont systemFontOfSize:16.f];
+    searchField.returnKeyType = UIReturnKeySearch;
+    searchField.delegate = self;
+    searchField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    searchField.leftView = [self getPaddingView];
+    searchField.leftViewMode = UITextFieldViewModeAlways;
+    searchField.layer.borderWidth = 1;
+    searchField.layer.cornerRadius = 19.f;
+    searchField.placeholder = @"请输入关键字";
+    searchField.layer.borderColor = [[UIColor colorWithRed:54.0f/255 green:152.0f/255 blue:14.0f/255 alpha:1.0f] CGColor];
     
-    [view addSubview:textField];
+    [view addSubview:searchField];
     
     [AMapSearchServices sharedServices].apiKey = @"4363c3b646260c230109ff20b2a0ccac";
     
     search = [[AMapSearchAPI alloc] init];
     search.delegate = self;
+    
+    CGFloat y = view.frame.origin.y + view.frame.size.height + 1.f;
+    dataTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, y, width, self.view.frame.size.height - y)
+                                                 style:UITableViewStylePlain];
+    dataTableView.backgroundColor = [UIColor clearColor];
+    [dataTableView setSeparatorColor:[UIColor colorWithRed:225.0f/255 green:225.0f/255 blue:225.0f/255 alpha:1]];
+    dataTableView.delegate = self;
+    dataTableView.dataSource = self;
+    [self.view addSubview:dataTableView];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -71,20 +92,76 @@
     
     AMapInputTipsSearchRequest *tips = [[AMapInputTipsSearchRequest alloc] init];
     tips.keywords = newString;
-    NSLog(@"here");
     
     [search AMapInputTipsSearch:tips];
     
     return YES;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50.f;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return dataArray.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SearchItem *item = [dataArray objectAtIndex:indexPath.row];
+    
+    [dataTableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (self.delegate) {
+        [self.delegate sendDataBack:item];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    SearchItem *item = [dataArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", item.name, item.district];
+    cell.textLabel.font = [UIFont systemFontOfSize:16.f];
+    cell.textLabel.textColor = [UIColor colorWithRed:75.f/255 green:75.f/255 blue:75.f/255 alpha:1.f];
+    
+    return cell;
+}
+
+- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response {
+    if (response.pois.count == 0) {
+        return;
+    }
+    
+    for (AMapPOI *poi in response.pois) {
+        SearchItem *item = [[SearchItem alloc] init];
+        item.name = poi.name;
+        item.district = poi.district;
+        item.location = poi.location;
+        
+        [dataArray addObject:item];
+    }
+    
+    [dataTableView reloadData];
+}
+
 - (void)onInputTipsSearchDone:(AMapInputTipsSearchRequest *)request response:(AMapInputTipsSearchResponse *)response {
     if (response.tips.count == 0) return;
     
-    NSLog(@"******* count %d *******", response.tips.count);
-    for (AMapTip *p in response.tips) {
-        NSLog(@"uid %@, name %@, adcode %@, district %@", p.uid, p.name, p.adcode, p.district);
+    [dataArray removeAllObjects];
+    for (AMapTip *tip in response.tips) {
+        SearchItem *item = [[SearchItem alloc] init];
+        item.name = tip.name;
+        item.district = tip.district;
+        item.location = tip.location;
+        
+        [dataArray addObject:item];
     }
+    [dataTableView reloadData];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -92,7 +169,18 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"should return");
+    [searchField resignFirstResponder];
+
+    NSString *key = searchField.text;
+    if (!key && key.length == 0) {
+        return NO;
+    }
+    
+    AMapPOIKeywordsSearchRequest *request = [[AMapPOIKeywordsSearchRequest alloc] init];
+    request.keywords = key;
+    request.requireExtension = YES;
+    [search AMapPOIKeywordsSearch:request];
+    
     return NO;
 }
 
@@ -108,17 +196,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

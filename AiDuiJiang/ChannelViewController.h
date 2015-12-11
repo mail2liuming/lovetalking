@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DestinationViewController.h"
 
-@interface ChannelViewController : UIViewController
+@interface ChannelViewController : UIViewController<SendDataProtocol>
 
 @end

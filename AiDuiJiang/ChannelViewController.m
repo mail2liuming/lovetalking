@@ -8,6 +8,10 @@
 
 #import "ChannelViewController.h"
 #import "DestinationViewController.h"
+#import "SearchItem.h"
+
+#define TAG_NAME        100
+#define TAG_DESTINATION 101
 
 @interface ChannelViewController ()
 
@@ -45,12 +49,12 @@
     container.frame = CGRectMake(0, y, self.view.frame.size.width, self.view.frame.size.height - y);
     [self.view addSubview:container];
     
-    UIView *nameView = [self viewWithTitle:@"频道名称" andName:@"未设置" atIndex:0];
+    UIView *nameView = [self viewWithTitle:@"频道名称" andName:@"未设置" withTag:TAG_NAME];
     UITapGestureRecognizer *nameTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setName)];
     [nameView addGestureRecognizer:nameTap];
     [container addSubview:nameView];
     
-    UIView *destView = [self viewWithTitle:@"目的地" andName:@"未设置" atIndex:1];
+    UIView *destView = [self viewWithTitle:@"目的地" andName:@"未设置" withTag:TAG_DESTINATION];
     UITapGestureRecognizer *destTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setDestination)];
     [destView addGestureRecognizer:destTap];
     [container addSubview:destView];
@@ -69,23 +73,34 @@
     [self.view addSubview:exitButton];
 }
 
+- (void)sendDataBack:(SearchItem *)item {
+    UILabel *label = (UILabel *) [self.view viewWithTag:TAG_DESTINATION];
+    label.text = item.name;
+    
+    CGFloat width = self.view.frame.size.width;
+    [label sizeToFit];
+    CGSize size = label.frame.size;
+    label.frame = CGRectMake(width - 15 - 12 - 10 - size.width, (55.f - size.height) / 2.f, size.width, size.height);
+}
+
 - (void)setName {
     NSLog(@"name taped");
 }
 
 - (void)setDestination {
     DestinationViewController *controller = [[DestinationViewController alloc] init];
+    controller.delegate = self;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (UIView *)viewWithTitle:(NSString *)title andName:(NSString *)name atIndex:(NSUInteger) i {
+- (UIView *)viewWithTitle:(NSString *)title andName:(NSString *)name withTag:(NSInteger)tag {
     CGFloat width = self.view.frame.size.width;
     
     CALayer *border = [CALayer layer];
     border.frame = CGRectMake(0, 54.f, width, 1.f);
     border.backgroundColor = [UIColor colorWithRed:230.f / 255 green:230.f / 255 blue:230.f / 255 alpha:1.0f].CGColor;
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, i * 55, width, 55)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, tag == TAG_NAME ? 0 : 55, width, 55)];
     [view.layer addSublayer:border];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 55.f)];
@@ -102,6 +117,7 @@
     [view addSubview:imageView];
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    nameLabel.tag = tag;
     nameLabel.text = name;
     nameLabel.textColor = [UIColor colorWithRed:179.f / 255 green:179.f / 255 blue:179.f / 255 alpha:1.f];
     nameLabel.font = [UIFont systemFontOfSize:14.f];
