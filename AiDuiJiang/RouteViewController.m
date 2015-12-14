@@ -11,16 +11,24 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "NavPointAnnotation.h"
 #import "ChannelViewController.h"
+#import "SearchItem.h"
+#import "CustomAnnotationView.h"
 
 @interface RouteViewController ()
 
 @end
 
-@implementation RouteViewController
+@implementation RouteViewController {
+    
+    MAPointAnnotation *startPoint;
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.points = [NSMutableArray array];
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.backgroundColor = [UIColor clearColor];
@@ -58,59 +66,103 @@
     button.frame = CGRectMake(width - 10 - 60, height - 10 - 60, 60, 60);
     [button addTarget:self action:@selector(setDestination) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-    
-    [self routeCal];
 }
 
 - (void)setDestination {
     ChannelViewController *controller = [[ChannelViewController alloc] init];
+    controller.delegate = self;
+    
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)onTargetSet:(SearchItem *)item {
+    MAPointAnnotation *point = [[MAPointAnnotation alloc] init];
+    point.coordinate = CLLocationCoordinate2DMake(item.location.latitude, item.location.longitude);
+    point.title = item.name;
+    
+    
+    [self.points addObject:point];
+    [self.mapView addAnnotations:self.points];
+}
+
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
+    
+    if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
+        static NSString *reuseId = @"resuseIdentifier";
+        CustomAnnotationView *annotationView = (CustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];
+        if (annotationView == nil) {
+            annotationView = [[CustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
+        }
+        
+        if ([annotation.title isEqualToString:@"start"]) {
+            annotationView.imageView.image = [UIImage imageNamed:@"start_point.png"];
+        } else {
+            annotationView.imageView.image = [UIImage imageNamed:@"target.png"];
+        }
+        annotationView.canShowCallout = YES;
+        annotationView.draggable = false;
+        annotationView.centerOffset = CGPointMake(5.f, -10.f);
+        
+        return annotationView;
+    }
+    
+    return nil;
 }
 
 - (void)configMapView
 {
     [self.mapView setDelegate:self];
-    self.mapView.frame = self.view.bounds;
+    self.mapView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
     [self.view insertSubview:self.mapView atIndex:0];
+    
+    self.mapView.showsUserLocation = YES;
     
     if (_calRouteSuccess)
     {
         [self.mapView addOverlay:_polyline];
     }
-    
-    if (self.annotations.count > 0)
-    {
-        [self.mapView addAnnotations:self.annotations];
+}
+
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
+    if (updatingLocation) {
+        if (startPoint) {
+            [self.mapView removeAnnotation:startPoint];
+        }
+        
+        startPoint = [[MAPointAnnotation alloc] init];
+        startPoint.coordinate = CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
+        startPoint.title = @"start";
+        
+        [self.mapView addAnnotation:startPoint];
     }
 }
 
 - (void)routeCal {
-    NSArray *startPoints = @[_startPoint];
-    NSArray *endPoints = @[_endPoint];
-    
-    [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
+//    NSArray *startPoints = @[_startPoint];
+//    NSArray *endPoints = @[_endPoint];
+//    
+//    [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
 }
 
 - (id)init {
     self = [super init];
     if (self) {
-        _startPoint = [AMapNaviPoint locationWithLatitude:39.993548 longitude:116.332722];
-        _endPoint   = [AMapNaviPoint locationWithLatitude:40.072833 longitude:116.339680];
+       
         
-        NavPointAnnotation *beginAnnotation = [[NavPointAnnotation alloc] init];
-        
-        [beginAnnotation setCoordinate:CLLocationCoordinate2DMake(_startPoint.latitude, _startPoint.longitude)];
-        beginAnnotation.title        = @"起始点";
-        beginAnnotation.navPointType = NavPointAnnotationStart;
-        
-        NavPointAnnotation *endAnnotation = [[NavPointAnnotation alloc] init];
-        
-        [endAnnotation setCoordinate:CLLocationCoordinate2DMake(_endPoint.latitude, _endPoint.longitude)];
-        
-        endAnnotation.title        = @"终点";
-        endAnnotation.navPointType = NavPointAnnotationEnd;
-        
-        self.annotations = @[beginAnnotation, endAnnotation];
+//        NavPointAnnotation *beginAnnotation = [[NavPointAnnotation alloc] init];
+//        
+//        [beginAnnotation setCoordinate:CLLocationCoordinate2DMake(_startPoint.latitude, _startPoint.longitude)];
+//        beginAnnotation.title        = @"起始点";
+//        beginAnnotation.navPointType = NavPointAnnotationStart;
+//        
+//        NavPointAnnotation *endAnnotation = [[NavPointAnnotation alloc] init];
+//        
+//        [endAnnotation setCoordinate:CLLocationCoordinate2DMake(_endPoint.latitude, _endPoint.longitude)];
+//        
+//        endAnnotation.title        = @"终点";
+//        endAnnotation.navPointType = NavPointAnnotationEnd;
+//        
+//        self.annotations = @[beginAnnotation, endAnnotation];
     }
     
     return self;
@@ -119,6 +171,8 @@
 - (void)clearMapView
 {
     self.mapView.showsUserLocation = NO;
+    
+    
     
     [self.mapView removeAnnotations:self.mapView.annotations];
     
@@ -218,10 +272,14 @@
 
 - (void)naviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager {
     NSLog(@"DidUpdateTrafficStatuses");
+    
+    
 }
 
 - (void)onCompleted:(IFlySpeechError *)error {
     NSLog(@"Speak Error:{%d:%@}", error.errorCode, error.errorDesc);
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

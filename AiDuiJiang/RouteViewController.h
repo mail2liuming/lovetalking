@@ -13,9 +13,10 @@
 #import "iflyMSC/IFlySpeechError.h"
 #import "iflyMSC/IFlySpeechSynthesizer.h"
 #import "iflyMSC/IFlySpeechSynthesizerDelegate.h"
+#import "ChannelViewController.h"
 
 @interface RouteViewController : UIViewController <MAMapViewDelegate, AMapNaviManagerDelegate,
-IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate>
+IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, OnTargetSetProtocol>
 
 @property (nonatomic, weak) MAMapView *mapView;
 
@@ -23,14 +24,12 @@ IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate>
 
 @property (nonatomic, strong) IFlySpeechSynthesizer *iFlySpeechSynthesizer;
 
-@property (nonatomic, strong) AMapNaviPoint *startPoint;
-
-@property (nonatomic, strong) AMapNaviPoint *endPoint;
-
 @property (nonatomic, strong) NSArray *annotations;
 
 @property (nonatomic, strong) MAPolyline *polyline;
 
 @property (nonatomic) BOOL calRouteSuccess;
+
+@property (nonatomic, strong) NSMutableArray *points;
 
 @end

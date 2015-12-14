@@ -9,6 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "DestinationViewController.h"
 
+@class SearchItem;
+
+@protocol OnTargetSetProtocol <NSObject>
+
+-(void)onTargetSet:(SearchItem *)item;
+
+@end
+
 @interface ChannelViewController : UIViewController<SendDataProtocol>
+
+@property (nonatomic, assign) id delegate;
 
 @end

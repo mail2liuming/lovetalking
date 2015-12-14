@@ -81,6 +81,11 @@
     [label sizeToFit];
     CGSize size = label.frame.size;
     label.frame = CGRectMake(width - 15 - 12 - 10 - size.width, (55.f - size.height) / 2.f, size.width, size.height);
+    
+    if (self.delegate) {
+        [self.delegate onTargetSet:item];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)setName {
