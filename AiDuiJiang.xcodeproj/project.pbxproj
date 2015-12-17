@@ -25,6 +25,7 @@
 		404B8DCF1C1ECAAD009CA9FC /* start_point.png in Resources */ = {isa = PBXBuildFile; fileRef = 404B8DCE1C1ECAAD009CA9FC /* start_point.png */; };
 		4061225D1C191F0A00EFE9F2 /* ic_nav.png in Resources */ = {isa = PBXBuildFile; fileRef = 4061225C1C191F0A00EFE9F2 /* ic_nav.png */; };
 		406122611C1924F600EFE9F2 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 406122601C1924F600EFE9F2 /* ChannelViewController.m */; };
+		4069E07F1C22C0F80071881F /* arrowTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 4069E07E1C22C0F80071881F /* arrowTexture.png */; };
 		408775031C1AD75100AE7407 /* SearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 408775021C1AD75000AE7407 /* SearchItem.m */; };
 		40A0F3DA1C0BF922005E5FCD /* DrawerLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */; };
 		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
@@ -86,6 +87,7 @@
 		4061225C1C191F0A00EFE9F2 /* ic_nav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav.png; sourceTree = "<group>"; };
 		4061225F1C1924F600EFE9F2 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		406122601C1924F600EFE9F2 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		4069E07E1C22C0F80071881F /* arrowTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowTexture.png; sourceTree = "<group>"; };
 		408775011C1AD75000AE7407 /* SearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItem.h; sourceTree = "<group>"; };
 		408775021C1AD75000AE7407 /* SearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchItem.m; sourceTree = "<group>"; };
 		40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawerLayout.h; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		4061225B1C191EFC00EFE9F2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4069E07E1C22C0F80071881F /* arrowTexture.png */,
 				404B8DCE1C1ECAAD009CA9FC /* start_point.png */,
 				404B8DC91C1EB56D009CA9FC /* target.png */,
 				4014C49F1C19768500735DA6 /* ic_search.png */,
@@ -393,6 +396,7 @@
 				404B8DCA1C1EB56D009CA9FC /* target.png in Resources */,
 				4014C49B1C19696C00735DA6 /* ic_indicator.png in Resources */,
 				47EC913A1C015B24008B69C8 /* LaunchScreen.storyboard in Resources */,
+				4069E07F1C22C0F80071881F /* arrowTexture.png in Resources */,
 				404B8DCF1C1ECAAD009CA9FC /* start_point.png in Resources */,
 				47EC91371C015B24008B69C8 /* Assets.xcassets in Resources */,
 				474B5C061C18168200E6770D /* DrawerContent.xib in Resources */,

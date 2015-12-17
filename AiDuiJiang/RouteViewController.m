@@ -22,6 +22,7 @@
     
     MAPointAnnotation *startPoint;
     
+    BOOL calRouteSuccess;
 }
 
 - (void)viewDidLoad {
@@ -29,6 +30,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.points = [NSMutableArray array];
+    
+    calRouteSuccess = NO;
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.backgroundColor = [UIColor clearColor];
@@ -50,6 +53,8 @@
     }
     self.naviManager.delegate = self;
     
+    self.naviViewController = [[AMapNaviViewController alloc] initWithMapView:self.mapView delegate:self];
+    
     if (self.iFlySpeechSynthesizer == nil) {
         _iFlySpeechSynthesizer = [IFlySpeechSynthesizer sharedInstance];
     }
@@ -69,10 +74,14 @@
 }
 
 - (void)setDestination {
-    ChannelViewController *controller = [[ChannelViewController alloc] init];
-    controller.delegate = self;
-    
-    [self.navigationController pushViewController:controller animated:YES];
+    if (calRouteSuccess == NO) {
+        ChannelViewController *controller = [[ChannelViewController alloc] init];
+        controller.delegate = self;
+        
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        [self.naviManager presentNaviViewController:self.naviViewController animated:YES];
+    }
 }
 
 - (void)onTargetSet:(SearchItem *)item {
@@ -80,9 +89,27 @@
     point.coordinate = CLLocationCoordinate2DMake(item.location.latitude, item.location.longitude);
     point.title = item.name;
     
-    
     [self.points addObject:point];
     [self.mapView addAnnotations:self.points];
+    
+    NSArray *startPoints = @[[AMapNaviPoint locationWithLatitude:startPoint.coordinate.latitude longitude:startPoint.coordinate.longitude]];
+    NSArray *endPoints = @[[AMapNaviPoint locationWithLatitude:point.coordinate.latitude longitude:point.coordinate.longitude]];
+    
+    [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
+}
+
+- (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id<MAOverlay>)overlay {
+    if ([overlay isKindOfClass:[MAPolyline class]]) {
+        MAPolylineView *polylineView = [[MAPolylineView alloc] initWithPolyline:overlay];
+        polylineView.lineWidth = 6.f;
+        polylineView.lineJoinType = kMALineJoinRound;
+        polylineView.lineCapType = kMALineCapRound;
+        [polylineView loadStrokeTextureImage:[UIImage imageNamed:@"arrowTexture"]];
+        
+        return polylineView;
+    }
+    
+    return nil;
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
@@ -109,6 +136,14 @@
     return nil;
 }
 
+- (void)naviViewControllerCloseButtonClicked:(AMapNaviViewController *)naviViewController {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [self.iFlySpeechSynthesizer stopSpeaking];
+    });
+    [self.naviManager stopNavi];
+    [self.naviManager dismissNaviViewControllerAnimated:YES];
+}
+
 - (void)configMapView
 {
     [self.mapView setDelegate:self];
@@ -116,11 +151,6 @@
     [self.view insertSubview:self.mapView atIndex:0];
     
     self.mapView.showsUserLocation = YES;
-    
-    if (_calRouteSuccess)
-    {
-        [self.mapView addOverlay:_polyline];
-    }
 }
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
@@ -137,42 +167,9 @@
     }
 }
 
-- (void)routeCal {
-//    NSArray *startPoints = @[_startPoint];
-//    NSArray *endPoints = @[_endPoint];
-//    
-//    [self.naviManager calculateDriveRouteWithStartPoints:startPoints endPoints:endPoints wayPoints:nil drivingStrategy:0];
-}
-
-- (id)init {
-    self = [super init];
-    if (self) {
-       
-        
-//        NavPointAnnotation *beginAnnotation = [[NavPointAnnotation alloc] init];
-//        
-//        [beginAnnotation setCoordinate:CLLocationCoordinate2DMake(_startPoint.latitude, _startPoint.longitude)];
-//        beginAnnotation.title        = @"起始点";
-//        beginAnnotation.navPointType = NavPointAnnotationStart;
-//        
-//        NavPointAnnotation *endAnnotation = [[NavPointAnnotation alloc] init];
-//        
-//        [endAnnotation setCoordinate:CLLocationCoordinate2DMake(_endPoint.latitude, _endPoint.longitude)];
-//        
-//        endAnnotation.title        = @"终点";
-//        endAnnotation.navPointType = NavPointAnnotationEnd;
-//        
-//        self.annotations = @[beginAnnotation, endAnnotation];
-    }
-    
-    return self;
-}
-
 - (void)clearMapView
 {
     self.mapView.showsUserLocation = NO;
-    
-    
     
     [self.mapView removeAnnotations:self.mapView.annotations];
     
@@ -183,22 +180,33 @@
     [[SharedMapView sharedInstance] popMapViewStatus];
 }
 
-- (void)showRouteWithNaviRoute:(AMapNaviRoute *)naviRoute {
-    if (naviRoute == nil) {
-        return;
-    }
+- (void)naviManager:(AMapNaviManager *)naviManager error:(NSError *)error {
+}
+
+- (void)naviManager:(AMapNaviManager *)naviManager didPresentNaviViewController:(UIViewController *)naviViewController {
+    [self.naviManager startEmulatorNavi];
+}
+
+- (void)naviManager:(AMapNaviManager *)naviManager didDismissNaviViewController:(UIViewController *)naviViewController {
+    [self configMapView];
+}
+
+- (void)naviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager {
+    calRouteSuccess = YES;
+    
+    AMapNaviRoute *route = [[naviManager naviRoute] copy];
+    if (!route) return;
     
     if (_polyline) {
         [self.mapView removeOverlay:_polyline];
         self.polyline = nil;
     }
     
-    NSUInteger coordianteCount = [naviRoute.routeCoordinates count];
-    NSLog(@"%lu", (unsigned long)coordianteCount);
+    NSUInteger coordianteCount = [route.routeCoordinates count];
     CLLocationCoordinate2D coordinates[coordianteCount];
     for (int i = 0; i < coordianteCount; i++)
     {
-        AMapNaviPoint *aCoordinate = [naviRoute.routeCoordinates objectAtIndex:i];
+        AMapNaviPoint *aCoordinate = [route.routeCoordinates objectAtIndex:i];
         coordinates[i] = CLLocationCoordinate2DMake(aCoordinate.latitude, aCoordinate.longitude);
     }
     
@@ -206,45 +214,22 @@
     [self.mapView addOverlay:_polyline];
 }
 
-- (void)naviManager:(AMapNaviManager *)naviManager error:(NSError *)error {
-    NSLog(@"error:{%@}",error.localizedDescription);
-}
-
-- (void)naviManager:(AMapNaviManager *)naviManager didPresentNaviViewController:(UIViewController *)naviViewController {
-    NSLog(@"didPresentNaviViewController");
-}
-
-- (void)naviManager:(AMapNaviManager *)naviManager didDismissNaviViewController:(UIViewController *)naviViewController {
-    NSLog(@"didDismissNaviViewController");
-}
-
-- (void)naviManagerOnCalculateRouteSuccess:(AMapNaviManager *)naviManager {
-    [self showRouteWithNaviRoute:[[naviManager naviRoute] copy]];
-    _calRouteSuccess = YES;
-}
-
 - (void)naviManager:(AMapNaviManager *)naviManager onCalculateRouteFailure:(NSError *)error {
-    NSLog(@"onCalculateRouteFailure 算路失败");
 }
 
 - (void)naviManagerNeedRecalculateRouteForYaw:(AMapNaviManager *)naviManager {
-    NSLog(@"NeedReCalculateRouteForYaw");
 }
 
 - (void)naviManager:(AMapNaviManager *)naviManager didStartNavi:(AMapNaviMode)naviMode {
-    NSLog(@"didStartNavi");
 }
 
 - (void)naviManagerDidEndEmulatorNavi:(AMapNaviManager *)naviManager {
-    NSLog(@"DidEndEmulatorNavi");
 }
 
 - (void)naviManagerOnArrivedDestination:(AMapNaviManager *)naviManager {
-    NSLog(@"OnArrivedDestination");
 }
 
 - (void)naviManager:(AMapNaviManager *)naviManager onArrivedWayPoint:(int)wayPointIndex {
-    NSLog(@"onArrivedWayPoint");
 }
 
 - (void)naviManager:(AMapNaviManager *)naviManager didUpdateNaviLocation:(AMapNaviLocation *)naviLocation {
@@ -258,8 +243,6 @@
 }
 
 - (void)naviManager:(AMapNaviManager *)naviManager playNaviSoundString:(NSString *)soundString soundStringType:(AMapNaviSoundType)soundStringType {
-    NSLog(@"playNaviSoundString:{%ld:%@}", (long)soundStringType, soundString);
-    
     if (soundStringType == AMapNaviSoundTypePassedReminder) {
         //用系统自带的声音做简单例子，播放其他提示音需要另外配置
         AudioServicesPlaySystemSound(1009);
@@ -271,30 +254,12 @@
 }
 
 - (void)naviManagerDidUpdateTrafficStatuses:(AMapNaviManager *)naviManager {
-    NSLog(@"DidUpdateTrafficStatuses");
-    
-    
 }
 
 - (void)onCompleted:(IFlySpeechError *)error {
-    NSLog(@"Speak Error:{%d:%@}", error.errorCode, error.errorDesc);
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

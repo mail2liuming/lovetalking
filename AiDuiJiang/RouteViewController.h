@@ -28,8 +28,8 @@ IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, OnTargetSetProtoc
 
 @property (nonatomic, strong) MAPolyline *polyline;
 
-@property (nonatomic) BOOL calRouteSuccess;
-
 @property (nonatomic, strong) NSMutableArray *points;
+
+@property (nonatomic, strong) AMapNaviViewController *naviViewController;
 
 @end
