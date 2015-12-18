@@ -31,6 +31,17 @@
 		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
 		40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E21C0C037E005E5FCD /* SharedMapView.m */; };
 		40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */; };
+		40D049B91C23E335002B59E4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D049B81C23E335002B59E4 /* LoginViewController.m */; };
+		40D049BB1C23F8EC002B59E4 /* pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D049BA1C23F8EC002B59E4 /* pic.png */; };
+		40D049BD1C23FCFF002B59E4 /* slogan.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D049BC1C23FCFF002B59E4 /* slogan.png */; };
+		40D049C01C240029002B59E4 /* btn_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D049BE1C240029002B59E4 /* btn_n@2x.png */; };
+		40D049C11C240029002B59E4 /* btn_p@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D049BF1C240029002B59E4 /* btn_p@2x.png */; };
+		40D049C71C2404AA002B59E4 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D049C61C2404AA002B59E4 /* UIImage+Color.m */; };
+		40D049C91C24074F002B59E4 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049C81C24074F002B59E4 /* TencentOpenAPI.framework */; };
+		40D049CB1C240856002B59E4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049CA1C240856002B59E4 /* Security.framework */; };
+		40D049CD1C240882002B59E4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049CC1C240882002B59E4 /* CoreTelephony.framework */; };
+		40D049CF1C240892002B59E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049CE1C240892002B59E4 /* SystemConfiguration.framework */; };
+		40D049D11C24089D002B59E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049D01C24089D002B59E4 /* CoreGraphics.framework */; };
 		474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C031C18161300E6770D /* DrawerContentConfig.m */; };
 		474B5C061C18168200E6770D /* DrawerContent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B5C051C18168200E6770D /* DrawerContent.xib */; };
 		474B5C091C181AEF00E6770D /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C081C181AEF00E6770D /* UIView+Extend.m */; };
@@ -98,6 +109,19 @@
 		40A0F3E21C0C037E005E5FCD /* SharedMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedMapView.m; sourceTree = "<group>"; };
 		40A0F3E41C0C2306005E5FCD /* NavPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavPointAnnotation.h; sourceTree = "<group>"; };
 		40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavPointAnnotation.m; sourceTree = "<group>"; };
+		40D049B71C23E335002B59E4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		40D049B81C23E335002B59E4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		40D049BA1C23F8EC002B59E4 /* pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic.png; sourceTree = "<group>"; };
+		40D049BC1C23FCFF002B59E4 /* slogan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slogan.png; sourceTree = "<group>"; };
+		40D049BE1C240029002B59E4 /* btn_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_n@2x.png"; sourceTree = "<group>"; };
+		40D049BF1C240029002B59E4 /* btn_p@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_p@2x.png"; sourceTree = "<group>"; };
+		40D049C51C2404AA002B59E4 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		40D049C61C2404AA002B59E4 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		40D049C81C24074F002B59E4 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = sdk/TencentOpenAPI.framework; sourceTree = "<group>"; };
+		40D049CA1C240856002B59E4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		40D049CC1C240882002B59E4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		40D049CE1C240892002B59E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		40D049D01C24089D002B59E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		474B5C021C18161300E6770D /* DrawerContentConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerContentConfig.h; sourceTree = "<group>"; };
 		474B5C031C18161300E6770D /* DrawerContentConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerContentConfig.m; sourceTree = "<group>"; };
 		474B5C051C18168200E6770D /* DrawerContent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DrawerContent.xib; path = ../DrawerContent.xib; sourceTree = "<group>"; };
@@ -129,6 +153,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40D049D11C24089D002B59E4 /* CoreGraphics.framework in Frameworks */,
+				40D049CF1C240892002B59E4 /* SystemConfiguration.framework in Frameworks */,
+				40D049CD1C240882002B59E4 /* CoreTelephony.framework in Frameworks */,
+				40D049CB1C240856002B59E4 /* Security.framework in Frameworks */,
+				40D049C91C24074F002B59E4 /* TencentOpenAPI.framework in Frameworks */,
 				4014C4A21C1982C300735DA6 /* AMapSearchKit.framework in Frameworks */,
 				402814B91C05CDB900765D3F /* AMapNaviKit.framework in Frameworks */,
 				402814BA1C05CDB900765D3F /* iflyMSC.framework in Frameworks */,
@@ -160,6 +189,10 @@
 		4061225B1C191EFC00EFE9F2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				40D049BE1C240029002B59E4 /* btn_n@2x.png */,
+				40D049BF1C240029002B59E4 /* btn_p@2x.png */,
+				40D049BC1C23FCFF002B59E4 /* slogan.png */,
+				40D049BA1C23F8EC002B59E4 /* pic.png */,
 				4069E07E1C22C0F80071881F /* arrowTexture.png */,
 				404B8DCE1C1ECAAD009CA9FC /* start_point.png */,
 				404B8DC91C1EB56D009CA9FC /* target.png */,
@@ -198,9 +231,25 @@
 			name = navi;
 			sourceTree = "<group>";
 		};
+		40D049B61C23E2FD002B59E4 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				40D049B71C23E335002B59E4 /* LoginViewController.h */,
+				40D049B81C23E335002B59E4 /* LoginViewController.m */,
+				40D049C51C2404AA002B59E4 /* UIImage+Color.h */,
+				40D049C61C2404AA002B59E4 /* UIImage+Color.m */,
+			);
+			name = login;
+			sourceTree = "<group>";
+		};
 		47EC911B1C015B24008B69C8 = {
 			isa = PBXGroup;
 			children = (
+				40D049D01C24089D002B59E4 /* CoreGraphics.framework */,
+				40D049CE1C240892002B59E4 /* SystemConfiguration.framework */,
+				40D049CC1C240882002B59E4 /* CoreTelephony.framework */,
+				40D049CA1C240856002B59E4 /* Security.framework */,
+				40D049C81C24074F002B59E4 /* TencentOpenAPI.framework */,
 				4014C4A11C1982C300735DA6 /* AMapSearchKit.framework */,
 				402814BB1C05CE0200765D3F /* AMap.bundle */,
 				402814BC1C05CE0200765D3F /* AMapNavi.bundle */,
@@ -233,6 +282,7 @@
 		47EC91261C015B24008B69C8 /* AiDuiJiang */ = {
 			isa = PBXGroup;
 			children = (
+				40D049B61C23E2FD002B59E4 /* login */,
 				4061225E1C1924CC00EFE9F2 /* channel */,
 				4061225B1C191EFC00EFE9F2 /* images */,
 				474B5C051C18168200E6770D /* DrawerContent.xib */,
@@ -395,10 +445,14 @@
 				4061225D1C191F0A00EFE9F2 /* ic_nav.png in Resources */,
 				404B8DCA1C1EB56D009CA9FC /* target.png in Resources */,
 				4014C49B1C19696C00735DA6 /* ic_indicator.png in Resources */,
+				40D049BB1C23F8EC002B59E4 /* pic.png in Resources */,
 				47EC913A1C015B24008B69C8 /* LaunchScreen.storyboard in Resources */,
 				4069E07F1C22C0F80071881F /* arrowTexture.png in Resources */,
 				404B8DCF1C1ECAAD009CA9FC /* start_point.png in Resources */,
 				47EC91371C015B24008B69C8 /* Assets.xcassets in Resources */,
+				40D049C01C240029002B59E4 /* btn_n@2x.png in Resources */,
+				40D049C11C240029002B59E4 /* btn_p@2x.png in Resources */,
+				40D049BD1C23FCFF002B59E4 /* slogan.png in Resources */,
 				474B5C061C18168200E6770D /* DrawerContent.xib in Resources */,
 				47EC91321C015B24008B69C8 /* Main.storyboard in Resources */,
 			);
@@ -428,11 +482,13 @@
 				474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */,
 				47EC91351C015B24008B69C8 /* AiDuiJiang.xcdatamodeld in Sources */,
 				4014C49E1C196F8900735DA6 /* DestinationViewController.m in Sources */,
+				40D049C71C2404AA002B59E4 /* UIImage+Color.m in Sources */,
 				40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */,
 				47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */,
 				474B5C0E1C1824B200E6770D /* DrawerContentView.m in Sources */,
 				408775031C1AD75100AE7407 /* SearchItem.m in Sources */,
 				40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */,
+				40D049B91C23E335002B59E4 /* LoginViewController.m in Sources */,
 				406122611C1924F600EFE9F2 /* ChannelViewController.m in Sources */,
 				47EC91291C015B24008B69C8 /* main.m in Sources */,
 				474B5C091C181AEF00E6770D /* UIView+Extend.m in Sources */,

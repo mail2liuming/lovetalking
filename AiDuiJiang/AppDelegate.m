@@ -13,13 +13,23 @@
 #import "iflyMSC/IFlySpeechConstant.h"
 #import "iflyMSC/IFlySpeechUtility.h"
 #import "iflyMSC/IFlySetting.h"
-
+#import "MainViewController.h"
+#import "LoginViewController.h"
+#import <TencentOpenAPI/TencentOAuth.h>
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [TencentOAuth HandleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [TencentOAuth HandleOpenURL:url];
+}
 
 - (void)configAPIKey {
     [AMapNaviServices sharedServices].apiKey = @"4363c3b646260c230109ff20b2a0ccac";
@@ -51,7 +61,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self configAPIKey];
     [self configIFlySpeech];
-
+    
+//    MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
+    LoginViewController *viewController = [[LoginViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController = navController;
+    
     return YES;
 }
 
