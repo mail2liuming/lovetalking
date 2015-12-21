@@ -16,6 +16,7 @@
 #import "MainViewController.h"
 #import "LoginViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
+#import "UserAccoutManager.h"
 
 @interface AppDelegate ()
 
@@ -62,10 +63,15 @@
     [self configAPIKey];
     [self configIFlySpeech];
     
-//    MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
-    LoginViewController *viewController = [[LoginViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    self.window.rootViewController = navController;
+    if ([[UserAccoutManager sharedManager] isLogin] == YES) {
+        MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        self.window.rootViewController = navController;
+    } else {
+        LoginViewController *viewController = [[LoginViewController alloc] init];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        self.window.rootViewController = navController;
+    }
     
     return YES;
 }

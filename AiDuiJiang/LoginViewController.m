@@ -8,6 +8,9 @@
 
 #import "LoginViewController.h"
 #import "UIImage+Color.h"
+#import "UserInfo.h"
+#import "UserAccoutManager.h"
+#import "MainViewController.h"
 
 @interface LoginViewController ()
 
@@ -54,13 +57,68 @@
 }
 
 - (void)tencentDidNotLogin:(BOOL)cancelled {
+    [self showAlertView:@"登陆失败" withText:cancelled ? @"用户取消登录" : @"登录失败，请稍后再试"];
+}
+
+- (void)showAlertView:(NSString *)title withText:(NSString *)text {
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:title
+                                          message:text
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:@"取消"
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction * _Nonnull action) {
+                                       //
+                                   }];
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"确定"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * _Nonnull action) {
+                                   //
+                               }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)getUserInfoResponse:(APIResponse *)response {
+    if (URLREQUEST_SUCCEED == response.retCode
+        && kOpenSDKErrorSuccess == response.detailRetCode) {
+        UserInfo *info = [[UserInfo alloc] init];
+        
+        NSDictionary *dict = response.jsonResponse;
+        info.nickname = [dict objectForKey:@"nickname"];
+        NSString *avatar = [dict objectForKey:@"figureurl_qq_2"];
+        if (avatar == nil || avatar.length == 0) {
+            avatar = [dict objectForKey:@"figureurl_qq_1"];
+        }
+        info.avatar = avatar;
+        info.gender = [dict objectForKey:@"gender"];
+        info.status = [dict objectForKey:@"msg"];
+        info.city = [dict objectForKey:@"city"];
+        info.province = [dict objectForKey:@"province"];
+        info.smallAvtar = [dict objectForKey:@"figureurl"];
+        
+        [[UserAccoutManager sharedManager] setUserInfo:info];
+        
+        MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else {
+        [self showAlertView:@"登录失败" withText:response.errorMsg];
+    }
 }
 
 - (void)tencentDidLogin {
-    NSLog(@"login success");
+    NSString *token = tencentOAuth.accessToken;
+    if (token && 0 != token) {
+        [tencentOAuth getUserInfo];
+    }
 }
 
 - (void)tencentDidNotNetWork {
+    [self showAlertView:@"登录失败" withText:@"无网络联接"];
 }
 
 - (void)didReceiveMemoryWarning {

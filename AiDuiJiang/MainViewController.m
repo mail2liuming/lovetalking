@@ -12,11 +12,10 @@
 #import "DrawerContentView.h"
 #import "DrawerContentConfig.h"
 #import "UIView+Extend.h"
-
-
+#import "UIImageView+WebCache.h"
 #import "RouteViewController.h"
-
-
+#import "UserAccoutManager.h"
+#import "UserInfo.h"
 
 @interface MainViewController () <DrawerContentViewDelegate>
 
@@ -34,8 +33,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-
     [self.navigationController.view addSubview: self.drawer];
     
     UIButton *mapButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -47,6 +44,16 @@
     mapButton.titleLabel.font = [UIFont systemFontOfSize:18.f];
     [mapButton addTarget:self action:@selector(navigation:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:mapButton];
+    
+    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
+    if ([accoutManager isLogin]) {
+        UserInfo *info = [accoutManager getUserInfo];
+        NSLog(@"##url %@ ", info.avatar);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 50) / 2.f, 64.f + 100.f, 50.f, 50.f)];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:info.avatar]
+                     placeholderImage:[UIImage imageNamed:@"ic_nav.png"]];
+        [self.view addSubview:imageView];
+    }
 }
 
 - (void)navigation:(id)sender {
