@@ -35,6 +35,7 @@
     [super viewDidLoad];
     [self.navigationController.view addSubview: self.drawer];
     
+       
     UIButton *mapButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     mapButton.frame = CGRectMake(self.view.frame.size.width / 2 - 50, 100, 80, 44);
     [mapButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -48,11 +49,13 @@
     UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
     if ([accoutManager isLogin]) {
         UserInfo *info = [accoutManager getUserInfo];
-        NSLog(@"##url %@ ", info.avatar);
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 50) / 2.f, 64.f + 100.f, 50.f, 50.f)];
         [imageView sd_setImageWithURL:[NSURL URLWithString:info.avatar]
                      placeholderImage:[UIImage imageNamed:@"ic_nav.png"]];
         [self.view addSubview:imageView];
+        
+        NSLog(@"gender:%@\nlarge_avatar:%@\nsgid:%@\ntyny_avatar:%@\nuniqname:%@\nuserid:%@\nmid_avatar:%@",
+              info.gender, info.avatar, info.sgid, info.smallAvtar, info.nickname, info.userid, info.middleAvatar);
     }
 }
 

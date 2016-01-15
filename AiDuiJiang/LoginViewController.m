@@ -11,6 +11,9 @@
 #import "UserInfo.h"
 #import "UserAccoutManager.h"
 #import "MainViewController.h"
+#import "AFHTTPSessionManager.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "SGAHttpRequest.h"
 
 @interface LoginViewController ()
 
@@ -51,8 +54,11 @@
 }
 
 - (void)login {
-    tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1104953047" andDelegate:self];
-    NSArray *permissions = [NSArray arrayWithObjects:@"get_user_info", @"get_simple_userinfo", nil];
+    tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1105032109" andDelegate:self];
+    NSArray *permissions = [NSArray arrayWithObjects:
+                            kOPEN_PERMISSION_GET_INFO,
+                            kOPEN_PERMISSION_GET_USER_INFO,
+                            kOPEN_PERMISSION_GET_SIMPLE_USER_INFO, nil];
     [tencentOAuth authorize:permissions inSafari:NO];
 }
 
@@ -86,25 +92,28 @@
 - (void)getUserInfoResponse:(APIResponse *)response {
     if (URLREQUEST_SUCCEED == response.retCode
         && kOpenSDKErrorSuccess == response.detailRetCode) {
-        UserInfo *info = [[UserInfo alloc] init];
-        
-        NSDictionary *dict = response.jsonResponse;
-        info.nickname = [dict objectForKey:@"nickname"];
-        NSString *avatar = [dict objectForKey:@"figureurl_qq_2"];
-        if (avatar == nil || avatar.length == 0) {
-            avatar = [dict objectForKey:@"figureurl_qq_1"];
+        UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
+        if ([accoutManager isLogin]) {
+            UserInfo *info = [accoutManager getUserInfo];
+            NSDictionary *dict = response.jsonResponse;
+            NSLog(@"##result %@", response.jsonResponse);
+            
+            info.nickname = [dict objectForKey:@"nickname"];
+            NSString *avatar = [dict objectForKey:@"figureurl_qq_2"];
+            if (avatar == nil || avatar.length == 0) {
+                avatar = [dict objectForKey:@"figureurl_qq_1"];
+            }
+            info.avatar = avatar;
+            info.status = [dict objectForKey:@"msg"];
+            info.city = [dict objectForKey:@"city"];
+            info.province = [dict objectForKey:@"province"];
+            info.smallAvtar = [dict objectForKey:@"figureurl"];
+            
+            [[UserAccoutManager sharedManager] setUserInfo:info];
+            
+            MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
+            [self.navigationController pushViewController:viewController animated:YES];
         }
-        info.avatar = avatar;
-        info.gender = [dict objectForKey:@"gender"];
-        info.status = [dict objectForKey:@"msg"];
-        info.city = [dict objectForKey:@"city"];
-        info.province = [dict objectForKey:@"province"];
-        info.smallAvtar = [dict objectForKey:@"figureurl"];
-        
-        [[UserAccoutManager sharedManager] setUserInfo:info];
-        
-        MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
-        [self.navigationController pushViewController:viewController animated:YES];
     } else {
         [self showAlertView:@"登录失败" withText:response.errorMsg];
     }
@@ -112,9 +121,91 @@
 
 - (void)tencentDidLogin {
     NSString *token = tencentOAuth.accessToken;
-    if (token && 0 != token) {
-        [tencentOAuth getUserInfo];
+    
+    NSTimeInterval timeInterval = [tencentOAuth.expirationDate timeIntervalSince1970] - [[NSDate date] timeIntervalSince1970] + 1;
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)timeInterval];
+    NSString *instance_id = [self UUID];
+    NSNumber *clientId = @2029;
+    NSString *thirdAppid = @"1105032109";
+    
+    NSString *codeString=[NSString stringWithFormat:@"access_token=%@&client_id=%@&expires_in=%@&instance_id=%@&isthird=%@&openid=%@&%@",
+                          token, clientId, timeSp, instance_id, @"1", tencentOAuth.openId, @"94959ebd6f3b2962cab5bd70f497d858"];
+    NSString *code=[self md5:codeString];
+    
+    NSDictionary *params = @{
+                             @"access_token": token,
+                             @"client_id":clientId,
+                             @"expires_in":timeSp,
+                             @"instance_id":instance_id,
+                             @"isthird":@1,
+                             @"openid": tencentOAuth.openId,
+                             @"third_appid":thirdAppid,
+                             @"code":code};
+    
+    NSString *url = @"https://account.sogou.com/connect/sso/afterauth/qq";
+    [SGAHttpRequest sendRequestWithUrlStr:url
+                                paramters:params
+                               httpMethod:@"POST"
+                              httpSuccess:^(NSDictionary *result) {
+                                  NSDictionary *data = [result objectForKey:@"data"];
+                                  if (data) {
+                                      UserInfo *info = [[UserInfo alloc] init];
+                                      info.nickname = [data objectForKey:@"uniqname"];
+                                      info.avatar = [data objectForKey:@"large_avatar"];
+                                      info.gender = [data objectForKey:@"gender"];
+                                      info.smallAvtar = [data objectForKey:@"tiny_avatar"];
+                                      info.sgid = [data objectForKey:@"sgid"];
+                                      info.userid = [data objectForKey:@"userid"];
+                                      info.middleAvatar = [data objectForKey:@"mid_avatar"];
+                                      
+                                      [[UserAccoutManager sharedManager] setUserInfo:info];
+                                  }
+                                  
+                                  NSInteger status = [[result objectForKey:@"status"] integerValue];
+                                  if (status != 0) {
+                                      NSString *msg = [result objectForKey:@"statusText"];
+                                      [self showAlertView:@"登录失败" withText:msg];
+                                  } else {
+                                      MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
+                                      [self.navigationController pushViewController:viewController animated:YES];
+                                  }
+                              } httpFail:^(NSError *error) {
+                                  [self showAlertView:@"登录失败" withText:@"网络出错，请稍后再试"];
+                              }];
+}
+
+- (NSString *)md5:(NSString *)originString {
+    const char *cStr = [originString UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    if (cStr) {
+        CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
+        return [[NSString stringWithFormat:
+                 @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+                 result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7],
+                 result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]
+                 ] lowercaseString];
     }
+    else {
+        return nil;
+    }
+}
+
+- (NSString *)UUID{
+    NSString *identifierNumber;
+    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"UUID"]) {
+        CFUUIDRef uuid = CFUUIDCreate(NULL);
+        CFStringRef uuidstring = CFUUIDCreateString(NULL, uuid);
+        
+        identifierNumber = [NSString stringWithFormat:@"%@",uuidstring];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:identifierNumber forKey:@"UUID"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        CFRelease(uuidstring);
+        CFRelease(uuid);
+    }
+    
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"UUID"];
+    
 }
 
 - (void)tencentDidNotNetWork {

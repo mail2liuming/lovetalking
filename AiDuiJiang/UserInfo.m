@@ -15,6 +15,9 @@
 #define CITY         @"city"
 #define PROVINCE     @"province"
 #define SMALL_AVATAR @"small_avatar"
+#define SOGOU_ID     @"sgid"
+#define USER_ID      @"user_id"
+#define MID_AVARTAR  @"mid_avatar"
 
 @implementation UserInfo
 
@@ -26,6 +29,9 @@
     [encoder encodeObject:self.city forKey:CITY];
     [encoder encodeObject:self.province forKey:PROVINCE];
     [encoder encodeObject:self.smallAvtar forKey:SMALL_AVATAR];
+    [encoder encodeObject:self.sgid forKey:SOGOU_ID];
+    [encoder encodeObject:self.userid forKey:USER_ID];
+    [encoder encodeObject:self.middleAvatar forKey:MID_AVARTAR];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -37,6 +43,9 @@
         self.city = [decoder decodeObjectForKey:CITY];
         self.province = [decoder decodeObjectForKey:PROVINCE];
         self.smallAvtar = [decoder decodeObjectForKey:SMALL_AVATAR];
+        self.sgid = [decoder decodeObjectForKey:SOGOU_ID];
+        self.userid = [decoder decodeObjectForKey:USER_ID];
+        self.middleAvatar = [decoder decodeObjectForKey:MID_AVARTAR];
     }
     
     return self;

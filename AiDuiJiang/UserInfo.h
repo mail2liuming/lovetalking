@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSString *avatar;
 
-@property (nonatomic, strong) NSString *gender;
+@property (nonatomic, assign) NSString *gender;
 
 @property (nonatomic, strong) NSString *status;
 
@@ -23,6 +23,12 @@
 @property (nonatomic, strong) NSString *province;
 
 @property (nonatomic, strong) NSString *smallAvtar;
+
+@property (nonatomic, strong) NSString *sgid;
+
+@property (nonatomic, strong) NSString *userid;
+
+@property (nonatomic, strong) NSString *middleAvatar;
 
 - (void)encodeWithCoder:(NSCoder *)encoder;
 
