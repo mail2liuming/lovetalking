@@ -17,6 +17,7 @@
 #import "LoginViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "UserAccoutManager.h"
+#import "HomeViewController.h"
 
 @interface AppDelegate ()
 
@@ -63,8 +64,11 @@
     [self configAPIKey];
     [self configIFlySpeech];
     
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:45.0f / 255.f green:45.0f / 255.f blue:45.0f / 255.f alpha:1.0f]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor  whiteColor]}];
+    
     if ([[UserAccoutManager sharedManager] isLogin] == YES) {
-        MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
+        HomeViewController *viewController = [[HomeViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         self.window.rootViewController = navController;
     } else {

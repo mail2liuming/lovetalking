@@ -63,6 +63,7 @@
 		406122611C1924F600EFE9F2 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 406122601C1924F600EFE9F2 /* ChannelViewController.m */; };
 		4069E07F1C22C0F80071881F /* arrowTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 4069E07E1C22C0F80071881F /* arrowTexture.png */; };
 		408775031C1AD75100AE7407 /* SearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 408775021C1AD75000AE7407 /* SearchItem.m */; };
+		408FB95F1C4F8A6400FC338B /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408FB95E1C4F8A6400FC338B /* menu@2x.png */; };
 		40A0F3DA1C0BF922005E5FCD /* DrawerLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */; };
 		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
 		40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E21C0C037E005E5FCD /* SharedMapView.m */; };
@@ -78,6 +79,7 @@
 		40D049CD1C240882002B59E4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049CC1C240882002B59E4 /* CoreTelephony.framework */; };
 		40D049CF1C240892002B59E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049CE1C240892002B59E4 /* SystemConfiguration.framework */; };
 		40D049D11C24089D002B59E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049D01C24089D002B59E4 /* CoreGraphics.framework */; };
+		40EEA8D01C4F36A200FAF0F2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EEA8CF1C4F36A200FAF0F2 /* HomeViewController.m */; };
 		474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C031C18161300E6770D /* DrawerContentConfig.m */; };
 		474B5C061C18168200E6770D /* DrawerContent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B5C051C18168200E6770D /* DrawerContent.xib */; };
 		474B5C091C181AEF00E6770D /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C081C181AEF00E6770D /* UIView+Extend.m */; };
@@ -210,6 +212,7 @@
 		4069E07E1C22C0F80071881F /* arrowTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowTexture.png; sourceTree = "<group>"; };
 		408775011C1AD75000AE7407 /* SearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItem.h; sourceTree = "<group>"; };
 		408775021C1AD75000AE7407 /* SearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchItem.m; sourceTree = "<group>"; };
+		408FB95E1C4F8A6400FC338B /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
 		40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawerLayout.h; sourceTree = "<group>"; };
 		40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerLayout.m; sourceTree = "<group>"; };
 		40A0F3DE1C0BFE6E005E5FCD /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 		40D049CC1C240882002B59E4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		40D049CE1C240892002B59E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		40D049D01C24089D002B59E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		40EEA8CE1C4F36A200FAF0F2 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		40EEA8CF1C4F36A200FAF0F2 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		474B5C021C18161300E6770D /* DrawerContentConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerContentConfig.h; sourceTree = "<group>"; };
 		474B5C031C18161300E6770D /* DrawerContentConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerContentConfig.m; sourceTree = "<group>"; };
 		474B5C051C18168200E6770D /* DrawerContent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DrawerContent.xib; path = ../DrawerContent.xib; sourceTree = "<group>"; };
@@ -386,6 +391,7 @@
 		4061225B1C191EFC00EFE9F2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				408FB95E1C4F8A6400FC338B /* menu@2x.png */,
 				40D049BE1C240029002B59E4 /* btn_n@2x.png */,
 				40D049BF1C240029002B59E4 /* btn_p@2x.png */,
 				40D049BC1C23FCFF002B59E4 /* slogan.png */,
@@ -512,6 +518,8 @@
 				47EC913B1C015B24008B69C8 /* Info.plist */,
 				47EC91331C015B24008B69C8 /* AiDuiJiang.xcdatamodeld */,
 				47EC91271C015B24008B69C8 /* Supporting Files */,
+				40EEA8CE1C4F36A200FAF0F2 /* HomeViewController.h */,
+				40EEA8CF1C4F36A200FAF0F2 /* HomeViewController.m */,
 			);
 			path = AiDuiJiang;
 			sourceTree = "<group>";
@@ -647,6 +655,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				402814BD1C05CE0200765D3F /* AMap.bundle in Resources */,
+				408FB95F1C4F8A6400FC338B /* menu@2x.png in Resources */,
 				4014C4A01C19768500735DA6 /* ic_search.png in Resources */,
 				402814BE1C05CE0200765D3F /* AMapNavi.bundle in Resources */,
 				4061225D1C191F0A00EFE9F2 /* ic_nav.png in Resources */,
@@ -738,6 +747,7 @@
 				40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */,
 				405E43DF1C27E96C005FC2DC /* UIButton+WebCache.m in Sources */,
 				47EC915F1C015DAB008B69C8 /* MainViewController.m in Sources */,
+				40EEA8D01C4F36A200FAF0F2 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
