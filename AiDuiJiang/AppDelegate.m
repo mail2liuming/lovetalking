@@ -18,6 +18,8 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "UserAccoutManager.h"
 #import "HomeViewController.h"
+#import "SlideNavigationController.h"
+#import "MenuViewController.h"
 
 @interface AppDelegate ()
 
@@ -67,15 +69,20 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:45.0f / 255.f green:45.0f / 255.f blue:45.0f / 255.f alpha:1.0f]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor  whiteColor]}];
     
+    SlideNavigationController *navController;
     if ([[UserAccoutManager sharedManager] isLogin] == YES) {
         HomeViewController *viewController = [[HomeViewController alloc] init];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        navController = [[SlideNavigationController alloc] initWithRootViewController:viewController];
         self.window.rootViewController = navController;
     } else {
         LoginViewController *viewController = [[LoginViewController alloc] init];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        navController = [[SlideNavigationController alloc] initWithRootViewController:viewController];
         self.window.rootViewController = navController;
     }
+    
+    MenuViewController *menuController = [[MenuViewController alloc] init];
+    [SlideNavigationController sharedInstance].leftMenu = menuController;
+    [SlideNavigationController sharedInstance].menuRevealAnimationDuration = .18;
     
     return YES;
 }
