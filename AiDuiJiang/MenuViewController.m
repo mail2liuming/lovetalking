@@ -20,6 +20,8 @@
     UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
     if ([accoutManager isLogin]) {
         UIView *infoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90.f)];
+        UITapGestureRecognizer *infoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onItemClicked:)];
+        [infoView addGestureRecognizer:infoTap];
         [self.view addSubview:infoView];
         
         UserInfo *info = [accoutManager getUserInfo];
@@ -62,6 +64,12 @@
     NSArray *titles = [NSArray arrayWithObjects:@"我的座驾", @"我的足迹", @"我的车友", @"设置", nil];
     for (NSUInteger i = 0; i < images.count; i++) {
         [self appendItemView:[images objectAtIndex:i] withTitle:[titles objectAtIndex:i] atIndex:i];
+    }
+}
+
+- (void)onItemClicked:(UIView *)view {
+    if (self.delegate) {
+        [self.delegate onMenuClicked:0];
     }
 }
 

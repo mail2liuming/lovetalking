@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SlideNavigationController.h"
+#import "MenuViewController.h"
 
-@interface HomeViewController : UIViewController <SlideNavigationControllerDelegate>
+@interface HomeViewController : UIViewController <SlideNavigationControllerDelegate, SlideMeneDelegate>
 
 @end

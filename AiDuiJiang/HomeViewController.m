@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "InfoViewController.h"
 
 @implementation HomeViewController
 
@@ -21,6 +22,16 @@
     menuButton.frame = CGRectMake(0, 0, 21, 21);
     [menuButton addTarget:self action:@selector(onMenuClicked) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuButton];
+    
+    SlideNavigationController *slideController = [SlideNavigationController sharedInstance];
+    UIViewController *menuController = slideController.leftMenu;
+    ((MenuViewController *)menuController).delegate = self;
+}
+
+- (void)onMenuClicked:(NSUInteger)index {
+    [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
+        [self updateInfo];
+    }];
 }
 
 - (void)onMenuClicked {
@@ -34,6 +45,11 @@
 
 - (BOOL)slideNavigationControllerShouldDisplayLeftMenu {
     return YES;
+}
+
+- (void)updateInfo {
+    InfoViewController *viewController = [[InfoViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 

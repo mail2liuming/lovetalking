@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SlideMeneDelegate <NSObject>
+
+@required
+
+- (void)onMenuClicked:(NSUInteger)index;
+
+@end
+
 @interface MenuViewController : UIViewController
+
+@property (assign, nonatomic) id<SlideMeneDelegate> delegate;
 
 @end

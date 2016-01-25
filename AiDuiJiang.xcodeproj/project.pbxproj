@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40013A9A1C562B4F00293E3D /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40013A991C562B4F00293E3D /* InfoViewController.m */; };
 		4014C49B1C19696C00735DA6 /* ic_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 4014C49A1C19696C00735DA6 /* ic_indicator.png */; };
 		4014C49E1C196F8900735DA6 /* DestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4014C49D1C196F8900735DA6 /* DestinationViewController.m */; };
 		4014C4A01C19768500735DA6 /* ic_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 4014C49F1C19768500735DA6 /* ic_search.png */; };
@@ -120,6 +121,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40013A981C562B4F00293E3D /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		40013A991C562B4F00293E3D /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		4014C49A1C19696C00735DA6 /* ic_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_indicator.png; sourceTree = "<group>"; };
 		4014C49C1C196F8900735DA6 /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		4014C49D1C196F8900735DA6 /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
@@ -483,6 +486,8 @@
 				405E43AF1C27AE06005FC2DC /* UserInfo.m */,
 				405E43B11C27B176005FC2DC /* UserAccoutManager.h */,
 				405E43B21C27B176005FC2DC /* UserAccoutManager.m */,
+				40013A981C562B4F00293E3D /* InfoViewController.h */,
+				40013A991C562B4F00293E3D /* InfoViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -747,6 +752,7 @@
 				405E43E41C27E96C005FC2DC /* UIImageView+WebCache.m in Sources */,
 				4018F5921C328D2A0021EC48 /* UIImageView+AFNetworking.m in Sources */,
 				4018F5771C32833A0021EC48 /* AFURLSessionManager.m in Sources */,
+				40013A9A1C562B4F00293E3D /* InfoViewController.m in Sources */,
 				409997EE1C50C01A0007C39E /* MenuViewController.m in Sources */,
 				4018F5751C32833A0021EC48 /* AFURLRequestSerialization.m in Sources */,
 				405E43DC1C27E96C005FC2DC /* SDWebImageDownloaderOperation.m in Sources */,

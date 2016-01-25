@@ -14,6 +14,7 @@
 #import "AFHTTPSessionManager.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "SGAHttpRequest.h"
+#import "HomeViewController.h"
 
 @interface LoginViewController ()
 
@@ -148,6 +149,7 @@
                                httpMethod:@"POST"
                               httpSuccess:^(NSDictionary *result) {
                                   NSDictionary *data = [result objectForKey:@"data"];
+                                  NSString *sgid;
                                   if (data) {
                                       UserInfo *info = [[UserInfo alloc] init];
                                       info.nickname = [data objectForKey:@"uniqname"];
@@ -157,6 +159,7 @@
                                       info.sgid = [data objectForKey:@"sgid"];
                                       info.userid = [data objectForKey:@"userid"];
                                       info.middleAvatar = [data objectForKey:@"mid_avatar"];
+                                      sgid = info.sgid;
                                       
                                       [[UserAccoutManager sharedManager] setUserInfo:info];
                                   }
@@ -166,12 +169,33 @@
                                       NSString *msg = [result objectForKey:@"statusText"];
                                       [self showAlertView:@"登录失败" withText:msg];
                                   } else {
-                                      MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
-                                      [self.navigationController pushViewController:viewController animated:YES];
+                                      [self checkSgid:sgid];
                                   }
                               } httpFail:^(NSError *error) {
                                   [self showAlertView:@"登录失败" withText:@"网络出错，请稍后再试"];
                               }];
+}
+
+- (void)checkSgid:(NSString *)sgid {
+    NSTimeInterval timeNow = [[NSDate date] timeIntervalSince1970];
+    
+    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/verifysogouid.html?sgid=%@&t=%f", sgid, timeNow];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (responseObject) {
+            NSInteger errorNo = [[responseObject objectForKey:@"errno"] integerValue];
+            if (errorNo == 0) {
+                HomeViewController *viewController = [[HomeViewController alloc] init];
+                [self.navigationController pushViewController:viewController animated:YES];
+            } else {
+                [self showAlertView:@"登录失败" withText:@"登陆失败，搜狗账号验证不通过"];}
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self showAlertView:@"登录失败" withText:@"网络出错，请稍后再试"];
+    }];
 }
 
 - (NSString *)md5:(NSString *)originString {
