@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SendDataBackDelegate.h"
 
-@interface InfoViewController : UIViewController
+@interface InfoViewController : UIViewController <SendDataBackDelegate>
 
 @end

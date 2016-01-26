@@ -1,5 +1,5 @@
 //
-//  InfoEditViewController.h
+//  DistrictViewController.h
 //  AiDuiJiang
 //
 //  Created by 陈吉诗 on 16/1/26.
@@ -9,14 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SendDataBackDelegate.h"
 
-@interface InfoEditViewController : UIViewController
+@interface DistrictViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, SendDataBackDelegate>
 
 @property (nonatomic, assign) id<SendDataBackDelegate> delegate;
-
-@property (nonatomic, strong) NSString *titleName;
-
-@property (nonatomic, strong) NSString *keyName;
-
-@property (nonatomic, strong) NSString *placeholder;
 
 @end

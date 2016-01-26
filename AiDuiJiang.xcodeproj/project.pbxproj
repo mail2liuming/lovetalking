@@ -65,6 +65,9 @@
 		4069E07F1C22C0F80071881F /* arrowTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 4069E07E1C22C0F80071881F /* arrowTexture.png */; };
 		40793B791C5716B500EBFDD6 /* icon_go@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40793B781C5716B500EBFDD6 /* icon_go@2x.png */; };
 		40793B7C1C57299D00EBFDD6 /* InfoEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40793B7B1C57299D00EBFDD6 /* InfoEditViewController.m */; };
+		40793B801C57691D00EBFDD6 /* DistrictViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40793B7F1C57691D00EBFDD6 /* DistrictViewController.m */; };
+		40793B821C576A8800EBFDD6 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40793B811C576A8800EBFDD6 /* ProvincesAndCities.plist */; };
+		40793B851C5773D300EBFDD6 /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40793B841C5773D300EBFDD6 /* CityViewController.m */; };
 		408775031C1AD75100AE7407 /* SearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 408775021C1AD75000AE7407 /* SearchItem.m */; };
 		408FB95F1C4F8A6400FC338B /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408FB95E1C4F8A6400FC338B /* menu@2x.png */; };
 		409997E71C5092AC0007C39E /* SlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 409997E61C5092AC0007C39E /* SlideNavigationController.m */; };
@@ -225,6 +228,12 @@
 		40793B781C5716B500EBFDD6 /* icon_go@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_go@2x.png"; sourceTree = "<group>"; };
 		40793B7A1C57299D00EBFDD6 /* InfoEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoEditViewController.h; sourceTree = "<group>"; };
 		40793B7B1C57299D00EBFDD6 /* InfoEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoEditViewController.m; sourceTree = "<group>"; };
+		40793B7D1C5750DB00EBFDD6 /* SendDataBackDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDataBackDelegate.h; sourceTree = "<group>"; };
+		40793B7E1C57691D00EBFDD6 /* DistrictViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistrictViewController.h; sourceTree = "<group>"; };
+		40793B7F1C57691D00EBFDD6 /* DistrictViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistrictViewController.m; sourceTree = "<group>"; };
+		40793B811C576A8800EBFDD6 /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
+		40793B831C5773D300EBFDD6 /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
+		40793B841C5773D300EBFDD6 /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
 		408775011C1AD75000AE7407 /* SearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItem.h; sourceTree = "<group>"; };
 		408775021C1AD75000AE7407 /* SearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchItem.m; sourceTree = "<group>"; };
 		408FB95E1C4F8A6400FC338B /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -446,6 +455,7 @@
 				4014C49D1C196F8900735DA6 /* DestinationViewController.m */,
 				408775011C1AD75000AE7407 /* SearchItem.h */,
 				408775021C1AD75000AE7407 /* SearchItem.m */,
+				40793B7D1C5750DB00EBFDD6 /* SendDataBackDelegate.h */,
 			);
 			name = channel;
 			sourceTree = "<group>";
@@ -496,6 +506,10 @@
 				40013A991C562B4F00293E3D /* InfoViewController.m */,
 				40793B7A1C57299D00EBFDD6 /* InfoEditViewController.h */,
 				40793B7B1C57299D00EBFDD6 /* InfoEditViewController.m */,
+				40793B7E1C57691D00EBFDD6 /* DistrictViewController.h */,
+				40793B7F1C57691D00EBFDD6 /* DistrictViewController.m */,
+				40793B831C5773D300EBFDD6 /* CityViewController.h */,
+				40793B841C5773D300EBFDD6 /* CityViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -539,6 +553,7 @@
 		47EC91261C015B24008B69C8 /* AiDuiJiang */ = {
 			isa = PBXGroup;
 			children = (
+				40793B811C576A8800EBFDD6 /* ProvincesAndCities.plist */,
 				409997E41C50927D0007C39E /* slide */,
 				4018F5781C328D2A0021EC48 /* UIKit+AFNetworking */,
 				4018F5641C32833A0021EC48 /* AFNetworking */,
@@ -708,6 +723,7 @@
 				409997F61C50DE9B0007C39E /* icon_setting@2x.png in Resources */,
 				408FB95F1C4F8A6400FC338B /* menu@2x.png in Resources */,
 				4014C4A01C19768500735DA6 /* ic_search.png in Resources */,
+				40793B821C576A8800EBFDD6 /* ProvincesAndCities.plist in Resources */,
 				402814BE1C05CE0200765D3F /* AMapNavi.bundle in Resources */,
 				4061225D1C191F0A00EFE9F2 /* ic_nav.png in Resources */,
 				409997F41C50DE9B0007C39E /* icon_mycar@2x.png in Resources */,
@@ -777,6 +793,8 @@
 				4018F5761C32833A0021EC48 /* AFURLResponseSerialization.m in Sources */,
 				40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */,
 				4018F5951C328D2A0021EC48 /* UIWebView+AFNetworking.m in Sources */,
+				40793B851C5773D300EBFDD6 /* CityViewController.m in Sources */,
+				40793B801C57691D00EBFDD6 /* DistrictViewController.m in Sources */,
 				47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */,
 				405E43D81C27E96C005FC2DC /* SDImageCache.m in Sources */,
 				405E43B31C27B176005FC2DC /* UserAccoutManager.m in Sources */,

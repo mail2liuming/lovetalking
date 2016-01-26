@@ -11,6 +11,8 @@
 #import "UserAccoutManager.h"
 #import "UIImageView+WebCache.h"
 #import "InfoEditViewController.h"
+#import "AFHTTPSessionManager.h"
+#import "DistrictViewController.h";
 
 #define AVATAR       100
 #define NICKNAME     101
@@ -18,8 +20,13 @@
 #define GENDER       103
 #define DISTRICT     104
 #define STATUS       105
+#define TAG_CONTENT  106
 
-@implementation InfoViewController
+@implementation InfoViewController {
+    
+    UserAccoutManager *accountManager;
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,7 +35,7 @@
     
     CGFloat width = self.view.frame.size.width;
     
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
+    accountManager = [UserAccoutManager sharedManager];
     
     UIView *infoView = [[UIView alloc] initWithFrame:CGRectMake(0, 64.f, self.view.frame.size.width, 90.f)];
     CALayer *border = [CALayer layer];
@@ -41,7 +48,7 @@
     arrowView.frame = CGRectMake(width - 15 - 8, (90.f - 14.f) / 2, 8.f, 14.f);
     [infoView addSubview:arrowView];
     
-    UserInfo *info = [accoutManager getUserInfo];
+    UserInfo *info = [accountManager getUserInfo];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(width - 15.f - 8.f - 15.f - 50.f, 20.f, 50.f, 50.f)];
     imageView.layer.cornerRadius = 25.f;
     imageView.layer.masksToBounds = YES;
@@ -62,24 +69,130 @@
     grayView.backgroundColor = [UIColor colorWithRed:242.f/255 green:242.f/255 blue:242.f/255 alpha:1.0];
     [self.view addSubview:grayView];
     
+    [self refreshInfo:info];
+}
+
+- (void)updateInfo:(NSString *)key withValue:(NSString *)value {
+    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
+    NSString *sgid = [accoutManager getUserInfo].sgid;
+    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    
+    NSString *url = nil;
+    if ([key isEqualToString:@"district"]) {
+        NSArray *districts = [value componentsSeparatedByString:@"-"];
+        url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/updatemy.html?sgid=%@&t=%@&province=%@&city=%@", sgid, timestamp, [districts objectAtIndex:0], [districts objectAtIndex:1]];
+    } else {
+        url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/updatemy.html?sgid=%@&t=%@&%@=%@", sgid, timestamp, key, value];
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/updatemy.html?sgid=%@&t=%@&%@=%@", sgid, timestamp, key, value];
+    if ([key isEqualToString:@"district"]) {
+        NSArray *districts = [value componentsSeparatedByString:@"-"];
+        url = [NSString stringWithFormat:@"%@&province=%@&city=%@", url, [districts objectAtIndex:0], [districts objectAtIndex:1]];
+    }
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (responseObject) {
+            NSLog(@"#### response %@", responseObject);
+            NSDictionary *data = [responseObject objectForKey:@"data"];
+            UserInfo *userInfo = [accoutManager getUserInfo];
+            userInfo.avatar = [data objectForKey:@"avatarurl"];
+            userInfo.city = [data objectForKey:@"city"];
+            userInfo.gender = [[data objectForKey:@"gender"] integerValue];
+            userInfo.province = [data objectForKey:@"province"];
+            userInfo.nickname = [data objectForKey:@"uniqname"];
+            userInfo.userid = [data objectForKey:@"user_id"];
+            userInfo.status = [data objectForKey:@"subscribe"];
+            
+            [accoutManager setUserInfo:userInfo];
+            [self refreshInfo:userInfo];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"#error %@", error);
+    }];
+}
+
+- (void)refreshInfo:(UserInfo *)info {
     NSArray *titles = [NSArray arrayWithObjects:@"昵称", @"对讲号", @"性别", @"地区", @"个性签名", nil];
     NSArray *texts = [NSArray arrayWithObjects:info.nickname ? info.nickname : @"未设置",
                       info.userid ? [NSString stringWithFormat:@"%@", info.userid] : @"未设置",
-                      info.gender == 1 ? @"男" : @"女",
-                      info.province ? info.province : @"未设置",
+                      info.gender == 0 ? @"男" : @"女",
+                      info.province ? [NSString stringWithFormat:@"%@, %@", info.province, info.city] : @"未设置",
                       info.status ? info.status : @"未设置", nil];
     
     for (NSInteger i = 0; i < titles.count; i++) {
+        UIView *view = [self.view viewWithTag:NICKNAME + i];
+        if (view) [view removeFromSuperview];
+        
         [self appendItemView:[titles objectAtIndex:i] withText:[texts objectAtIndex:i] atIndex:i];
+    }
+}
+
+- (void)sendDataBack:(NSDictionary *)data {
+    NSArray *keys = [data allKeys];
+    if ([keys count] != 0) {
+        NSString *key = [keys objectAtIndex:0];
+        NSString *value = [[data objectForKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [self updateInfo:key withValue:value];
     }
 }
 
 - (void)onItemClicked:(id)sender {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
     
-    NSLog(@"%ld", [tap view].tag);
-    InfoEditViewController *viewController = [[InfoEditViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];
+    NSInteger tag = [tap view].tag;
+    if (tag == USERID) return;
+    
+    if (tag == GENDER) {
+        [self showAlertView];
+    } else if (tag == DISTRICT) {
+        DistrictViewController *viewController = [[DistrictViewController alloc] init];
+        viewController.delegate = self;
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else {
+        UserInfo *userInfo = [accountManager getUserInfo];
+        NSString *title, *key, *placeHolder;
+        if (tag == NICKNAME) {
+            title = @"昵称";
+            key = @"uniqname";
+            placeHolder = userInfo.nickname;
+        } else {
+            title = @"个性签名";
+            key = @"subscribe";
+            placeHolder = userInfo.status;
+        }
+        
+        InfoEditViewController *viewController = [[InfoEditViewController alloc] init];
+        viewController.delegate = self;
+        viewController.titleName = title;
+        viewController.keyName = key;
+        if (placeHolder) {
+            viewController.placeholder = placeHolder;
+        }
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+
+- (void)showAlertView {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择性别" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *male = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self updateInfo:@"gender" withValue:[NSString stringWithFormat:@"%d", 0]];
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    UIAlertAction *female = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self updateInfo:@"gender" withValue:[NSString stringWithFormat:@"%d", 1]];
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [alert addAction:male];
+    [alert addAction:female];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)appendItemView:(NSString *)title withText:(NSString *)text atIndex:(NSInteger)i {
@@ -106,17 +219,16 @@
     arrowView.frame = CGRectMake(self.view.frame.size.width - 15 - 8, (55.f - 14.f) / 2, 8.f, 14.f);
     [view addSubview:arrowView];
     
-    if (text) {
-        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        textLabel.text = text;
-        textLabel.textColor = [UIColor colorWithRed:179.f/255.f green:179.f/255.f blue:179.f/255.f alpha:1.f];
-        textLabel.font = [UIFont systemFontOfSize:14.f];
-        [textLabel sizeToFit];
-        CGSize textSize = textLabel.frame.size;
-        textLabel.frame = CGRectMake(self.view.frame.size.width - 15.f - 8.f - 15.f - textSize.width, 55.f / 2 - textSize.height / 2.f,
-                                     textSize.width, textSize.height);
-        [view addSubview:textLabel];
-    }
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    textLabel.tag = TAG_CONTENT;
+    textLabel.text = text;
+    textLabel.textColor = [UIColor colorWithRed:179.f/255.f green:179.f/255.f blue:179.f/255.f alpha:1.f];
+    textLabel.font = [UIFont systemFontOfSize:14.f];
+    [textLabel sizeToFit];
+    CGSize textSize = textLabel.frame.size;
+    textLabel.frame = CGRectMake(self.view.frame.size.width - 15.f - 8.f - 15.f - textSize.width, 55.f / 2 - textSize.height / 2.f,
+                                 textSize.width, textSize.height);
+    [view addSubview:textLabel];
     
     [self.view addSubview:view];
 }

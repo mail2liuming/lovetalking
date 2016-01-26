@@ -154,7 +154,8 @@
                                       UserInfo *info = [[UserInfo alloc] init];
                                       info.nickname = [data objectForKey:@"uniqname"];
                                       info.avatar = [data objectForKey:@"large_avatar"];
-                                      info.gender = [[data objectForKey:@"gender"] integerValue];
+                                      NSInteger sex = [[data objectForKey:@"gender"] integerValue];
+                                      info.gender = sex == 1 ? 0 : 1;
                                       info.smallAvtar = [data objectForKey:@"tiny_avatar"];
                                       info.sgid = [data objectForKey:@"sgid"];
                                       info.userid = [data objectForKey:@"userid"];
