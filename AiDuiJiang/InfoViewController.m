@@ -10,6 +10,14 @@
 #import "UserInfo.h"
 #import "UserAccoutManager.h"
 #import "UIImageView+WebCache.h"
+#import "InfoEditViewController.h"
+
+#define AVATAR       100
+#define NICKNAME     101
+#define USERID       102
+#define GENDER       103
+#define DISTRICT     104
+#define STATUS       105
 
 @implementation InfoViewController
 
@@ -23,10 +31,18 @@
     UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
     
     UIView *infoView = [[UIView alloc] initWithFrame:CGRectMake(0, 64.f, self.view.frame.size.width, 90.f)];
+    CALayer *border = [CALayer layer];
+    border.frame = CGRectMake(0, 89.4f, self.view.frame.size.width, 0.6f);
+    border.backgroundColor = [UIColor colorWithRed:230.f / 255 green:230.f / 255 blue:230.f / 255 alpha:1.0f].CGColor;
+    [infoView.layer addSublayer:border];
     [self.view addSubview:infoView];
     
+    UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_go@2x.png"]];
+    arrowView.frame = CGRectMake(width - 15 - 8, (90.f - 14.f) / 2, 8.f, 14.f);
+    [infoView addSubview:arrowView];
+    
     UserInfo *info = [accoutManager getUserInfo];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(width - 40.f - 50.f, 20.f, 50.f, 50.f)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(width - 15.f - 8.f - 15.f - 50.f, 20.f, 50.f, 50.f)];
     imageView.layer.cornerRadius = 25.f;
     imageView.layer.masksToBounds = YES;
     
@@ -46,19 +62,32 @@
     grayView.backgroundColor = [UIColor colorWithRed:242.f/255 green:242.f/255 blue:242.f/255 alpha:1.0];
     [self.view addSubview:grayView];
     
-    NSArray *titles = [NSArray arrayWithObjects:@"昵称", @"对讲号", @"性别", @"个性签名", nil];
+    NSArray *titles = [NSArray arrayWithObjects:@"昵称", @"对讲号", @"性别", @"地区", @"个性签名", nil];
     NSArray *texts = [NSArray arrayWithObjects:info.nickname ? info.nickname : @"未设置",
-                      info.userid ? info.userid : @"未设置",
-                      [info.gender integerValue] == 1 ? @"男" : @"女",
+                      info.userid ? [NSString stringWithFormat:@"%@", info.userid] : @"未设置",
+                      info.gender == 1 ? @"男" : @"女",
+                      info.province ? info.province : @"未设置",
                       info.status ? info.status : @"未设置", nil];
     
-    for (NSUInteger i = 0; i < titles.count; i++) {
+    for (NSInteger i = 0; i < titles.count; i++) {
         [self appendItemView:[titles objectAtIndex:i] withText:[texts objectAtIndex:i] atIndex:i];
     }
 }
 
-- (void)appendItemView:(NSString *)title withText:(NSString *)text atIndex:(NSUInteger)i {
+- (void)onItemClicked:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
+    
+    NSLog(@"%ld", [tap view].tag);
+    InfoEditViewController *viewController = [[InfoEditViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)appendItemView:(NSString *)title withText:(NSString *)text atIndex:(NSInteger)i {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 174.f + i * 55.f, self.view.frame.size.width, 55.f)];
+    
+    view.tag = NICKNAME + i;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onItemClicked:)];
+    [view addGestureRecognizer:tap];
     
     CALayer *border = [CALayer layer];
     border.frame = CGRectMake(0, 54.f, self.view.frame.size.width, 0.6f);
@@ -73,7 +102,9 @@
     label.frame = CGRectMake(18.f, 55.f / 2 - label.frame.size.height / 2, label.frame.size.width, label.frame.size.height);
     [view addSubview:label];
     
-    NSLog(@"### %@ %@ %d", title, text, i);
+    UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_go@2x.png"]];
+    arrowView.frame = CGRectMake(self.view.frame.size.width - 15 - 8, (55.f - 14.f) / 2, 8.f, 14.f);
+    [view addSubview:arrowView];
     
     if (text) {
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -82,10 +113,10 @@
         textLabel.font = [UIFont systemFontOfSize:14.f];
         [textLabel sizeToFit];
         CGSize textSize = textLabel.frame.size;
-        textLabel.frame = CGRectMake(self.view.frame.size.width - 40.f - textSize.width, 55.f / 2 - textSize.height / 2.f,
+        textLabel.frame = CGRectMake(self.view.frame.size.width - 15.f - 8.f - 15.f - textSize.width, 55.f / 2 - textSize.height / 2.f,
                                      textSize.width, textSize.height);
         [view addSubview:textLabel];
-    }    
+    }
     
     [self.view addSubview:view];
 }

@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSString *avatar;
 
-@property (nonatomic, assign) NSString *gender;
+@property (nonatomic, assign) NSInteger gender;
 
 @property (nonatomic, strong) NSString *status;
 

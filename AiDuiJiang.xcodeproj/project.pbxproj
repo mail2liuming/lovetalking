@@ -63,6 +63,8 @@
 		4061225D1C191F0A00EFE9F2 /* ic_nav.png in Resources */ = {isa = PBXBuildFile; fileRef = 4061225C1C191F0A00EFE9F2 /* ic_nav.png */; };
 		406122611C1924F600EFE9F2 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 406122601C1924F600EFE9F2 /* ChannelViewController.m */; };
 		4069E07F1C22C0F80071881F /* arrowTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 4069E07E1C22C0F80071881F /* arrowTexture.png */; };
+		40793B791C5716B500EBFDD6 /* icon_go@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40793B781C5716B500EBFDD6 /* icon_go@2x.png */; };
+		40793B7C1C57299D00EBFDD6 /* InfoEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40793B7B1C57299D00EBFDD6 /* InfoEditViewController.m */; };
 		408775031C1AD75100AE7407 /* SearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 408775021C1AD75000AE7407 /* SearchItem.m */; };
 		408FB95F1C4F8A6400FC338B /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408FB95E1C4F8A6400FC338B /* menu@2x.png */; };
 		409997E71C5092AC0007C39E /* SlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 409997E61C5092AC0007C39E /* SlideNavigationController.m */; };
@@ -220,6 +222,9 @@
 		4061225F1C1924F600EFE9F2 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		406122601C1924F600EFE9F2 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
 		4069E07E1C22C0F80071881F /* arrowTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowTexture.png; sourceTree = "<group>"; };
+		40793B781C5716B500EBFDD6 /* icon_go@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_go@2x.png"; sourceTree = "<group>"; };
+		40793B7A1C57299D00EBFDD6 /* InfoEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoEditViewController.h; sourceTree = "<group>"; };
+		40793B7B1C57299D00EBFDD6 /* InfoEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoEditViewController.m; sourceTree = "<group>"; };
 		408775011C1AD75000AE7407 /* SearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItem.h; sourceTree = "<group>"; };
 		408775021C1AD75000AE7407 /* SearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchItem.m; sourceTree = "<group>"; };
 		408FB95E1C4F8A6400FC338B /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -412,6 +417,7 @@
 		4061225B1C191EFC00EFE9F2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				40793B781C5716B500EBFDD6 /* icon_go@2x.png */,
 				409997EF1C50DE9B0007C39E /* icon_friends@2x.png */,
 				409997F01C50DE9B0007C39E /* icon_mycar@2x.png */,
 				409997F11C50DE9B0007C39E /* icon_myfootprint@2x.png */,
@@ -488,6 +494,8 @@
 				405E43B21C27B176005FC2DC /* UserAccoutManager.m */,
 				40013A981C562B4F00293E3D /* InfoViewController.h */,
 				40013A991C562B4F00293E3D /* InfoViewController.m */,
+				40793B7A1C57299D00EBFDD6 /* InfoEditViewController.h */,
+				40793B7B1C57299D00EBFDD6 /* InfoEditViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -715,6 +723,7 @@
 				40D049C11C240029002B59E4 /* btn_p@2x.png in Resources */,
 				40D049BD1C23FCFF002B59E4 /* slogan.png in Resources */,
 				409997F31C50DE9B0007C39E /* icon_friends@2x.png in Resources */,
+				40793B791C5716B500EBFDD6 /* icon_go@2x.png in Resources */,
 				474B5C061C18168200E6770D /* DrawerContent.xib in Resources */,
 				47EC91321C015B24008B69C8 /* Main.storyboard in Resources */,
 			);
@@ -763,6 +772,7 @@
 				409997EB1C50BD300007C39E /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				4018F5931C328D2A0021EC48 /* UIProgressView+AFNetworking.m in Sources */,
 				405E43DA1C27E96C005FC2DC /* SDWebImageDecoder.m in Sources */,
+				40793B7C1C57299D00EBFDD6 /* InfoEditViewController.m in Sources */,
 				405E43D71C27E96C005FC2DC /* NSData+ImageContentType.m in Sources */,
 				4018F5761C32833A0021EC48 /* AFURLResponseSerialization.m in Sources */,
 				40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */,

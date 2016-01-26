@@ -154,7 +154,7 @@
                                       UserInfo *info = [[UserInfo alloc] init];
                                       info.nickname = [data objectForKey:@"uniqname"];
                                       info.avatar = [data objectForKey:@"large_avatar"];
-                                      info.gender = [data objectForKey:@"gender"];
+                                      info.gender = [[data objectForKey:@"gender"] integerValue];
                                       info.smallAvtar = [data objectForKey:@"tiny_avatar"];
                                       info.sgid = [data objectForKey:@"sgid"];
                                       info.userid = [data objectForKey:@"userid"];
@@ -188,6 +188,13 @@
         if (responseObject) {
             NSInteger errorNo = [[responseObject objectForKey:@"errno"] integerValue];
             if (errorNo == 0) {
+                UserAccoutManager *accountManager = [UserAccoutManager sharedManager];
+                UserInfo *userInfo = [accountManager getUserInfo];
+                
+                NSDictionary *data = [responseObject objectForKey:@"data"];
+                userInfo.userid = [data objectForKey:@"user_id"];
+                [accountManager setUserInfo:userInfo];
+                
                 HomeViewController *viewController = [[HomeViewController alloc] init];
                 [self.navigationController pushViewController:viewController animated:YES];
             } else {

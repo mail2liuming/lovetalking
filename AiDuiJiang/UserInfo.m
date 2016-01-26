@@ -24,7 +24,7 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.nickname forKey:NICKNAME];
     [encoder encodeObject:self.avatar forKey:AVATAR];
-    [encoder encodeObject:self.gender forKey:GENDER];
+    [encoder encodeInteger:self.gender forKey:GENDER];
     [encoder encodeObject:self.status forKey:STATUS];
     [encoder encodeObject:self.city forKey:CITY];
     [encoder encodeObject:self.province forKey:PROVINCE];
@@ -38,7 +38,7 @@
     if ((self = [super init])) {
         self.nickname = [decoder decodeObjectForKey:NICKNAME];
         self.avatar = [decoder decodeObjectForKey:AVATAR];
-        self.gender = [decoder decodeObjectForKey:GENDER];
+        self.gender = [decoder decodeIntegerForKey:GENDER];
         self.status = [decoder decodeObjectForKey:STATUS];
         self.city = [decoder decodeObjectForKey:CITY];
         self.province = [decoder decodeObjectForKey:PROVINCE];
