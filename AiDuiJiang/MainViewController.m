@@ -45,18 +45,6 @@
     mapButton.titleLabel.font = [UIFont systemFontOfSize:18.f];
     [mapButton addTarget:self action:@selector(navigation:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:mapButton];
-    
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-    if ([accoutManager isLogin]) {
-        UserInfo *info = [accoutManager getUserInfo];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 50) / 2.f, 64.f + 100.f, 50.f, 50.f)];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:info.avatar]
-                     placeholderImage:[UIImage imageNamed:@"ic_nav.png"]];
-        [self.view addSubview:imageView];
-        
-        NSLog(@"gender:%@\nlarge_avatar:%@\nsgid:%@\ntyny_avatar:%@\nuniqname:%@\nuserid:%@\nmid_avatar:%@",
-              info.gender, info.avatar, info.sgid, info.smallAvtar, info.nickname, info.userid, info.middleAvatar);
-    }
 }
 
 - (void)navigation:(id)sender {

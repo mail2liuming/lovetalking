@@ -10,6 +10,7 @@
 #import "InfoViewController.h"
 #import "SharedMapView.h"
 #import "SettingsViewController.h"
+#import "FriendListViewController.h"
 
 @implementation HomeViewController {
     
@@ -45,7 +46,14 @@
 - (void)onMenuClicked:(NSUInteger)index {
     if (index == 1002) {
         [self updateInfo];
-    } else {
+    }
+    
+    if (index == 1005) {
+        FriendListViewController *viewController = [[FriendListViewController alloc] init];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+    
+    if (index == 1006) {
         SettingsViewController *viewController = [[SettingsViewController alloc] init];
         [self.navigationController pushViewController:viewController animated:YES];
     }

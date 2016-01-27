@@ -51,4 +51,19 @@
     return self;
 }
 
+- (id)initWithDictionary:(NSDictionary *)dict {
+    self = [super init];
+    if (self) {
+        self.userid = [dict objectForKey:@"user_id"];
+        self.nickname = [dict objectForKey:@"uniqname"];
+        self.avatar = [dict objectForKey:@"avatarurl"];
+        self.gender = [[dict objectForKey:@"gender"] integerValue];
+        self.province = [dict objectForKey:@"province"];
+        self.city = [dict objectForKey:@"city"];
+        self.status = [dict objectForKey:@"subscribe"];
+    }
+    
+    return self;
+}
+
 @end
