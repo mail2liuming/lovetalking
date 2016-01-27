@@ -80,7 +80,7 @@
         self.window.rootViewController = navController;
     }
     
-    MenuViewController *menuController = [[MenuViewController alloc] init];
+    MenuViewController *menuController = [[MenuViewController alloc] init];    
     [SlideNavigationController sharedInstance].leftMenu = menuController;
     [SlideNavigationController sharedInstance].menuRevealAnimationDuration = .18;
     

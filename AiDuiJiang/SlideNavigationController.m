@@ -727,7 +727,6 @@ static SlideNavigationController *singletonInstance;
 - (void)setLeftMenu:(UIViewController *)leftMenu
 {
     [_leftMenu.view removeFromSuperview];
-    NSLog(@"##set left menu");
     _leftMenu = leftMenu;
 }
 @end

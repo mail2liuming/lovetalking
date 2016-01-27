@@ -20,4 +20,6 @@
 
 @property (assign, nonatomic) id<SlideMeneDelegate> delegate;
 
+- (void)refreshUserInfo;
+
 @end

@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SlideNavigationController.h"
 #import "MenuViewController.h"
+#import <AMapNaviKit/MAMapKit.h>
+#import "InfoViewController.h"
 
-@interface HomeViewController : UIViewController <SlideNavigationControllerDelegate, SlideMeneDelegate>
+@interface HomeViewController : UIViewController <SlideNavigationControllerDelegate, SlideMeneDelegate,
+MAMapViewDelegate, OnInfoChangeDelegate>
 
 @end

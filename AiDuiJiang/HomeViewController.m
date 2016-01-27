@@ -8,8 +8,15 @@
 
 #import "HomeViewController.h"
 #import "InfoViewController.h"
+#import "SharedMapView.h"
+#import "SettingsViewController.h"
 
-@implementation HomeViewController
+@implementation HomeViewController {
+    
+    MAMapView *mapView;
+    
+    MenuViewController *menuViewController;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,14 +31,24 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
     SlideNavigationController *slideController = [SlideNavigationController sharedInstance];
-    UIViewController *menuController = slideController.leftMenu;
-    ((MenuViewController *)menuController).delegate = self;
+    menuViewController = (MenuViewController *) slideController.leftMenu;
+    menuViewController.delegate = self;
+    
+    mapView = [[SharedMapView sharedInstance] mapView];
+    [[SharedMapView sharedInstance] stashMapViewStatus];
+    mapView.frame = self.view.bounds;
+    mapView.delegate = self;
+    [self.view addSubview:mapView];
+    mapView.showsUserLocation = YES;
 }
 
 - (void)onMenuClicked:(NSUInteger)index {
-    [[SlideNavigationController sharedInstance] closeMenuWithCompletion:^{
+    if (index == 1002) {
         [self updateInfo];
-    }];
+    } else {
+        SettingsViewController *viewController = [[SettingsViewController alloc] init];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 - (void)onMenuClicked {
@@ -49,7 +66,12 @@
 
 - (void)updateInfo {
     InfoViewController *viewController = [[InfoViewController alloc] init];
+    viewController.delegate = self;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)onInfoChange {
+    [menuViewController refreshUserInfo];
 }
 
 

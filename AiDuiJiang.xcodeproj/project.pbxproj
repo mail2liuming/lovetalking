@@ -30,6 +30,7 @@
 		4018F5951C328D2A0021EC48 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4018F58C1C328D2A0021EC48 /* UIWebView+AFNetworking.m */; };
 		4018F5981C32991B0021EC48 /* SGAHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4018F5971C32991B0021EC48 /* SGAHttpRequest.m */; };
 		4018F59B1C32995C0021EC48 /* SGAPNSStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4018F59A1C32995C0021EC48 /* SGAPNSStringHelper.m */; };
+		4023FAFE1C58852B000B9AB5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4023FAFD1C58852B000B9AB5 /* SettingsViewController.m */; };
 		402814A61C05B72500765D3F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402814A51C05B72500765D3F /* AudioToolbox.framework */; };
 		402814A81C05B72F00765D3F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402814A71C05B72F00765D3F /* AVFoundation.framework */; };
 		402814AA1C05B74100765D3F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402814A91C05B74100765D3F /* AddressBook.framework */; };
@@ -171,6 +172,8 @@
 		4018F5971C32991B0021EC48 /* SGAHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAHttpRequest.m; sourceTree = "<group>"; };
 		4018F5991C32995C0021EC48 /* SGAPNSStringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAPNSStringHelper.h; sourceTree = "<group>"; };
 		4018F59A1C32995C0021EC48 /* SGAPNSStringHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAPNSStringHelper.m; sourceTree = "<group>"; };
+		4023FAFC1C58852B000B9AB5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		4023FAFD1C58852B000B9AB5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		402814A51C05B72500765D3F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		402814A71C05B72F00765D3F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		402814A91C05B74100765D3F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -510,6 +513,8 @@
 				40793B7F1C57691D00EBFDD6 /* DistrictViewController.m */,
 				40793B831C5773D300EBFDD6 /* CityViewController.h */,
 				40793B841C5773D300EBFDD6 /* CityViewController.m */,
+				4023FAFC1C58852B000B9AB5 /* SettingsViewController.h */,
+				4023FAFD1C58852B000B9AB5 /* SettingsViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -781,6 +786,7 @@
 				409997EE1C50C01A0007C39E /* MenuViewController.m in Sources */,
 				4018F5751C32833A0021EC48 /* AFURLRequestSerialization.m in Sources */,
 				405E43DC1C27E96C005FC2DC /* SDWebImageDownloaderOperation.m in Sources */,
+				4023FAFE1C58852B000B9AB5 /* SettingsViewController.m in Sources */,
 				4014C49E1C196F8900735DA6 /* DestinationViewController.m in Sources */,
 				4018F5741C32833A0021EC48 /* AFSecurityPolicy.m in Sources */,
 				405E43E31C27E96C005FC2DC /* UIImageView+HighlightedWebCache.m in Sources */,

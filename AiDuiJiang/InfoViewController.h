@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "SendDataBackDelegate.h"
 
+@protocol OnInfoChangeDelegate <NSObject>
+
+- (void)onInfoChange;
+
+@end
+
 @interface InfoViewController : UIViewController <SendDataBackDelegate>
+
+@property (nonatomic, assign) id<OnInfoChangeDelegate> delegate;
 
 @end

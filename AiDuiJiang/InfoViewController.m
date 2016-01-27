@@ -12,7 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "InfoEditViewController.h"
 #import "AFHTTPSessionManager.h"
-#import "DistrictViewController.h";
+#import "DistrictViewController.h"
 
 #define AVATAR       100
 #define NICKNAME     101
@@ -33,8 +33,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"个人资料";
     
-    CGFloat width = self.view.frame.size.width;
-    
+    CGFloat width = self.view.frame.size.width;    
     accountManager = [UserAccoutManager sharedManager];
     
     UIView *infoView = [[UIView alloc] initWithFrame:CGRectMake(0, 64.f, self.view.frame.size.width, 90.f)];
@@ -77,26 +76,20 @@
     NSString *sgid = [accoutManager getUserInfo].sgid;
     NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
     
-    NSString *url = nil;
-    if ([key isEqualToString:@"district"]) {
-        NSArray *districts = [value componentsSeparatedByString:@"-"];
-        url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/updatemy.html?sgid=%@&t=%@&province=%@&city=%@", sgid, timestamp, [districts objectAtIndex:0], [districts objectAtIndex:1]];
-    } else {
-        url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/updatemy.html?sgid=%@&t=%@&%@=%@", sgid, timestamp, key, value];
-    }
-    
-    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/updatemy.html?sgid=%@&t=%@&%@=%@", sgid, timestamp, key, value];
+    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/updatemy.html?sgid=%@&t=%@", sgid, timestamp];
     if ([key isEqualToString:@"district"]) {
         NSArray *districts = [value componentsSeparatedByString:@"-"];
         url = [NSString stringWithFormat:@"%@&province=%@&city=%@", url, [districts objectAtIndex:0], [districts objectAtIndex:1]];
+    } else {
+        url = [NSString stringWithFormat:@"%@&%@=%@", url, key, value];
     }
+    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (responseObject) {
-            NSLog(@"#### response %@", responseObject);
             NSDictionary *data = [responseObject objectForKey:@"data"];
             UserInfo *userInfo = [accoutManager getUserInfo];
             userInfo.avatar = [data objectForKey:@"avatarurl"];
@@ -109,10 +102,12 @@
             
             [accoutManager setUserInfo:userInfo];
             [self refreshInfo:userInfo];
+            if (self.delegate) {
+                [self.delegate onInfoChange];
+            }
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"#error %@", error);
     }];
 }
 
