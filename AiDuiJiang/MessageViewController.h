@@ -7,9 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
-@interface MessageViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@protocol OnUserAcceptDelegate <NSObject>
+
+- (void)onUserAccepted;
+
+@end
+
+@interface MessageViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MBProgressHUDDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
+
+@property (nonatomic, strong) id<OnUserAcceptDelegate> delegate;
 
 @end

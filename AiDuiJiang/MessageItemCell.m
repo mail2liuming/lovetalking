@@ -18,14 +18,13 @@
         self.textLabel.textColor = [UIColor colorWithRed:75.f/255.f green:75.f/255.f blue:75.f/255.f alpha:1.f];
         
         self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.button setTitle:@"接受" forState:UIControlStateNormal];
         self.button.titleLabel.font = [UIFont systemFontOfSize:14.f];
         self.button.titleLabel.textColor = [UIColor whiteColor];
-        [self.button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:54.f / 255 green:152.f / 255 blue:16.f / 255 alpha:1.f]] forState:UIControlStateNormal];
-        [self.button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:34.f / 255 green:130.f / 255 blue:0 alpha:1.f]] forState:UIControlStateHighlighted];
-//        [button addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
         self.button.layer.cornerRadius = 15.f;
         self.button.clipsToBounds = YES;
+        [self.button setTitle:@"接受" forState:UIControlStateNormal];
+        [self.button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:54.f / 255 green:152.f / 255 blue:16.f / 255 alpha:1.f]] forState:UIControlStateNormal];
+        [self.button setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:34.f / 255 green:130.f / 255 blue:0 alpha:1.f]] forState:UIControlStateHighlighted];
         [self addSubview:self.button];
     }
     

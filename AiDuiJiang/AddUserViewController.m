@@ -10,6 +10,7 @@
 #import "UserAccoutManager.h"
 #import "AFHTTPSessionManager.h"
 #import "UserInfo.h"
+#import "UserDetailsViewController.h"
 
 #define TAG_WECHAT    1001
 #define TAG_QQ        1002
@@ -90,23 +91,22 @@
         return NO;
     }
     
-    [self addUser:key];
+    [self requestUserInfo:[key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     return NO;
 }
 
-- (void)addUser:(NSString *)userId {
+- (void)requestUserInfo:(NSString *)userId {
     progress = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:progress];
     progress.delegate = self;
     [progress show:YES];
     
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-    UserInfo *userInfo = [accoutManager getUserInfo];
+    UserAccoutManager *accountManager = [UserAccoutManager sharedManager];
+    UserInfo *userInfo = [accountManager getUserInfo];
     NSString *sgid = userInfo.sgid;
     NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
-    NSString *msg = [[NSString stringWithFormat:@"%@请求添加您为好友", userInfo.nickname] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/friend/1.0/invite.html?sgid=%@&t=%@&friendid=%@&msg=%@", sgid, timestamp, userId, msg];
+    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/detail.html?sgid=%@&t=%@&user=%@", sgid, timestamp, userId];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -114,27 +114,28 @@
     
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [progress hide:YES];
-        
-        if (responseObject) {
+
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
             NSInteger code = [[responseObject objectForKey:@"errno"] integerValue];
-            NSString *tips;
             if (code == 0) {
-                tips = @"已发送好友请求";
-                [self showToast:tips];
-                [self performSelector:@selector(finishAddUser) withObject:nil afterDelay:1.0];
+                id data = [responseObject objectForKey:@"data"];
+                if ([data isKindOfClass:[NSDictionary class]]) {
+                    UserInfo *info = [[UserInfo alloc] initWithDictionary:(NSDictionary *)data];
+                    UserDetailsViewController *viewController = [[UserDetailsViewController alloc] init];
+                    viewController.userItemInfo = info;
+                    viewController.userInfoType = 233;
+                    [self.navigationController pushViewController:viewController animated:YES];
+                } else {
+                    [self showToast:@"用户不存在"];
+                }
             } else {
-                tips = [responseObject objectForKey:@"errmsg"];
-                [self showToast:tips];
+                [self showToast:@"用户不存在"];
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [progress hide:YES];
-        [self showToast:@"好友添加失败，请稍后再试!"];
+        [self showToast:@"用户不存在"];
     }];
-}
-
-- (void)finishAddUser {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)appendItemView:(NSString *)image withTitle:(NSString *)title atIndex:(NSInteger)i {

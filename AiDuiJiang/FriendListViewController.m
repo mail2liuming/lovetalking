@@ -15,7 +15,6 @@
 #import "UserItemCell.h"
 #import "UIImageView+WebCache.h"
 #import "MessageItem.h"
-#import "UserDetailsViewController.h"
 
 static NSString* const cellIdentifier = @"cell_id";
 
@@ -94,7 +93,11 @@ static NSString* const cellIdentifier = @"cell_id";
     userTableView.dataSource = self;
     [self.view addSubview:userTableView];
     
-    [self requestFriendsMessage];
+    [self requestMessageList];
+    [self requestUserList];
+}
+
+- (void)onUserDeleted {
     [self requestUserList];
 }
 
@@ -111,6 +114,8 @@ static NSString* const cellIdentifier = @"cell_id";
     
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            [dataArray removeAllObjects];
+            
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSDictionary *data = [dict objectForKey:@"data"];
             NSArray *array = [data objectForKey:@"list"];
@@ -125,7 +130,7 @@ static NSString* const cellIdentifier = @"cell_id";
     }];
 }
 
-- (void)requestFriendsMessage {
+- (void)requestMessageList {
     UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
     UserInfo *userInfo = [accoutManager getUserInfo];
     NSString *sgid = userInfo.sgid;
@@ -138,11 +143,17 @@ static NSString* const cellIdentifier = @"cell_id";
     
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            [messageList removeAllObjects];
+            
             NSDictionary *dict = (NSDictionary *)responseObject;
             NSArray *array = [dict objectForKey:@"data"];
             for (NSDictionary *item in array) {
                 MessageItem *message = [[MessageItem alloc] initWithDictionary:item];
-                [messageList addObject:message];
+                //0 not handle, 1 accepted, 2 refused
+                NSInteger status = message.status;
+                if (status != 1) {
+                    [messageList addObject:message];
+                }
             }
             
             NSInteger count = [messageList count];
@@ -155,6 +166,11 @@ static NSString* const cellIdentifier = @"cell_id";
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     }];
+}
+
+- (void)onUserAccepted {
+    [self requestMessageList];
+    [self requestUserList];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -170,6 +186,8 @@ static NSString* const cellIdentifier = @"cell_id";
     
     UserDetailsViewController *viewController = [[UserDetailsViewController alloc] init];
     viewController.userItemInfo = [dataArray objectAtIndex:indexPath.row];
+    viewController.delegate = self;
+    viewController.userInfoType = 234;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -211,8 +229,11 @@ static NSString* const cellIdentifier = @"cell_id";
 }
 
 - (void)checkMessage:(id)sender {
+    if (messageList.count == 0) return;
+    
     MessageViewController *viewController = [[MessageViewController alloc] init];
     viewController.dataArray = messageList;
+    viewController.delegate = self;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 @end

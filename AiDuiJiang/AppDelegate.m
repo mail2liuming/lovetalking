@@ -66,8 +66,15 @@
     [self configAPIKey];
     [self configIFlySpeech];
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:45.0f / 255.f green:45.0f / 255.f blue:45.0f / 255.f alpha:1.0f]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor  whiteColor]}];
+    UINavigationBar *navigationBar = [UINavigationBar appearance];
+    
+    [navigationBar setBarTintColor:[UIColor colorWithRed:45.0f / 255.f green:45.0f / 255.f blue:45.0f / 255.f alpha:1.0f]];
+    [navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor  whiteColor]}];
+    if ([[UINavigationBar class] instancesRespondToSelector:@selector(setBackIndicatorImage:)]) {
+        navigationBar.backIndicatorImage = [UIImage imageNamed:@"icon_back@2x.png"];
+        navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"icon_back@2x.png"];
+        navigationBar.tintColor = [UIColor whiteColor];
+    }
     
     SlideNavigationController *navController;
     if ([[UserAccoutManager sharedManager] isLogin] == YES) {

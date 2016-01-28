@@ -11,6 +11,8 @@
 #import "MessageItem.h"
 #import "UIImageView+WebCache.h"
 #import "UserInfo.h"
+#import "AFHTTPSessionManager.h"
+#import "UserAccoutManager.h"
 
 static NSString* const cellIdentifier = @"cell_id";
 
@@ -18,6 +20,7 @@ static NSString* const cellIdentifier = @"cell_id";
     
     UITableView *msgTableView;
     
+    MBProgressHUD *progress;
 }
 
 - (void)viewDidLoad {
@@ -62,8 +65,69 @@ static NSString* const cellIdentifier = @"cell_id";
     }
     
     cell.textLabel.text = tip;
+    cell.button.tag = indexPath.row;
+    [cell.button addTarget:self action:@selector(onButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    [progress removeFromSuperview];
+    progress = nil;
+}
+
+- (void)onButtonClicked:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    MessageItem *message = [self.dataArray objectAtIndex:button.tag];
+    
+    progress = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:progress];
+    progress.delegate = self;
+    [progress show:YES];
+    
+    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
+    UserInfo *userInfo = [accoutManager getUserInfo];
+    NSString *sgid = userInfo.sgid;
+    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/friend/1.0/dealinvite.html?sgid=%@&t=%@&friendid=%@&act=%d", sgid, timestamp, message.userInfo.userid, 1];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [progress hide:YES];
+        
+        if (responseObject) {
+            NSInteger code = [[responseObject objectForKey:@"errno"] integerValue];
+            NSString *tips;
+            if (code == 0) {
+                if (self.delegate) {
+                    [self.delegate onUserAccepted];
+                }
+                tips = @"好友添加成功!";
+                [self showToast:tips];
+                [self performSelector:@selector(onAccepted) withObject:nil afterDelay:1.0];
+            } else {
+                [self showToast:@"好友添加失败，请稍后再试!"];
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [progress hide:YES];
+        [self showToast:@"好友添加失败，请稍后再试!"];
+    }];
+}
+
+- (void)onAccepted {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)showToast:(NSString *)tips {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = tips;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:2];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

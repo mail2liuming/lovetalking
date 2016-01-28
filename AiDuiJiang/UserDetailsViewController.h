@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "UserInfo.h"
+#import "MBProgressHUD.h"
 
-@interface UserDetailsViewController : UIViewController
+@protocol OnUserDeleteDelegate <NSObject>
+
+- (void)onUserDeleted;
+
+@end
+
+@interface UserDetailsViewController : UIViewController <MBProgressHUDDelegate>
 
 @property (nonatomic, strong) UserInfo *userItemInfo;
+
+@property (nonatomic, assign) id<OnUserDeleteDelegate> delegate;
+
+@property (nonatomic, assign) NSInteger userInfoType;
 
 @end

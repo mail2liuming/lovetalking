@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageViewController.h"
+#import "UserDetailsViewController.h"
 
-@interface FriendListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface FriendListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, OnUserDeleteDelegate, OnUserAcceptDelegate>
 
 @end

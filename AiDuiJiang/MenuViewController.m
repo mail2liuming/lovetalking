@@ -10,6 +10,8 @@
 #import "UserAccoutManager.h"
 #import "UserInfo.h"
 #import "UIImageView+WebCache.h"
+#import "AFHTTPSessionManager.h"
+#import "MessageItem.h"
 
 #define TAG_INFO_VIEW    1002
 #define TAG_MY_CAR       1003
@@ -17,13 +19,19 @@
 #define TAG_MY_FRIENDS   1005
 #define TAG_SETTINGS     1006
 
-@implementation MenuViewController {}
+@implementation MenuViewController {
+    
+    UIButton *countLabel;
+    
+    NSMutableArray *messageList;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.view.frame = CGRectMake(0, 0, self.view.frame.size.width - 60.f, self.view.frame.size.height);
     
+    messageList = [[NSMutableArray alloc] initWithCapacity:0];
     [self refreshUserInfo];
     
     UIView *grayView = [[UIView alloc] initWithFrame:CGRectMake(0, 90.f, self.view.frame.size.width, 20.f)];
@@ -36,6 +44,23 @@
     for (NSInteger i = 0; i < images.count; i++) {
         [self appendItemView:[images objectAtIndex:i] withTitle:[titles objectAtIndex:i] atIndex:i];
     }
+    
+    UIView *exitView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 20.f - 55.f, self.view.frame.size.width, 55.f)];
+    [self.view addSubview:exitView];
+    
+    UIImageView *exitIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_exit@2x.png"]];
+    exitIcon.frame = CGRectMake(18.f, 19.f / 2, 36.f, 36.f);
+    [exitView addSubview:exitIcon];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.text = @"退出登录";
+    label.textColor = [UIColor colorWithRed:75.f/255.f green:75.f/255.f blue:75.f/255.f alpha:1.f];
+    label.font = [UIFont systemFontOfSize:17.f];
+    [label sizeToFit];
+    label.frame = CGRectMake(18.f + 36.f + 18.f, 55.f / 2 - label.frame.size.height / 2, label.frame.size.width, label.frame.size.height);
+    [exitView addSubview:label];
+    
+    [self requestMessageList];
 }
 
 - (void)onItemClicked:(id)sender {
@@ -49,8 +74,14 @@
     UIView *infoView = [self.view viewWithTag:TAG_INFO_VIEW];
     if (infoView) [infoView removeFromSuperview];
     
+    
+    CALayer *border = [CALayer layer];
+    border.frame = CGRectMake(0, 89.4f, self.view.frame.size.width, 0.6f);
+    border.backgroundColor = [UIColor colorWithRed:230.f / 255 green:230.f / 255 blue:230.f / 255 alpha:1.0f].CGColor;
+    
     infoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 90.f)];
     infoView.tag = TAG_INFO_VIEW;
+    [infoView.layer addSublayer:border];
     [self.view addSubview:infoView];
     
     UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
@@ -108,6 +139,16 @@
     imageView.frame = CGRectMake(18.f, 19.f / 2, 36.f, 36.f);
     [view addSubview:imageView];
     
+    if (i == 2) {
+        countLabel = [UIButton buttonWithType:UIButtonTypeCustom];
+        [countLabel setBackgroundImage:[UIImage imageNamed:@"point_big.png"] forState:UIControlStateNormal];
+        [countLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        countLabel.titleLabel.font = [UIFont systemFontOfSize:13.f];
+        countLabel.frame = CGRectMake(self.view.frame.size.width - 8.f - 14.f - 10.f - 18.f, (55.f - 18.f) / 2.f, 18.f, 18.f);
+        countLabel.hidden = YES;
+        [view addSubview:countLabel];
+    }
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.text = title;
     label.textColor = [UIColor colorWithRed:75.f/255.f green:75.f/255.f blue:75.f/255.f alpha:1.f];
@@ -123,8 +164,46 @@
 
 - (void)appendArrowTo:(UIView *)view withHeight:(CGFloat)h {
     UIImageView *arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_go@2x.png"]];
-    arrowView.frame = CGRectMake(self.view.frame.size.width - 15 - 8, (h - 14.f) / 2, 8.f, 14.f);
+    arrowView.frame = CGRectMake(self.view.frame.size.width - 14 - 8, (h - 14.f) / 2, 8.f, 14.f);
     [view addSubview:arrowView];
+}
+
+- (void)requestMessageList {
+    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
+    UserInfo *userInfo = [accoutManager getUserInfo];
+    NSString *sgid = userInfo.sgid;
+    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    
+    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/friend/1.0/myinvite.html?sgid=%@&t=%@", sgid, timestamp];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            [messageList removeAllObjects];
+            
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            NSArray *array = [dict objectForKey:@"data"];
+            for (NSDictionary *item in array) {
+                MessageItem *message = [[MessageItem alloc] initWithDictionary:item];
+                //0 not handle, 1 accepted, 2 refused
+                NSInteger status = message.status;
+                if (status != 1) {
+                    [messageList addObject:message];
+                }
+            }
+            
+            NSInteger count = [messageList count];
+            if (count > 0) {
+                [countLabel setTitle:[NSString stringWithFormat:@"%ld", count] forState:UIControlStateNormal];
+                countLabel.hidden = NO;
+            } else {
+                countLabel.hidden = YES;
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
 }
 
 @end
