@@ -119,6 +119,8 @@
 		40D049CD1C240882002B59E4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049CC1C240882002B59E4 /* CoreTelephony.framework */; };
 		40D049CF1C240892002B59E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049CE1C240892002B59E4 /* SystemConfiguration.framework */; };
 		40D049D11C24089D002B59E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049D01C24089D002B59E4 /* CoreGraphics.framework */; };
+		40DDE5961C731A9E000936C9 /* del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DDE5951C731A9E000936C9 /* del@2x.png */; };
+		40DDE5981C732945000936C9 /* number@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DDE5971C732945000936C9 /* number@2x.png */; };
 		40EEA8D01C4F36A200FAF0F2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EEA8CF1C4F36A200FAF0F2 /* HomeViewController.m */; };
 		474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C031C18161300E6770D /* DrawerContentConfig.m */; };
 		474B5C061C18168200E6770D /* DrawerContent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B5C051C18168200E6770D /* DrawerContent.xib */; };
@@ -333,6 +335,8 @@
 		40D049CC1C240882002B59E4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		40D049CE1C240892002B59E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		40D049D01C24089D002B59E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		40DDE5951C731A9E000936C9 /* del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.png"; sourceTree = "<group>"; };
+		40DDE5971C732945000936C9 /* number@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "number@2x.png"; sourceTree = "<group>"; };
 		40EEA8CE1C4F36A200FAF0F2 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		40EEA8CF1C4F36A200FAF0F2 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		474B5C021C18161300E6770D /* DrawerContentConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerContentConfig.h; sourceTree = "<group>"; };
@@ -520,6 +524,8 @@
 		4061225B1C191EFC00EFE9F2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				40DDE5971C732945000936C9 /* number@2x.png */,
+				40DDE5951C731A9E000936C9 /* del@2x.png */,
 				4001C7341C5A215900390917 /* home_icon_cy_n.png */,
 				4001C7351C5A215900390917 /* home_icon_cy_p.png */,
 				4001C7361C5A215900390917 /* home_icon_gg_n.png */,
@@ -857,10 +863,12 @@
 				4023FB0D1C58AE67000B9AB5 /* icon_mob@2x.png in Resources */,
 				4001C73F1C5A215900390917 /* home_icon_mdm_p.png in Resources */,
 				40D049BB1C23F8EC002B59E4 /* pic.png in Resources */,
+				40DDE5981C732945000936C9 /* number@2x.png in Resources */,
 				47EC913A1C015B24008B69C8 /* LaunchScreen.storyboard in Resources */,
 				4069E07F1C22C0F80071881F /* arrowTexture.png in Resources */,
 				404B8DCF1C1ECAAD009CA9FC /* start_point.png in Resources */,
 				4001C73C1C5A215900390917 /* home_icon_gg_n.png in Resources */,
+				40DDE5961C731A9E000936C9 /* del@2x.png in Resources */,
 				47EC91371C015B24008B69C8 /* Assets.xcassets in Resources */,
 				40D049C01C240029002B59E4 /* btn_n@2x.png in Resources */,
 				4001C73D1C5A215900390917 /* home_icon_gg_p.png in Resources */,
