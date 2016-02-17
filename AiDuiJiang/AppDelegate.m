@@ -13,7 +13,6 @@
 #import "iflyMSC/IFlySpeechConstant.h"
 #import "iflyMSC/IFlySpeechUtility.h"
 #import "iflyMSC/IFlySetting.h"
-#import "MainViewController.h"
 #import "LoginViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "UserAccoutManager.h"
@@ -63,6 +62,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     [self configAPIKey];
     [self configIFlySpeech];
     
@@ -90,6 +91,8 @@
     MenuViewController *menuController = [[MenuViewController alloc] init];    
     [SlideNavigationController sharedInstance].leftMenu = menuController;
     [SlideNavigationController sharedInstance].menuRevealAnimationDuration = .18;
+    
+    [self.window makeKeyAndVisible];
     
     return YES;
 }

@@ -10,7 +10,6 @@
 #import "UIImage+Color.h"
 #import "UserInfo.h"
 #import "UserAccoutManager.h"
-#import "MainViewController.h"
 #import "AFHTTPSessionManager.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "SGAHttpRequest.h"
@@ -88,36 +87,6 @@
     [alertController addAction:okAction];
     
     [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)getUserInfoResponse:(APIResponse *)response {
-    if (URLREQUEST_SUCCEED == response.retCode
-        && kOpenSDKErrorSuccess == response.detailRetCode) {
-        UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-        if ([accoutManager isLogin]) {
-            UserInfo *info = [accoutManager getUserInfo];
-            NSDictionary *dict = response.jsonResponse;
-            NSLog(@"##result %@", response.jsonResponse);
-            
-            info.nickname = [dict objectForKey:@"nickname"];
-            NSString *avatar = [dict objectForKey:@"figureurl_qq_2"];
-            if (avatar == nil || avatar.length == 0) {
-                avatar = [dict objectForKey:@"figureurl_qq_1"];
-            }
-            info.avatar = avatar;
-            info.status = [dict objectForKey:@"msg"];
-            info.city = [dict objectForKey:@"city"];
-            info.province = [dict objectForKey:@"province"];
-            info.smallAvtar = [dict objectForKey:@"figureurl"];
-            
-            [[UserAccoutManager sharedManager] setUserInfo:info];
-            
-            MainViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainViewController"];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-    } else {
-        [self showAlertView:@"登录失败" withText:response.errorMsg];
-    }
 }
 
 - (void)tencentDidLogin {

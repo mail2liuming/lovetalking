@@ -128,13 +128,11 @@
 		474B5C0E1C1824B200E6770D /* DrawerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C0D1C1824B200E6770D /* DrawerContentView.m */; };
 		47EC91291C015B24008B69C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC91281C015B24008B69C8 /* main.m */; };
 		47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC912B1C015B24008B69C8 /* AppDelegate.m */; };
-		47EC91321C015B24008B69C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EC91301C015B24008B69C8 /* Main.storyboard */; };
 		47EC91351C015B24008B69C8 /* AiDuiJiang.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47EC91331C015B24008B69C8 /* AiDuiJiang.xcdatamodeld */; };
 		47EC91371C015B24008B69C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EC91361C015B24008B69C8 /* Assets.xcassets */; };
 		47EC913A1C015B24008B69C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EC91381C015B24008B69C8 /* LaunchScreen.storyboard */; };
 		47EC91451C015B24008B69C8 /* AiDuiJiangTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC91441C015B24008B69C8 /* AiDuiJiangTests.m */; };
 		47EC91501C015B24008B69C8 /* AiDuiJiangUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC914F1C015B24008B69C8 /* AiDuiJiangUITests.m */; };
-		47EC915F1C015DAB008B69C8 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC915E1C015DAB008B69C8 /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -350,7 +348,6 @@
 		47EC91281C015B24008B69C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		47EC912A1C015B24008B69C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		47EC912B1C015B24008B69C8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		47EC91311C015B24008B69C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47EC91341C015B24008B69C8 /* AiDuiJiang.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AiDuiJiang.xcdatamodel; sourceTree = "<group>"; };
 		47EC91361C015B24008B69C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47EC91391C015B24008B69C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -361,8 +358,6 @@
 		47EC914B1C015B24008B69C8 /* AiDuiJiangUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AiDuiJiangUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EC914F1C015B24008B69C8 /* AiDuiJiangUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AiDuiJiangUITests.m; sourceTree = "<group>"; };
 		47EC91511C015B24008B69C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47EC915D1C015DAB008B69C8 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		47EC915E1C015DAB008B69C8 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -696,9 +691,6 @@
 				474B5C0C1C1824B200E6770D /* DrawerContentView.h */,
 				474B5C0D1C1824B200E6770D /* DrawerContentView.m */,
 				47EC912B1C015B24008B69C8 /* AppDelegate.m */,
-				47EC915D1C015DAB008B69C8 /* MainViewController.h */,
-				47EC915E1C015DAB008B69C8 /* MainViewController.m */,
-				47EC91301C015B24008B69C8 /* Main.storyboard */,
 				47EC91361C015B24008B69C8 /* Assets.xcassets */,
 				47EC91381C015B24008B69C8 /* LaunchScreen.storyboard */,
 				47EC913B1C015B24008B69C8 /* Info.plist */,
@@ -882,7 +874,6 @@
 				474B5C061C18168200E6770D /* DrawerContent.xib in Resources */,
 				4023FB0E1C58AE67000B9AB5 /* icon_qq@2x.png in Resources */,
 				4001C7331C5A1BED00390917 /* point_big.png in Resources */,
-				47EC91321C015B24008B69C8 /* Main.storyboard in Resources */,
 				4023FB0F1C58AE67000B9AB5 /* icon_weixin@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -976,7 +967,6 @@
 				40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */,
 				4023FB041C58A32B000B9AB5 /* FriendListViewController.m in Sources */,
 				405E43DF1C27E96C005FC2DC /* UIButton+WebCache.m in Sources */,
-				47EC915F1C015DAB008B69C8 /* MainViewController.m in Sources */,
 				40EEA8D01C4F36A200FAF0F2 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1013,14 +1003,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		47EC91301C015B24008B69C8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				47EC91311C015B24008B69C8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		47EC91381C015B24008B69C8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
