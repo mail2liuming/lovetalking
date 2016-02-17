@@ -13,6 +13,7 @@
 #import "ChannelViewController.h"
 #import "SearchItem.h"
 #import "CustomAnnotationView.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface RouteViewController ()
 
@@ -20,7 +21,7 @@
 
 @implementation RouteViewController {
     
-    MAPointAnnotation *startPoint;
+    MAPointAnnotation *startPoint;    
     
     BOOL calRouteSuccess;
 }
@@ -70,7 +71,7 @@
     [button setImage:[UIImage imageNamed:@"ic_nav.png"] forState:UIControlStateNormal];
     button.frame = CGRectMake(width - 10 - 60, height - 10 - 60, 60, 60);
     [button addTarget:self action:@selector(setDestination) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
+    [self.view addSubview:button];   
 }
 
 - (void)setDestination {

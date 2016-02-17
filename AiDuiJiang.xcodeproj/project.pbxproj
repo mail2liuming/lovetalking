@@ -108,6 +108,7 @@
 		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
 		40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E21C0C037E005E5FCD /* SharedMapView.m */; };
 		40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */; };
+		40BBEAB51C74775E00714E15 /* UserAddWattingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BBEAB41C74775E00714E15 /* UserAddWattingView.m */; };
 		40D049B91C23E335002B59E4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D049B81C23E335002B59E4 /* LoginViewController.m */; };
 		40D049BB1C23F8EC002B59E4 /* pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D049BA1C23F8EC002B59E4 /* pic.png */; };
 		40D049BD1C23FCFF002B59E4 /* slogan.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D049BC1C23FCFF002B59E4 /* slogan.png */; };
@@ -320,6 +321,8 @@
 		40A0F3E21C0C037E005E5FCD /* SharedMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedMapView.m; sourceTree = "<group>"; };
 		40A0F3E41C0C2306005E5FCD /* NavPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavPointAnnotation.h; sourceTree = "<group>"; };
 		40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavPointAnnotation.m; sourceTree = "<group>"; };
+		40BBEAB31C74775E00714E15 /* UserAddWattingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAddWattingView.h; sourceTree = "<group>"; };
+		40BBEAB41C74775E00714E15 /* UserAddWattingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAddWattingView.m; sourceTree = "<group>"; };
 		40D049B71C23E335002B59E4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		40D049B81C23E335002B59E4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		40D049BA1C23F8EC002B59E4 /* pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic.png; sourceTree = "<group>"; };
@@ -570,6 +573,8 @@
 				40793B7D1C5750DB00EBFDD6 /* SendDataBackDelegate.h */,
 				4001C7411C5A2B5600390917 /* ChannelCreateViewController.h */,
 				4001C7421C5A2B5600390917 /* ChannelCreateViewController.m */,
+				40BBEAB31C74775E00714E15 /* UserAddWattingView.h */,
+				40BBEAB41C74775E00714E15 /* UserAddWattingView.m */,
 			);
 			name = channel;
 			sourceTree = "<group>";
@@ -905,6 +910,7 @@
 				47EC91351C015B24008B69C8 /* AiDuiJiang.xcdatamodeld in Sources */,
 				4018F5721C32833A0021EC48 /* AFHTTPSessionManager.m in Sources */,
 				4018F58F1C328D2A0021EC48 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				40BBEAB51C74775E00714E15 /* UserAddWattingView.m in Sources */,
 				405E43E21C27E96C005FC2DC /* UIImage+WebP.m in Sources */,
 				4018F5901C328D2A0021EC48 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				405E43E41C27E96C005FC2DC /* UIImageView+WebCache.m in Sources */,

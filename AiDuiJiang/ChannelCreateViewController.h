@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import "MBProgressHUD.h"
 
-@interface ChannelCreateViewController : UIViewController
+@interface ChannelCreateViewController : UIViewController <CLLocationManagerDelegate, MBProgressHUDDelegate>
 
 @end

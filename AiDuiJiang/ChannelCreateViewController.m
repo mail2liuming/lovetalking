@@ -8,10 +8,27 @@
 
 #import "ChannelCreateViewController.h"
 #import "UIImage+Color.h"
+#import "UserAccoutManager.h"
+#import "UserInfo.h"
+#import "AFHTTPSessionManager.h"
 
 @implementation ChannelCreateViewController {
     
     UIView *numberView;
+    
+    CLLocationManager *locationManager;
+    
+    double lat, lng;
+    
+    MBProgressHUD *progress;
+    
+    NSString *channelCode;
+    
+    NSMutableArray *codeArray;
+    
+    NSString *channelKey;
+    
+    NSMutableArray *userList;
 }
 
 - (void)viewDidLoad {
@@ -19,6 +36,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"面对面建频道";
     self.view.backgroundColor = [UIColor colorWithRed:242.f / 255.f green:242.f / 255.f blue:242.f / 255.f alpha:1.0f];
+    
+    codeArray = [[NSMutableArray alloc] initWithCapacity:0];
+    userList = [[NSMutableArray alloc] initWithCapacity:0];
     
     [self appendButtons];
     [self appendGrids];
@@ -55,14 +75,90 @@
     deleteView.frame = CGRectMake(self.view.frame.size.width - width / 2.f - 17.f ,
                                   self.view.frame.size.height - 54.f / 2.f - 10.f, 34.f, 20.f);
     [self.view addSubview:deleteView];
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    locationManager.distanceFilter = 50;
+    
+    [locationManager startUpdatingLocation];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    CLLocation *location = [locations lastObject];
+    if (location) {
+        lat = location.coordinate.latitude;
+        lng = location.coordinate.longitude;
+    }
+}
+
+- (void)createChannel {
+    progress = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:progress];
+    progress.delegate = self;
+    [progress show:YES];
+    
+    UserAccoutManager *accountManager = [UserAccoutManager sharedManager];
+    UserInfo *userInfo = [accountManager getUserInfo];
+    NSString *sgid = userInfo.sgid;
+    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    
+    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/channel/1.0/face2face.html?sgid=%@&t=%@&lat=%f&lng=%f&code=%@", sgid, timestamp, lat, lng, channelCode];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [progress hide:YES];
+        
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            NSInteger code = [[responseObject objectForKey:@"errno"] integerValue];
+            if (code == 0) {
+                NSDictionary *data = [responseObject objectForKey:@"data"];
+                channelKey = [data objectForKey:@"key"];
+                NSArray *array = [data objectForKey:@"user_list"];
+                for (NSDictionary *dict in array) {
+                    UserInfo *user = [[UserInfo alloc] initWithDictionary:dict];
+                    [userList addObject:user];
+                }
+                NSLog(@"##count %ld", (long)userList.count);
+            } else {
+                [self showToast:@"频道创建失败，请稍后再试"];
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [progress hide:YES];
+        [self showToast:@"频道创建失败，请稍后再试"];
+    }];
+}
+
+- (void)showToast:(NSString *)tips {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = tips;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:2];
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    [progress removeFromSuperview];
+    progress = nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (nil == locationManager) {
+        [locationManager stopUpdatingLocation];
+        locationManager = nil;
+    }
+}
 - (void)onButtonClicked:(id)sender {
     UIButton *button = (UIButton *)sender;
     NSInteger index = button.tag;
     
     NSUInteger count = [[numberView subviews] count];
-    if (count < 5) {
+    if (count < 4) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
         label.text = [NSString stringWithFormat:@"%ld", (long) index];
         label.font = [UIFont systemFontOfSize:29.f];
@@ -70,9 +166,16 @@
         label.tag = count + 1;
         [label sizeToFit];
         CGSize size = label.frame.size;
-        label.frame = CGRectMake((29.f - size.width) / 2.f + (count - 1) * 29.f, (29.f - size.height) / 2.f, size.width, size.height);
+        label.frame = CGRectMake((29.f - size.width) / 2.f + count * 29.f, (29.f - size.height) / 2.f, size.width, size.height);
         label.backgroundColor = [UIColor colorWithRed:242.f / 255.f green:242.f / 255.f blue:242.f / 255.f alpha:1.0f];
         [numberView addSubview:label];
+        [codeArray addObject:[NSNumber numberWithInteger:index]];
+        
+        count = [[numberView subviews] count];
+        if (count == 4) {
+            channelCode = [[codeArray valueForKey:@"description"] componentsJoinedByString:@""];
+            [self createChannel];
+        }
     }
 }
 
@@ -83,6 +186,7 @@
     UILabel *label = (UILabel *) [numberView viewWithTag:count];
     if (label) {
         [label removeFromSuperview];
+        [codeArray removeLastObject];
     }
 }
 
@@ -114,10 +218,13 @@
         [button setTitleColor:[UIColor colorWithRed:54.f / 255.f green:152.f / 255.f blue:15.f / 255.f alpha:1.0f] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:22.f];
         button.tag = tag;
-        if (i == 11) {
-            [button addTarget:self action:@selector(onDeleteClicked:) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [button addTarget:self action:@selector(onButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        if (i != 9) {
+            if (i == 11) {
+                [button addTarget:self action:@selector(onDeleteClicked:) forControlEvents:UIControlEventTouchUpInside];
+            } else {
+                [button addTarget:self action:@selector(onButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            }
         }
         
         if (i % 3 == 0) {
