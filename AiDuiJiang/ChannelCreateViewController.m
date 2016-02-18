@@ -11,6 +11,7 @@
 #import "UserAccoutManager.h"
 #import "UserInfo.h"
 #import "AFHTTPSessionManager.h"
+#import "RouteViewController.h"
 
 @implementation ChannelCreateViewController {
     
@@ -29,6 +30,8 @@
     NSString *channelKey;
     
     NSMutableArray *userList;
+    
+    UserAddWattingView *wattingView;
 }
 
 - (void)viewDidLoad {
@@ -84,12 +87,30 @@
     [locationManager startUpdatingLocation];
 }
 
+- (void)pushupWattingView {
+    wattingView = [[UserAddWattingView alloc] initWithFrame:CGRectMake(0, numberView.frame.origin.y - 64.f - 44.f, self.view.frame.size.width, self.view.frame.size.height)];
+    wattingView.delegate = self;
+    [wattingView setNumber:codeArray];
+    [wattingView setUserList:userList];
+    [self.view addSubview:wattingView];
+
+    [UIView animateWithDuration:2.f animations:^{
+        wattingView.frame = CGRectMake(0, numberView.frame.origin.y - 64.f - 44.f, self.view.frame.size.width, self.view.frame.size.height);
+        wattingView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    }];
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = [locations lastObject];
     if (location) {
         lat = location.coordinate.latitude;
         lng = location.coordinate.longitude;
     }
+}
+
+- (void)onJoinButtonClicked {
+    RouteViewController *viewController = [[RouteViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)createChannel {
@@ -122,7 +143,8 @@
                     UserInfo *user = [[UserInfo alloc] initWithDictionary:dict];
                     [userList addObject:user];
                 }
-                NSLog(@"##count %ld", (long)userList.count);
+                
+                [self pushupWattingView];
             } else {
                 [self showToast:@"频道创建失败，请稍后再试"];
             }

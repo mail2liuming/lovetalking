@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol GroupAddDelegate <NSObject>
+
+- (void)onJoinButtonClicked;
+
+@end
+
 @interface UserAddWattingView : UIView
+
+@property (nonatomic, assign) id<GroupAddDelegate> delegate;
+
+- (void)setNumber:(NSMutableArray *)digits;
+
+- (void)setUserList:(NSMutableArray *)userList;
 
 @end

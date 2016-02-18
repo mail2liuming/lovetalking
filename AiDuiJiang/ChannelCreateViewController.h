@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MBProgressHUD.h"
+#import "UserAddWattingView.h"
 
-@interface ChannelCreateViewController : UIViewController <CLLocationManagerDelegate, MBProgressHUDDelegate>
+@interface ChannelCreateViewController : UIViewController <CLLocationManagerDelegate, GroupAddDelegate, MBProgressHUDDelegate>
 
 @end
