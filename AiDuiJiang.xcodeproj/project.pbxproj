@@ -108,6 +108,7 @@
 		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
 		40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E21C0C037E005E5FCD /* SharedMapView.m */; };
 		40A0F3E61C0C2306005E5FCD /* NavPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */; };
+		40B9777D1C7B00BF00FF06C0 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9777C1C7B00BF00FF06C0 /* Channel.m */; };
 		40BBEAB51C74775E00714E15 /* UserAddWattingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BBEAB41C74775E00714E15 /* UserAddWattingView.m */; };
 		40D049B91C23E335002B59E4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D049B81C23E335002B59E4 /* LoginViewController.m */; };
 		40D049BB1C23F8EC002B59E4 /* pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D049BA1C23F8EC002B59E4 /* pic.png */; };
@@ -321,6 +322,8 @@
 		40A0F3E21C0C037E005E5FCD /* SharedMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedMapView.m; sourceTree = "<group>"; };
 		40A0F3E41C0C2306005E5FCD /* NavPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavPointAnnotation.h; sourceTree = "<group>"; };
 		40A0F3E51C0C2306005E5FCD /* NavPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavPointAnnotation.m; sourceTree = "<group>"; };
+		40B9777B1C7B00BF00FF06C0 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
+		40B9777C1C7B00BF00FF06C0 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		40BBEAB31C74775E00714E15 /* UserAddWattingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAddWattingView.h; sourceTree = "<group>"; };
 		40BBEAB41C74775E00714E15 /* UserAddWattingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAddWattingView.m; sourceTree = "<group>"; };
 		40D049B71C23E335002B59E4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -575,6 +578,8 @@
 				4001C7421C5A2B5600390917 /* ChannelCreateViewController.m */,
 				40BBEAB31C74775E00714E15 /* UserAddWattingView.h */,
 				40BBEAB41C74775E00714E15 /* UserAddWattingView.m */,
+				40B9777B1C7B00BF00FF06C0 /* Channel.h */,
+				40B9777C1C7B00BF00FF06C0 /* Channel.m */,
 			);
 			name = channel;
 			sourceTree = "<group>";
@@ -968,6 +973,7 @@
 				40A0F3DA1C0BF922005E5FCD /* DrawerLayout.m in Sources */,
 				405E43D91C27E96C005FC2DC /* SDWebImageCompat.m in Sources */,
 				4018F5731C32833A0021EC48 /* AFNetworkReachabilityManager.m in Sources */,
+				40B9777D1C7B00BF00FF06C0 /* Channel.m in Sources */,
 				404B8DCD1C1EB990009CA9FC /* CustomAnnotationView.m in Sources */,
 				4023FB1C1C58CFA3000B9AB5 /* UserDetailsViewController.m in Sources */,
 				40A0F3E31C0C037E005E5FCD /* SharedMapView.m in Sources */,
