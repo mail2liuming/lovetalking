@@ -18,8 +18,6 @@
 @interface RouteViewController : UIViewController <MAMapViewDelegate, AMapNaviManagerDelegate,
 IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, OnTargetSetProtocol>
 
-@property (nonatomic, weak) MAMapView *mapView;
-
 @property (nonatomic, strong) AMapNaviManager *naviManager;
 
 @property (nonatomic, strong) IFlySpeechSynthesizer *iFlySpeechSynthesizer;

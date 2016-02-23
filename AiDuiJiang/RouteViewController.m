@@ -24,6 +24,8 @@
     MAPointAnnotation *startPoint;    
     
     BOOL calRouteSuccess;
+    
+    MAMapView *routeMapView;
 }
 
 - (void)viewDidLoad {
@@ -41,20 +43,15 @@
     [titleLabel sizeToFit];
     self.navigationItem.titleView = titleLabel;
     
-    if (self.mapView == nil) {
-        self.mapView = [[SharedMapView sharedInstance] mapView];
-    }
-    
-    [[SharedMapView sharedInstance] stashMapViewStatus];
-    self.mapView.frame = self.view.bounds;
-    self.mapView.delegate = self;
+    [MAMapServices sharedServices].apiKey = @"4363c3b646260c230109ff20b2a0ccac";
+    routeMapView = [[MAMapView alloc] init];
     
     if (self.naviManager == nil) {
         _naviManager = [[AMapNaviManager alloc] init];
     }
     self.naviManager.delegate = self;
     
-    self.naviViewController = [[AMapNaviViewController alloc] initWithMapView:self.mapView delegate:self];
+    self.naviViewController = [[AMapNaviViewController alloc] initWithMapView:routeMapView delegate:self];
     
     if (self.iFlySpeechSynthesizer == nil) {
         _iFlySpeechSynthesizer = [IFlySpeechSynthesizer sharedInstance];
@@ -63,15 +60,18 @@
     _iFlySpeechSynthesizer.delegate = self;
     
     [self configMapView];
+    [self setVoiceView];
+}
+
+- (void)setVoiceView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 200.f, self.view.frame.size.width, 200.f)];
+    view.backgroundColor = [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:0.77f];
+    [self.view addSubview:view];
     
-    CGFloat width = self.view.frame.size.width;
-    CGFloat height = self.view.frame.size.height;
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"ic_nav.png"] forState:UIControlStateNormal];
-    button.frame = CGRectMake(width - 10 - 60, height - 10 - 60, 60, 60);
-    [button addTarget:self action:@selector(setDestination) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];   
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 108.f) / 2.f, (200 - 108.f) / 2.f, 108.f, 108.f)];
+    [button setBackgroundImage:[UIImage imageNamed:@"voice_n@2x.png"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"voice_p@2x.png"] forState:UIControlStateHighlighted];
+    [view addSubview:button];
 }
 
 - (void)setDestination {
@@ -91,7 +91,7 @@
     point.title = item.name;
     
     [self.points addObject:point];
-    [self.mapView addAnnotations:self.points];
+    [routeMapView addAnnotations:self.points];
     
     NSArray *startPoints = @[[AMapNaviPoint locationWithLatitude:startPoint.coordinate.latitude longitude:startPoint.coordinate.longitude]];
     NSArray *endPoints = @[[AMapNaviPoint locationWithLatitude:point.coordinate.latitude longitude:point.coordinate.longitude]];
@@ -111,6 +111,13 @@
     }
     
     return nil;
+}
+
+- (void)configMapView {
+    [routeMapView setDelegate:self];
+    routeMapView.frame = CGRectMake(0, 64.f, self.view.frame.size.width, self.view.frame.size.height - 64.f);
+    [self.view insertSubview:routeMapView atIndex:0];
+    routeMapView.showsUserLocation = YES;
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {
@@ -145,40 +152,25 @@
     [self.naviManager dismissNaviViewControllerAnimated:YES];
 }
 
-- (void)configMapView
-{
-    [self.mapView setDelegate:self];
-    self.mapView.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
-    [self.view insertSubview:self.mapView atIndex:0];
-    
-    self.mapView.showsUserLocation = YES;
-}
-
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
     if (updatingLocation) {
         if (startPoint) {
-            [self.mapView removeAnnotation:startPoint];
+            [routeMapView removeAnnotation:startPoint];
         }
         
         startPoint = [[MAPointAnnotation alloc] init];
         startPoint.coordinate = CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude, userLocation.location.coordinate.longitude);
         startPoint.title = @"start";
         
-        [self.mapView addAnnotation:startPoint];
+        [routeMapView addAnnotation:startPoint];
     }
 }
 
-- (void)clearMapView
-{
-    self.mapView.showsUserLocation = NO;
-    
-    [self.mapView removeAnnotations:self.mapView.annotations];
-    
-    [self.mapView removeOverlays:self.mapView.overlays];
-    
-    self.mapView.delegate = nil;
-    
-    [[SharedMapView sharedInstance] popMapViewStatus];
+- (void)clearMapView {
+    routeMapView.showsUserLocation = NO;
+    [routeMapView removeAnnotations:routeMapView.annotations];
+    [routeMapView removeOverlays:routeMapView.overlays];
+    routeMapView.delegate = nil;
 }
 
 - (void)naviManager:(AMapNaviManager *)naviManager error:(NSError *)error {
@@ -199,7 +191,7 @@
     if (!route) return;
     
     if (_polyline) {
-        [self.mapView removeOverlay:_polyline];
+        [routeMapView removeOverlay:_polyline];
         self.polyline = nil;
     }
     
@@ -212,7 +204,7 @@
     }
     
     _polyline = [MAPolyline polylineWithCoordinates:coordinates count:coordianteCount];
-    [self.mapView addOverlay:_polyline];
+    [routeMapView addOverlay:_polyline];
 }
 
 - (void)naviManager:(AMapNaviManager *)naviManager onCalculateRouteFailure:(NSError *)error {

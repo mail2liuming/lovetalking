@@ -16,6 +16,7 @@
 #import "AFHTTPSessionManager.h"
 #import "Channel.h"
 #import "UIImageView+WebCache.h"
+#import "RouteViewController.h"
 
 #define TAG_FACE_TO_FACE     1001
 #define TAG_PUBLICK_NO       1002
@@ -220,6 +221,9 @@
 
 - (UIView *)getChannelView:(Channel *)channel atIndex:(NSInteger)index withOffset:(CGFloat)offset {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, index * 76.f + offset, self.view.frame.size.width, 76.f)];
+    view.tag = [channel.cid integerValue];
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onChannelClicked:)];
+    [view addGestureRecognizer:singleTap];
     CALayer *border = [CALayer layer];
     border.frame = CGRectMake(0, 75.4f, self.view.frame.size.width, 0.6f);
     border.backgroundColor = [UIColor colorWithRed:221.f / 255 green:221.f / 255 blue:221.f / 255 alpha:1.0f].CGColor;
@@ -268,6 +272,14 @@
     }
     
     return view;
+}
+
+- (void)onChannelClicked:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
+    NSInteger tag = [tap view].tag;
+    
+    RouteViewController *viewController = [[RouteViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 
