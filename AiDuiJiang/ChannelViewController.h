@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "DestinationViewController.h"
+#import "Channel.h"
+#import "SendDataBackDelegate.h"
+#import "MBProgressHUD.h"
 
 @class SearchItem;
 
@@ -17,8 +20,10 @@
 
 @end
 
-@interface ChannelViewController : UIViewController<SendDataProtocol>
+@interface ChannelViewController : UIViewController<SendDataProtocol, CLLocationManagerDelegate, MBProgressHUDDelegate, SendDataBackDelegate>
 
 @property (nonatomic, assign) id delegate;
+
+@property (nonatomic, strong) Channel *channel;
 
 @end

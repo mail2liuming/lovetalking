@@ -34,16 +34,15 @@
     
     self.points = [NSMutableArray array];
     
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightButton setImage:[UIImage imageNamed:@"more@2x.png"] forState:UIControlStateNormal];
+    rightButton.frame = CGRectMake(0, 0, 21, 21);
+    [rightButton addTarget:self action:@selector(onRightButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    
     calRouteSuccess = NO;
     
-    UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor blackColor];
-    titleLabel.text = @"路径规划";
-    [titleLabel sizeToFit];
-    self.navigationItem.titleView = titleLabel;
-    
-    [MAMapServices sharedServices].apiKey = @"4363c3b646260c230109ff20b2a0ccac";
+    self.title = [NSString stringWithFormat:@"%@（%ld人）", self.channel.name, self.channel.followers];
     routeMapView = [[MAMapView alloc] init];
     
     if (self.naviManager == nil) {
@@ -61,6 +60,14 @@
     
     [self configMapView];
     [self setVoiceView];
+}
+
+- (void)onRightButtonClicked {
+    ChannelViewController *controller = [[ChannelViewController alloc] init];
+    controller.channel = self.channel;
+    controller.delegate = self;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)setVoiceView {

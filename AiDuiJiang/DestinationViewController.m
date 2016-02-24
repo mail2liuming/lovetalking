@@ -29,14 +29,9 @@ static NSString* const cellIdentifier = @"cell_id";
     [super viewDidLoad];
     
     dataArray = [[NSMutableArray alloc] initWithCapacity:0];
+    self.title = @"目的地";
     
     self.view.backgroundColor = [UIColor whiteColor];
-    UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor blackColor];
-    titleLabel.text = @"目的地";
-    [titleLabel sizeToFit];
-    self.navigationItem.titleView = titleLabel;
     
     CGFloat width = self.view.frame.size.width;
     
@@ -111,7 +106,7 @@ static NSString* const cellIdentifier = @"cell_id";
     
     [dataTableView deselectRowAtIndexPath:indexPath animated:NO];
     if (self.delegate) {
-        [self.delegate sendDataBack:item];
+        [self.delegate searchResult:item];
     }
     
     [self.navigationController popViewControllerAnimated:YES];

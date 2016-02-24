@@ -71,6 +71,8 @@
     
     [navigationBar setBarTintColor:[UIColor colorWithRed:45.0f / 255.f green:45.0f / 255.f blue:45.0f / 255.f alpha:1.0f]];
     [navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor  whiteColor]}];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    
     if ([[UINavigationBar class] instancesRespondToSelector:@selector(setBackIndicatorImage:)]) {
         navigationBar.backIndicatorImage = [UIImage imageNamed:@"icon_back@2x.png"];
         navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"icon_back@2x.png"];

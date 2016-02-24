@@ -12,7 +12,7 @@
 
 @protocol SendDataProtocol <NSObject>
 
--(void)sendDataBack:(SearchItem *)item;
+-(void)searchResult:(SearchItem *)item;
 
 @end
 

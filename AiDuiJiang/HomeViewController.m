@@ -221,7 +221,7 @@
 
 - (UIView *)getChannelView:(Channel *)channel atIndex:(NSInteger)index withOffset:(CGFloat)offset {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, index * 76.f + offset, self.view.frame.size.width, 76.f)];
-    view.tag = [channel.cid integerValue];
+    view.tag = index;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onChannelClicked:)];
     [view addGestureRecognizer:singleTap];
     CALayer *border = [CALayer layer];
@@ -276,9 +276,11 @@
 
 - (void)onChannelClicked:(id)sender {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
-    NSInteger tag = [tap view].tag;
+    NSInteger index = [tap view].tag;
+    Channel *channel = [channelList objectAtIndex:index];
     
     RouteViewController *viewController = [[RouteViewController alloc] init];
+    viewController.channel = channel;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

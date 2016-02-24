@@ -69,6 +69,10 @@
 		402814BA1C05CDB900765D3F /* iflyMSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402814B81C05CDB900765D3F /* iflyMSC.framework */; };
 		402814BD1C05CE0200765D3F /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 402814BB1C05CE0200765D3F /* AMap.bundle */; };
 		402814BE1C05CE0200765D3F /* AMapNavi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 402814BC1C05CE0200765D3F /* AMapNavi.bundle */; };
+		40305F311C7D57F8009E3D48 /* ChannelDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 40305F301C7D57F8009E3D48 /* ChannelDetails.m */; };
+		40305F351C7D8F6C009E3D48 /* icon_delete_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 40305F321C7D8F6C009E3D48 /* icon_delete_btn.png */; };
+		40305F361C7D8F6C009E3D48 /* icon_manage_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 40305F331C7D8F6C009E3D48 /* icon_manage_add.png */; };
+		40305F371C7D8F6C009E3D48 /* icon_manage_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 40305F341C7D8F6C009E3D48 /* icon_manage_delete.png */; };
 		404B8DCA1C1EB56D009CA9FC /* target.png in Resources */ = {isa = PBXBuildFile; fileRef = 404B8DC91C1EB56D009CA9FC /* target.png */; };
 		404B8DCD1C1EB990009CA9FC /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 404B8DCC1C1EB990009CA9FC /* CustomAnnotationView.m */; };
 		404B8DCF1C1ECAAD009CA9FC /* start_point.png in Resources */ = {isa = PBXBuildFile; fileRef = 404B8DCE1C1ECAAD009CA9FC /* start_point.png */; };
@@ -252,6 +256,11 @@
 		402814B81C05CDB900765D3F /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = sdk/iflyMSC.framework; sourceTree = "<group>"; };
 		402814BB1C05CE0200765D3F /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = sdk/AMap.bundle; sourceTree = "<group>"; };
 		402814BC1C05CE0200765D3F /* AMapNavi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMapNavi.bundle; path = sdk/AMapNavi.bundle; sourceTree = "<group>"; };
+		40305F2F1C7D57F8009E3D48 /* ChannelDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelDetails.h; sourceTree = "<group>"; };
+		40305F301C7D57F8009E3D48 /* ChannelDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelDetails.m; sourceTree = "<group>"; };
+		40305F321C7D8F6C009E3D48 /* icon_delete_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_delete_btn.png; sourceTree = "<group>"; };
+		40305F331C7D8F6C009E3D48 /* icon_manage_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_manage_add.png; sourceTree = "<group>"; };
+		40305F341C7D8F6C009E3D48 /* icon_manage_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_manage_delete.png; sourceTree = "<group>"; };
 		404B8DC91C1EB56D009CA9FC /* target.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target.png; sourceTree = "<group>"; };
 		404B8DCB1C1EB990009CA9FC /* CustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotationView.h; sourceTree = "<group>"; };
 		404B8DCC1C1EB990009CA9FC /* CustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationView.m; sourceTree = "<group>"; };
@@ -531,6 +540,9 @@
 		4061225B1C191EFC00EFE9F2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				40305F321C7D8F6C009E3D48 /* icon_delete_btn.png */,
+				40305F331C7D8F6C009E3D48 /* icon_manage_add.png */,
+				40305F341C7D8F6C009E3D48 /* icon_manage_delete.png */,
 				4016419B1C7C0E650051F63B /* home_bg_1.png */,
 				401641971C7C0BC00051F63B /* voice_n@2x.png */,
 				401641981C7C0BC00051F63B /* voice_p@2x.png */,
@@ -589,6 +601,8 @@
 				40BBEAB41C74775E00714E15 /* UserAddWattingView.m */,
 				40B9777B1C7B00BF00FF06C0 /* Channel.h */,
 				40B9777C1C7B00BF00FF06C0 /* Channel.m */,
+				40305F2F1C7D57F8009E3D48 /* ChannelDetails.h */,
+				40305F301C7D57F8009E3D48 /* ChannelDetails.m */,
 			);
 			name = channel;
 			sourceTree = "<group>";
@@ -857,6 +871,7 @@
 				409997F61C50DE9B0007C39E /* icon_setting@2x.png in Resources */,
 				408FB95F1C4F8A6400FC338B /* menu@2x.png in Resources */,
 				4014C4A01C19768500735DA6 /* ic_search.png in Resources */,
+				40305F351C7D8F6C009E3D48 /* icon_delete_btn.png in Resources */,
 				40793B821C576A8800EBFDD6 /* ProvincesAndCities.plist in Resources */,
 				4001C72A1C59FA1D00390917 /* more@2x.png in Resources */,
 				4001C72C1C59FD2000390917 /* icon_back@2x.png in Resources */,
@@ -865,6 +880,7 @@
 				4001C7271C59CC5A00390917 /* femail@2x.png in Resources */,
 				4061225D1C191F0A00EFE9F2 /* ic_nav.png in Resources */,
 				409997F41C50DE9B0007C39E /* icon_mycar@2x.png in Resources */,
+				40305F361C7D8F6C009E3D48 /* icon_manage_add.png in Resources */,
 				404B8DCA1C1EB56D009CA9FC /* target.png in Resources */,
 				4001C73A1C5A215900390917 /* home_icon_cy_n.png in Resources */,
 				401641991C7C0BC00051F63B /* voice_n@2x.png in Resources */,
@@ -896,6 +912,7 @@
 				474B5C061C18168200E6770D /* DrawerContent.xib in Resources */,
 				4023FB0E1C58AE67000B9AB5 /* icon_qq@2x.png in Resources */,
 				4001C7331C5A1BED00390917 /* point_big.png in Resources */,
+				40305F371C7D8F6C009E3D48 /* icon_manage_delete.png in Resources */,
 				4023FB0F1C58AE67000B9AB5 /* icon_weixin@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -931,6 +948,7 @@
 				405E43E21C27E96C005FC2DC /* UIImage+WebP.m in Sources */,
 				4018F5901C328D2A0021EC48 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				405E43E41C27E96C005FC2DC /* UIImageView+WebCache.m in Sources */,
+				40305F311C7D57F8009E3D48 /* ChannelDetails.m in Sources */,
 				4018F5921C328D2A0021EC48 /* UIImageView+AFNetworking.m in Sources */,
 				4018F5771C32833A0021EC48 /* AFURLSessionManager.m in Sources */,
 				40013A9A1C562B4F00293E3D /* InfoViewController.m in Sources */,

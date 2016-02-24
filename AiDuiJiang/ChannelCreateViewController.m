@@ -175,6 +175,7 @@
         locationManager = nil;
     }
 }
+
 - (void)onButtonClicked:(id)sender {
     UIButton *button = (UIButton *)sender;
     NSInteger index = button.tag;
