@@ -24,11 +24,15 @@
 
 @implementation HomeViewController {
     
-    MAMapView *mapView;
-    
     MenuViewController *menuViewController;
     
     NSMutableArray *channelList;
+    
+    UIView *bottomView;
+    
+    UIView *channelView;
+    
+    MAMapView *navMapView;
 }
 
 - (void)viewDidLoad {
@@ -49,20 +53,12 @@
     menuViewController = (MenuViewController *) slideController.leftMenu;
     menuViewController.delegate = self;
     
-    mapView = [[SharedMapView sharedInstance] mapView];
-    [[SharedMapView sharedInstance] stashMapViewStatus];
-    mapView.frame = self.view.bounds;
-    mapView.delegate = self;
-    [self.view addSubview:mapView];
-    mapView.showsUserLocation = YES;
+    channelView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:channelView];
     
-    [self requestChannel];
-}
-
-- (void)setupBottomView {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 124.f, self.view.frame.size.width, 124.f)];
-    view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:view];
+    bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 124.f, self.view.frame.size.width, 124.f)];
+    bottomView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:bottomView];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.text = @"新建频道";
@@ -71,7 +67,7 @@
     [label sizeToFit];
     CGSize size = label.frame.size;
     label.frame = CGRectMake(18.f, 10.f, size.width, size.height);
-    [view addSubview:label];
+    [bottomView addSubview:label];
     
     NSArray *titles = @[@"面对面", @"公共频道", @"通过车友"];
     NSArray *images1 = @[@"home_icon_mdm_n.png", @"home_icon_gg_n.png", @"home_icon_cy_n.png"];
@@ -81,7 +77,31 @@
                                      withImage:[images1 objectAtIndex:i]
                                      andImage2:[images2 objectAtIndex:i]
                                             at:i];
-        [view addSubview:itemView];
+        [bottomView addSubview:itemView];
+    }
+    
+    [self requestChannel];
+    
+    navMapView = [[SharedMapView sharedInstance] mapView];
+    [[SharedMapView sharedInstance] stashMapViewStatus];
+    
+    [self configMapView];
+}
+
+- (void)configMapView {
+    navMapView.delegate = self;
+    navMapView.frame = CGRectMake(0, 64.f, self.view.frame.size.width, self.view.frame.size.height - 64.f);
+    [self.view insertSubview:navMapView atIndex:0];
+    navMapView.showsUserLocation = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self configMapView];    
+}
+
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
+    if (updatingLocation) {
     }
 }
 
@@ -113,14 +133,11 @@
                 [self setupChannelList];
             }
         }
-        [self setupBottomView];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self setupBottomView];
     }];
 }
 
 - (UIView *)getButtonView:(NSString *)title withImage:(NSString *)image andImage2:(NSString *)image2 at:(NSInteger)index {
-    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.text = title;
     label.font = [UIFont systemFontOfSize:17.f];
@@ -192,6 +209,10 @@
 }
 
 - (void)setupChannelList {
+    for (UIView *subview in channelView.subviews) {
+        [subview removeFromSuperview];
+    }
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.text = @"最近使用频道";
     label.textColor = [UIColor colorWithRed:179.f/255.f green:179.f/255.f blue:179.f/255.f alpha:1.f];
@@ -204,18 +225,17 @@
     
     CGFloat height = 76.f * count + 8.f + 6.f + 2.f + size.height;
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(8.f, self.view.frame.size.height - 124.f - height + 8.f,
-                                                            self.view.frame.size.width - 16.f, height)];
-    view.layer.cornerRadius = 4.f;
-    view.layer.borderWidth = 0.6f;
-    view.layer.borderColor = [[UIColor colorWithRed:221.f / 255.f green:221.f / 255.f blue:221.f / 255.f alpha:1.0f] CGColor];
-    view.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.76f];
-    [self.view addSubview:view];
-    [view addSubview:label];
+    channelView.frame = CGRectMake(8.f, self.view.frame.size.height - 124.f - height + 8.f,
+                                   self.view.frame.size.width - 16.f, height);
+    channelView.layer.cornerRadius = 4.f;
+    channelView.layer.borderWidth = 0.6f;
+    channelView.layer.borderColor = [[UIColor colorWithRed:221.f / 255.f green:221.f / 255.f blue:221.f / 255.f alpha:1.0f] CGColor];
+    channelView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.76f];
+    [channelView addSubview:label];
     
     for (NSInteger i = 0; i < count; i++) {
         UIView *itemView = [self getChannelView:[channelList objectAtIndex:i] atIndex:i withOffset:2 + size.height + 6];
-        [view addSubview:itemView];
+        [channelView addSubview:itemView];
     }
 }
 
@@ -246,6 +266,10 @@
     [view addSubview:label];
     
     return view;
+}
+
+- (void)onChannelInfoChanged {
+    [self requestChannel];
 }
 
 - (UIView *)getAvatarView:(NSMutableArray *)icons {
@@ -281,6 +305,7 @@
     
     RouteViewController *viewController = [[RouteViewController alloc] init];
     viewController.channel = channel;
+    viewController.infoChangeDelegate = self;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

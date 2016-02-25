@@ -15,9 +15,10 @@
 #import "iflyMSC/IFlySpeechSynthesizerDelegate.h"
 #import "ChannelViewController.h"
 #import "Channel.h"
+#import "ChannelInfoChangeDelegate.h"
 
 @interface RouteViewController : UIViewController <MAMapViewDelegate, AMapNaviManagerDelegate,
-IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, OnTargetSetProtocol>
+IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, ChannelInfoChangeDelegate, OnTargetSetProtocol>
 
 @property (nonatomic, strong) AMapNaviManager *naviManager;
 
@@ -32,5 +33,7 @@ IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, OnTargetSetProtoc
 @property (nonatomic, strong) AMapNaviViewController *naviViewController;
 
 @property (nonatomic, strong) Channel *channel;
+
+@property (nonatomic, assign) id<ChannelInfoChangeDelegate> infoChangeDelegate;
 
 @end

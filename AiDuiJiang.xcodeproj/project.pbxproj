@@ -178,6 +178,7 @@
 		4001C7391C5A215900390917 /* home_icon_mdm_p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_icon_mdm_p.png; sourceTree = "<group>"; };
 		4001C7411C5A2B5600390917 /* ChannelCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCreateViewController.h; sourceTree = "<group>"; };
 		4001C7421C5A2B5600390917 /* ChannelCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCreateViewController.m; sourceTree = "<group>"; };
+		40044DD71C7EA02000A5B2EA /* ChannelInfoChangeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelInfoChangeDelegate.h; sourceTree = "<group>"; };
 		4014C49A1C19696C00735DA6 /* ic_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_indicator.png; sourceTree = "<group>"; };
 		4014C49C1C196F8900735DA6 /* DestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationViewController.h; sourceTree = "<group>"; };
 		4014C49D1C196F8900735DA6 /* DestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationViewController.m; sourceTree = "<group>"; };
@@ -603,6 +604,7 @@
 				40B9777C1C7B00BF00FF06C0 /* Channel.m */,
 				40305F2F1C7D57F8009E3D48 /* ChannelDetails.h */,
 				40305F301C7D57F8009E3D48 /* ChannelDetails.m */,
+				40044DD71C7EA02000A5B2EA /* ChannelInfoChangeDelegate.h */,
 			);
 			name = channel;
 			sourceTree = "<group>";

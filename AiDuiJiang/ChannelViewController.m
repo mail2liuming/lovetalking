@@ -165,6 +165,10 @@
             [progress hide:YES];
 
             [self showToast:code == 0 ? @"修改成功" : @"修改失败，请稍后再试"];
+            
+            if (code == 0 && self.infoChangeDelegate) {
+                [self.infoChangeDelegate onChannelInfoChanged];
+            }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [progress hide:YES];

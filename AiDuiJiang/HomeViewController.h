@@ -11,8 +11,9 @@
 #import "MenuViewController.h"
 #import <AMapNaviKit/MAMapKit.h>
 #import "InfoViewController.h"
+#import "ChannelInfoChangeDelegate.h"
 
 @interface HomeViewController : UIViewController <SlideNavigationControllerDelegate, SlideMeneDelegate,
-MAMapViewDelegate, OnInfoChangeDelegate>
+MAMapViewDelegate, OnInfoChangeDelegate, ChannelInfoChangeDelegate>
 
 @end

@@ -62,10 +62,17 @@
     [self setVoiceView];
 }
 
+- (void)onChannelInfoChanged {
+    if (self.infoChangeDelegate) {
+        [self.infoChangeDelegate onChannelInfoChanged];
+    }
+}
+
 - (void)onRightButtonClicked {
     ChannelViewController *controller = [[ChannelViewController alloc] init];
     controller.channel = self.channel;
     controller.delegate = self;
+    controller.infoChangeDelegate = self;
     
     [self.navigationController pushViewController:controller animated:YES];
 }
