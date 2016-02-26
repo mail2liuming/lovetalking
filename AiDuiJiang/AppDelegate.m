@@ -37,6 +37,12 @@
 - (void)configAPIKey {
     [AMapNaviServices sharedServices].apiKey = @"4363c3b646260c230109ff20b2a0ccac";
     [MAMapServices sharedServices].apiKey = @"4363c3b646260c230109ff20b2a0ccac";
+    
+    
+    NSLog(@"###map version %@", [MAMapServices sharedServices].SDKVersion);
+    NSLog(@"###nav version %@", [AMapNaviServices sharedServices].SDKVersion);
+
+    
 }
 
 - (void)configIFlySpeech

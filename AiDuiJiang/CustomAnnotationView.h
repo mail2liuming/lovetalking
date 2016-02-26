@@ -6,7 +6,7 @@
 //  Copyright © 2015年 liu. All rights reserved.
 //
 
-#import <AMapNaviKit/AMapNaviKit.h>
+#import <AMapNaviKit/MAAnnotationView.h>
 
 @interface CustomAnnotationView : MAAnnotationView
 

@@ -9,7 +9,6 @@
 #import "RouteViewController.h"
 #import "SharedMapView.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "NavPointAnnotation.h"
 #import "ChannelViewController.h"
 #import "SearchItem.h"
 #import "CustomAnnotationView.h"
@@ -26,13 +25,16 @@
     BOOL calRouteSuccess;
     
     MAMapView *routeMapView;
+    
+    AMapNaviViewController *naviViewController;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.points = [NSMutableArray array];
+    self.points = [NSMutableArray array];    
+    
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightButton setImage:[UIImage imageNamed:@"more@2x.png"] forState:UIControlStateNormal];
@@ -43,14 +45,15 @@
     calRouteSuccess = NO;
     
     self.title = [NSString stringWithFormat:@"%@（%ld人）", self.channel.name, self.channel.followers];
-    routeMapView = [[MAMapView alloc] init];
+    routeMapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:routeMapView];
     
     if (self.naviManager == nil) {
         _naviManager = [[AMapNaviManager alloc] init];
     }
     self.naviManager.delegate = self;
     
-    self.naviViewController = [[AMapNaviViewController alloc] initWithMapView:routeMapView delegate:self];
+    naviViewController = [[AMapNaviViewController alloc] initWithDelegate:self];
     
     if (self.iFlySpeechSynthesizer == nil) {
         _iFlySpeechSynthesizer = [IFlySpeechSynthesizer sharedInstance];
@@ -60,6 +63,11 @@
     
     [self configMapView];
     [self setVoiceView];
+    
+    UIButton *navButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 12.f - 60.f, self.view.frame.size.height - 200.f - 60.f - 12.f, 60.f, 60.f)];
+    [navButton setBackgroundImage:[UIImage imageNamed:@"ic_nav.png"] forState:UIControlStateNormal];
+    [navButton addTarget:self action:@selector(setDestination) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:navButton];
 }
 
 - (void)onChannelInfoChanged {
@@ -90,12 +98,9 @@
 
 - (void)setDestination {
     if (calRouteSuccess == NO) {
-        ChannelViewController *controller = [[ChannelViewController alloc] init];
-        controller.delegate = self;
-        
-        [self.navigationController pushViewController:controller animated:YES];
+        [self onRightButtonClicked];
     } else {
-        [self.naviManager presentNaviViewController:self.naviViewController animated:YES];
+        [self.naviManager presentNaviViewController:naviViewController animated:YES];
     }
 }
 
@@ -128,10 +133,11 @@
 }
 
 - (void)configMapView {
-    [routeMapView setDelegate:self];
-    routeMapView.frame = CGRectMake(0, 64.f, self.view.frame.size.width, self.view.frame.size.height - 64.f);
-    [self.view insertSubview:routeMapView atIndex:0];
+    routeMapView.visibleMapRect = MAMapRectMake(220880104, 101476980, 272496, 466656);
+    routeMapView.delegate = self;
     routeMapView.showsUserLocation = YES;
+    routeMapView.mapType = MAMapTypeStandard;
+    routeMapView.frame = self.view.bounds;
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation {

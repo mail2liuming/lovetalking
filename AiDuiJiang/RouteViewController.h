@@ -30,8 +30,6 @@ IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, ChannelInfoChange
 
 @property (nonatomic, strong) NSMutableArray *points;
 
-@property (nonatomic, strong) AMapNaviViewController *naviViewController;
-
 @property (nonatomic, strong) Channel *channel;
 
 @property (nonatomic, assign) id<ChannelInfoChangeDelegate> infoChangeDelegate;

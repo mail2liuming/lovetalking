@@ -82,22 +82,13 @@
     
     [self requestChannel];
     
-    navMapView = [[SharedMapView sharedInstance] mapView];
-    [[SharedMapView sharedInstance] stashMapViewStatus];
-    
-    [self configMapView];
-}
-
-- (void)configMapView {
+    navMapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
+    navMapView.visibleMapRect = MAMapRectMake(220880104, 101476980, 272496, 466656);
     navMapView.delegate = self;
-    navMapView.frame = CGRectMake(0, 64.f, self.view.frame.size.width, self.view.frame.size.height - 64.f);
-    [self.view insertSubview:navMapView atIndex:0];
     navMapView.showsUserLocation = YES;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self configMapView];    
+    navMapView.mapType = MAMapTypeStandard;
+    
+    [self.view insertSubview:navMapView atIndex:0];
 }
 
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
