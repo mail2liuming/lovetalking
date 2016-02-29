@@ -14,12 +14,17 @@
 #import "AFHTTPSessionManager.h"
 #import "ChannelDetails.h"
 #import "UIImageView+WebCache.h"
+#import "AddListViewController.h"
 #import "InfoEditViewController.h"
 
 #define TAG_NAME        100
 #define TAG_DESTINATION 101
 #define TAG_DEST_LABEL  102
 #define TAG_NAME_LABEL  103
+#define TAG_USER_ADD    104
+#define TAG_USER_DELETE 105
+#define TAG_BASE_INDEX  106
+#define DELETE_INDEX    12345
 
 @interface ChannelViewController ()
 
@@ -40,6 +45,8 @@
     
     SearchItem *searchItem;
     
+    UIButton *confirmButton;
+    
     double lat, lng;
 }
 
@@ -47,6 +54,15 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:242.f / 255 green:242.f / 255 blue:242.f / 255 alpha:1.0f];
     self.title = [NSString stringWithFormat:@"%@（%ld人）", self.channel.name, (long)self.channel.followers];
+    
+    confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44.f, 44.f)];
+    [confirmButton setTitle:@"完成" forState:UIControlStateNormal];
+    [confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [confirmButton setTitleColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0f] forState:UIControlStateHighlighted];
+    [confirmButton addTarget:self action:@selector(onFinishButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    confirmButton.hidden = YES;
+    confirmButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:confirmButton];
     
     userGroupView = [[UIView alloc] initWithFrame:CGRectZero];
     userGroupView.backgroundColor = [UIColor whiteColor];
@@ -256,7 +272,7 @@
             x = j * width;
             y = i * height;
             NSInteger index = i * columns + j;
-            UIView *cellView = [self getCellView:[userList objectAtIndex:index]];
+            UIView *cellView = [self getCellView:[userList objectAtIndex:index] atIndex:index];
             cellView.frame = CGRectMake(x, y, width, height);
             [userGroupView addSubview:cellView];
         }
@@ -368,9 +384,43 @@
     return view;
 }
 
-- (UIView *)getCellView:(UserInfo *)info {
+- (void)onFinishButtonClicked {
+    confirmButton.hidden = YES;
+    [self notifyUserListStatus];
+}
+
+- (void)onTapped:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
+    NSInteger tag = [tap view].tag;
+    
+    if (tag == TAG_USER_ADD) {
+        AddListViewController *viewController = [[AddListViewController alloc] init];
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else if (tag == TAG_USER_DELETE) {
+        if (confirmButton.hidden == YES) {
+            confirmButton.hidden = NO;
+            [self notifyUserListStatus];
+        }
+    }
+}
+
+- (void)notifyUserListStatus {
+    NSInteger count = [[userGroupView subviews] count];
+    for (NSInteger i = 0; i < count; i++) {
+        UIView *subView = [userGroupView viewWithTag:(TAG_BASE_INDEX + i)];
+        if (subView) {
+            UIButton *button = (UIButton *)[subView viewWithTag:(DELETE_INDEX + i)];
+            if (button) {
+                button.hidden = button.hidden != YES;
+            }
+        }
+    }
+}
+
+- (UIView *)getCellView:(UserInfo *)info atIndex:(NSInteger)index {
     CGFloat width = self.view.frame.size.width / 4.f;
     UIView *view = [[UIView alloc] init];
+    view.tag = TAG_BASE_INDEX + index;
     
     NSString *userName = info.nickname;
     
@@ -382,9 +432,11 @@
     NSString *userId = [NSString stringWithFormat:@"%@", info.userid];
     if ([userId isEqualToString:@"add"]) {
         imageView.image = [UIImage imageNamed:@"icon_manage_add.png"];
+        view.tag = TAG_USER_ADD;
         userName = @"";
     } else if ([userId isEqualToString:@"delete"]) {
         imageView.image = [UIImage imageNamed:@"icon_manage_delete.png"];
+        view.tag = TAG_USER_DELETE;
         userName = @"";
     } else {
         [imageView sd_setImageWithURL:[NSURL URLWithString:info.avatar] placeholderImage:nil];
@@ -392,8 +444,13 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setBackgroundImage:[UIImage imageNamed:@"icon_delete_btn.png"] forState:UIControlStateNormal];
         button.frame = CGRectMake(imageView.frame.origin.x + imageView.frame.size.width - 10.f, imageView.frame.origin.y - 5.f, 17.f, 17.f);
+        button.hidden = YES;
+        button.tag = DELETE_INDEX + index;
         [view addSubview:button];
     }
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapped:)];
+    [view addGestureRecognizer:singleTap];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.text = userName;

@@ -8,7 +8,6 @@
 
 #import "HomeViewController.h"
 #import "InfoViewController.h"
-#import "SharedMapView.h"
 #import "SettingsViewController.h"
 #import "FriendListViewController.h"
 #import "ChannelCreateViewController.h"
