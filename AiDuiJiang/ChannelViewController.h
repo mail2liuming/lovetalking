@@ -12,6 +12,7 @@
 #import "SendDataBackDelegate.h"
 #import "MBProgressHUD.h"
 #import "ChannelInfoChangeDelegate.h"
+#import "AddListViewController.h"
 
 @class SearchItem;
 
@@ -21,7 +22,7 @@
 
 @end
 
-@interface ChannelViewController : UIViewController<SendDataProtocol, CLLocationManagerDelegate, MBProgressHUDDelegate, SendDataBackDelegate>
+@interface ChannelViewController : UIViewController<SendDataProtocol, CLLocationManagerDelegate, MBProgressHUDDelegate, SendDataBackDelegate, UserAddedDelegate>
 
 @property (nonatomic, assign) id<OnTargetSetProtocol> delegate;
 

@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 
-@interface AddListViewController : UIViewController
+@protocol UserAddedDelegate <NSObject>
+
+- (void)onUserAdded;
+
+@end
+
+
+@interface AddListViewController : UITableViewController <UITableViewDataSource, MBProgressHUDDelegate, UITableViewDelegate>
+
+@property (nonatomic, strong) NSString *channelId;
+
+@property (nonatomic, assign) id<UserAddedDelegate> delegate;
+
 
 @end

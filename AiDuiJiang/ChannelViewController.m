@@ -16,6 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "AddListViewController.h"
 #import "InfoEditViewController.h"
+#import "UserDetailsViewController.h"
 
 #define TAG_NAME        100
 #define TAG_DESTINATION 101
@@ -25,6 +26,8 @@
 #define TAG_USER_DELETE 105
 #define TAG_BASE_INDEX  106
 #define DELETE_INDEX    12345
+
+#define BASE_URL @"http://m.icall.sogou.com/channel/1.0/%@.html?sgid=%@&t=%@"
 
 @interface ChannelViewController ()
 
@@ -113,12 +116,9 @@
 }
 
 - (void)request {
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-    UserInfo *userInfo = [accoutManager getUserInfo];
-    NSString *sgid = userInfo.sgid;
-    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid", nil];
+    NSString *url = [self getUrl:@"detail" withParams:params];
     
-    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/channel/1.0/detail.html?sgid=%@&t=%@&cid=%@", sgid, timestamp, self.channel.cid];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -164,13 +164,10 @@
 - (void)setChannelName:(NSString *)name {
     [self showProgress];
     
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-    UserInfo *userInfo = [accoutManager getUserInfo];
-    NSString *sgid = userInfo.sgid;
-    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
+                                   [name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"name", nil];
+    NSString *url = [self getUrl:@"name" withParams:params];
     
-    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/channel/1.0/name.html?sgid=%@&t=%@&cid=%@&name=%@",
-                     sgid, timestamp, self.channel.cid, [name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -195,14 +192,11 @@
 - (void)setDestination:(NSString *)destination {
     [self showProgress];
     
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-    UserInfo *userInfo = [accoutManager getUserInfo];
-    NSString *sgid = userInfo.sgid;
-    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
+                                   [destination stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"des",
+                                   [NSString stringWithFormat:@"%f,%f", lat, lng], @"loc", nil];
+    NSString *url = [self getUrl:@"location" withParams:params];
     
-    NSString *loc = [NSString stringWithFormat:@"%f,%f", lat, lng];
-    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/channel/1.0/location.html?sgid=%@&t=%@&cid=%@&des=%@&loc=%@",
-                     sgid, timestamp, self.channel.cid, [destination stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], loc];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -283,7 +277,6 @@
     for (UIView *subView in itemGroupView.subviews) {
         [subView removeFromSuperview];
     }
-    
     
     NSString *channelName = channelDetails.name;
     if (channelName == nil || channelName.length == 0) {
@@ -389,19 +382,67 @@
     [self notifyUserListStatus];
 }
 
+- (void)onUserAdded {
+    [self request];
+}
+
 - (void)onTapped:(id)sender {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
     NSInteger tag = [tap view].tag;
     
     if (tag == TAG_USER_ADD) {
         AddListViewController *viewController = [[AddListViewController alloc] init];
+        viewController.channelId = self.channel.cid;
+        viewController.delegate = self;
         [self.navigationController pushViewController:viewController animated:YES];
     } else if (tag == TAG_USER_DELETE) {
         if (confirmButton.hidden == YES) {
             confirmButton.hidden = NO;
             [self notifyUserListStatus];
         }
+    } else {
+        NSInteger index = tag - TAG_BASE_INDEX;
+        UserInfo *userInfo = [userList objectAtIndex:index];
+        if (confirmButton.hidden == YES) {
+            UserDetailsViewController *viewController = [[UserDetailsViewController alloc] init];
+            viewController.userItemInfo = userInfo;
+            viewController.userInfoType = 234;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else {
+            [self deleteMember:userInfo.userid];
+        }
     }
+}
+
+- (void)deleteMember:(NSString *)userId {
+    [self showProgress];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
+    userId, @"user", nil];
+    NSString *url = [self getUrl:@"kick" withParams:params];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        progress.hidden = YES;
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            NSInteger code = [[responseObject objectForKey:@"errno"] integerValue];
+            if (code == 0) {
+                if (self.infoChangeDelegate) {
+                    [self.infoChangeDelegate onChannelInfoChanged];
+                }
+                [self showToast:@"删除成功"];
+                [self request];
+            } else {
+                [self showToast:[responseObject objectForKey:@"errmsg"]];
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        progress.hidden = YES;
+        [self showToast:@"删除失败，请稍后再试"];
+    }];
 }
 
 - (void)notifyUserListStatus {
@@ -441,8 +482,7 @@
     } else {
         [imageView sd_setImageWithURL:[NSURL URLWithString:info.avatar] placeholderImage:nil];
         
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setBackgroundImage:[UIImage imageNamed:@"icon_delete_btn.png"] forState:UIControlStateNormal];
+        UIImageView *button = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_delete_btn.png"]];
         button.frame = CGRectMake(imageView.frame.origin.x + imageView.frame.size.width - 10.f, imageView.frame.origin.y - 5.f, 17.f, 17.f);
         button.hidden = YES;
         button.tag = DELETE_INDEX + index;
@@ -462,6 +502,23 @@
     [view addSubview:label];
     
     return view;
+}
+
+- (NSString *)getUrl:(NSString *)method withParams:(NSMutableDictionary *)params {
+    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
+    UserInfo *userInfo = [accoutManager getUserInfo];
+    NSString *sgid = userInfo.sgid;
+    NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+    NSString *timestamp = [NSString stringWithFormat:@"%llu", [timeNumber longLongValue]];
+    
+    NSString *url = [NSString stringWithFormat:BASE_URL, method, sgid, timestamp];
+    
+    for (NSString *key in params) {
+        NSString *value = [params objectForKey:key];
+        url = [url stringByAppendingString:[NSString stringWithFormat:@"&%@=%@", key, value]];
+    }
+    
+    return url;
 }
 
 - (void)didReceiveMemoryWarning {
