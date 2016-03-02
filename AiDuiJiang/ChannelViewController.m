@@ -17,6 +17,7 @@
 #import "AddListViewController.h"
 #import "InfoEditViewController.h"
 #import "UserDetailsViewController.h"
+#import "Utils.h"
 
 #define TAG_NAME        100
 #define TAG_DESTINATION 101
@@ -26,8 +27,6 @@
 #define TAG_USER_DELETE 105
 #define TAG_BASE_INDEX  106
 #define DELETE_INDEX    12345
-
-#define BASE_URL @"http://m.icall.sogou.com/channel/1.0/%@.html?sgid=%@&t=%@"
 
 @interface ChannelViewController ()
 
@@ -43,8 +42,6 @@
     NSMutableArray *userList;
     
     MBProgressHUD *progress;
-    
-    CLLocationManager *locationManager;
     
     SearchItem *searchItem;
     
@@ -90,34 +87,11 @@
     
     userList = [[NSMutableArray alloc] initWithCapacity:0];
     [self request];
-    
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    locationManager.distanceFilter = 50;
-    
-    [locationManager startUpdatingLocation];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    CLLocation *location = [locations lastObject];
-    if (location) {
-        lat = location.coordinate.latitude;
-        lng = location.coordinate.longitude;
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (nil == locationManager) {
-        [locationManager stopUpdatingLocation];
-        locationManager = nil;
-    }
 }
 
 - (void)request {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid", nil];
-    NSString *url = [self getUrl:@"detail" withParams:params];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/detail.html?" params:params];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -166,7 +140,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
                                    [name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"name", nil];
-    NSString *url = [self getUrl:@"name" withParams:params];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/name.html?" params:params];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -195,7 +169,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
                                    [destination stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"des",
                                    [NSString stringWithFormat:@"%f,%f", lat, lng], @"loc", nil];
-    NSString *url = [self getUrl:@"location" withParams:params];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/location.html?" params:params];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -298,6 +272,9 @@
     UILabel *label = (UILabel *) [itemGroupView viewWithTag:TAG_DEST_LABEL];
     label.text = item.name;
     
+    lat = item.location.latitude;
+    lng = item.location.longitude;
+    
     CGFloat width = self.view.frame.size.width;
     [label sizeToFit];
     CGSize size = label.frame.size;
@@ -391,10 +368,12 @@
     NSInteger tag = [tap view].tag;
     
     if (tag == TAG_USER_ADD) {
-        AddListViewController *viewController = [[AddListViewController alloc] init];
-        viewController.channelId = self.channel.cid;
-        viewController.delegate = self;
-        [self.navigationController pushViewController:viewController animated:YES];
+        if (confirmButton.hidden == YES) {
+            AddListViewController *viewController = [[AddListViewController alloc] init];
+            viewController.channelId = self.channel.cid;
+            viewController.delegate = self;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
     } else if (tag == TAG_USER_DELETE) {
         if (confirmButton.hidden == YES) {
             confirmButton.hidden = NO;
@@ -419,7 +398,7 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
     userId, @"user", nil];
-    NSString *url = [self getUrl:@"kick" withParams:params];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/kick.html?" params:params];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -502,23 +481,6 @@
     [view addSubview:label];
     
     return view;
-}
-
-- (NSString *)getUrl:(NSString *)method withParams:(NSMutableDictionary *)params {
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-    UserInfo *userInfo = [accoutManager getUserInfo];
-    NSString *sgid = userInfo.sgid;
-    NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
-    NSString *timestamp = [NSString stringWithFormat:@"%llu", [timeNumber longLongValue]];
-    
-    NSString *url = [NSString stringWithFormat:BASE_URL, method, sgid, timestamp];
-    
-    for (NSString *key in params) {
-        NSString *value = [params objectForKey:key];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"&%@=%@", key, value]];
-    }
-    
-    return url;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -18,6 +18,13 @@
         
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 41.f, 41.f)];
         [self addSubview:self.imageView];
+        
+        self.avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(2.5f, 2.5f, 26.f, 26.f)];
+        self.avatarView.layer.masksToBounds = YES;
+        self.avatarView.layer.borderColor = [[UIColor whiteColor] CGColor];
+        self.avatarView.layer.borderWidth = 1.6f;
+        self.avatarView.layer.cornerRadius = 13.f;
+        [self addSubview:self.avatarView];
     }
     
     return self;

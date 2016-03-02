@@ -20,15 +20,7 @@
 @interface RouteViewController : UIViewController <MAMapViewDelegate, AMapNaviManagerDelegate,
 IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, ChannelInfoChangeDelegate, OnTargetSetProtocol>
 
-@property (nonatomic, strong) AMapNaviManager *naviManager;
-
-@property (nonatomic, strong) IFlySpeechSynthesizer *iFlySpeechSynthesizer;
-
 @property (nonatomic, strong) NSArray *annotations;
-
-@property (nonatomic, strong) MAPolyline *polyline;
-
-@property (nonatomic, strong) NSMutableArray *points;
 
 @property (nonatomic, strong) Channel *channel;
 

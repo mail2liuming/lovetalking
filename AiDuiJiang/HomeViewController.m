@@ -16,6 +16,7 @@
 #import "Channel.h"
 #import "UIImageView+WebCache.h"
 #import "RouteViewController.h"
+#import "Utils.h"
 
 #define TAG_FACE_TO_FACE     1001
 #define TAG_PUBLICK_NO       1002
@@ -96,12 +97,7 @@
 }
 
 - (void)requestChannel {
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-    UserInfo *userInfo = [accoutManager getUserInfo];
-    NSString *sgid = userInfo.sgid;
-    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
-    
-    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/user/1.0/channel.html?sgid=%@&t=%@", sgid, timestamp];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/user/1.0/channel.html?" params:nil];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];

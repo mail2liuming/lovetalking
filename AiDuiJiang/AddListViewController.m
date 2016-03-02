@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "UserAccoutManager.h"
 #import "AFHTTPSessionManager.h"
+#import "Utils.h"
 
 static NSString* const cellIdentifier = @"cell_id";
 
@@ -69,7 +70,7 @@ static NSString* const cellIdentifier = @"cell_id";
     userIds = [userIds substringToIndex:[userIds length] - 1];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channelId, @"cid", userIds, @"users", nil];
-    NSString *url = [self getUrl:@"http://m.icall.sogou.com/channel/1.0/invite.html?" withParams:params];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/invite.html?" params:params];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -121,7 +122,7 @@ static NSString* const cellIdentifier = @"cell_id";
 }
 
 - (void)request {
-    NSString *url = [self getUrl:@"http://m.icall.sogou.com/friend/1.0/myfriend.html?" withParams:nil];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/friend/1.0/myfriend.html?" params:nil];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -198,33 +199,6 @@ static NSString* const cellIdentifier = @"cell_id";
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
-}
-
-- (NSString *)getUrl:(NSString *)url withParams:(NSMutableDictionary *)params {
-    UserAccoutManager *accoutManager = [UserAccoutManager sharedManager];
-    UserInfo *userInfo = [accoutManager getUserInfo];
-    NSString *sgid = userInfo.sgid;
-    NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
-    NSString *timestamp = [NSString stringWithFormat:@"%llu", [timeNumber longLongValue]];
-    
-    if (params == nil) {
-        params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:sgid, @"sgid", timestamp, @"t", nil];
-    } else {
-        [params setValue:sgid forKey:@"sgid"];
-        [params setValue:timestamp forKey:@"t"];
-    }
-    
-    NSString *paramsText = @"";
-    for (NSString *key in params) {
-        NSString *value = [params objectForKey:key];
-        paramsText = [paramsText stringByAppendingString:[NSString stringWithFormat:@"&%@=%@", key, value]];
-    }
-    
-    paramsText = [paramsText substringFromIndex:1];
-    
-    url = [url stringByAppendingString:paramsText];
-    
-    return url;
 }
 
 @end

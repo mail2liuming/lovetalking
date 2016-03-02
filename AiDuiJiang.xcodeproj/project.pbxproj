@@ -112,7 +112,6 @@
 		409997F41C50DE9B0007C39E /* icon_mycar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 409997F01C50DE9B0007C39E /* icon_mycar@2x.png */; };
 		409997F51C50DE9B0007C39E /* icon_myfootprint@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 409997F11C50DE9B0007C39E /* icon_myfootprint@2x.png */; };
 		409997F61C50DE9B0007C39E /* icon_setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 409997F21C50DE9B0007C39E /* icon_setting@2x.png */; };
-		40A0F3DA1C0BF922005E5FCD /* DrawerLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */; };
 		40A0F3E01C0BFE6E005E5FCD /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */; };
 		40B9777D1C7B00BF00FF06C0 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B9777C1C7B00BF00FF06C0 /* Channel.m */; };
 		40BBEAB51C74775E00714E15 /* UserAddWattingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40BBEAB41C74775E00714E15 /* UserAddWattingView.m */; };
@@ -130,14 +129,12 @@
 		40D049D11C24089D002B59E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40D049D01C24089D002B59E4 /* CoreGraphics.framework */; };
 		40DDE5961C731A9E000936C9 /* del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DDE5951C731A9E000936C9 /* del@2x.png */; };
 		40DDE5981C732945000936C9 /* number@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DDE5971C732945000936C9 /* number@2x.png */; };
+		40E3BB591C869DDD008244D1 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 40E3BB581C869DDD008244D1 /* Utils.m */; };
+		40E3BB621C86D6E9008244D1 /* btn_click@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40E3BB601C86D6E9008244D1 /* btn_click@2x.png */; };
+		40E3BB631C86D6E9008244D1 /* btn_unclick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40E3BB611C86D6E9008244D1 /* btn_unclick@2x.png */; };
+		40E3BB651C86D700008244D1 /* icon_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 40E3BB641C86D700008244D1 /* icon_user.png */; };
 		40EEA8D01C4F36A200FAF0F2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40EEA8CF1C4F36A200FAF0F2 /* HomeViewController.m */; };
-		40F7DE411C8580DA0062731F /* btn_click@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40F7DE3F1C8580DA0062731F /* btn_click@2x.png */; };
-		40F7DE421C8580DA0062731F /* btn_unclick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40F7DE401C8580DA0062731F /* btn_unclick@2x.png */; };
 		40F7DE451C8583880062731F /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40F7DE441C8583880062731F /* UserTableViewCell.m */; };
-		474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C031C18161300E6770D /* DrawerContentConfig.m */; };
-		474B5C061C18168200E6770D /* DrawerContent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B5C051C18168200E6770D /* DrawerContent.xib */; };
-		474B5C091C181AEF00E6770D /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C081C181AEF00E6770D /* UIView+Extend.m */; };
-		474B5C0E1C1824B200E6770D /* DrawerContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 474B5C0D1C1824B200E6770D /* DrawerContentView.m */; };
 		47EC91291C015B24008B69C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC91281C015B24008B69C8 /* main.m */; };
 		47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC912B1C015B24008B69C8 /* AppDelegate.m */; };
 		47EC91351C015B24008B69C8 /* AiDuiJiang.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47EC91331C015B24008B69C8 /* AiDuiJiang.xcdatamodeld */; };
@@ -334,8 +331,6 @@
 		409997F01C50DE9B0007C39E /* icon_mycar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_mycar@2x.png"; sourceTree = "<group>"; };
 		409997F11C50DE9B0007C39E /* icon_myfootprint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_myfootprint@2x.png"; sourceTree = "<group>"; };
 		409997F21C50DE9B0007C39E /* icon_setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_setting@2x.png"; sourceTree = "<group>"; };
-		40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawerLayout.h; sourceTree = "<group>"; };
-		40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerLayout.m; sourceTree = "<group>"; };
 		40A0F3DE1C0BFE6E005E5FCD /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
 		40A0F3DF1C0BFE6E005E5FCD /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
 		40B9777B1C7B00BF00FF06C0 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
@@ -359,19 +354,15 @@
 		40D049D01C24089D002B59E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		40DDE5951C731A9E000936C9 /* del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del@2x.png"; sourceTree = "<group>"; };
 		40DDE5971C732945000936C9 /* number@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "number@2x.png"; sourceTree = "<group>"; };
+		40E3BB571C869DDD008244D1 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		40E3BB581C869DDD008244D1 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		40E3BB601C86D6E9008244D1 /* btn_click@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_click@2x.png"; sourceTree = "<group>"; };
+		40E3BB611C86D6E9008244D1 /* btn_unclick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_unclick@2x.png"; sourceTree = "<group>"; };
+		40E3BB641C86D700008244D1 /* icon_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_user.png; sourceTree = "<group>"; };
 		40EEA8CE1C4F36A200FAF0F2 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		40EEA8CF1C4F36A200FAF0F2 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		40F7DE3F1C8580DA0062731F /* btn_click@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_click@2x.png"; path = "../../../../Desktop/btn_click@2x.png"; sourceTree = "<group>"; };
-		40F7DE401C8580DA0062731F /* btn_unclick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_unclick@2x.png"; path = "../../../../Desktop/btn_unclick@2x.png"; sourceTree = "<group>"; };
 		40F7DE431C8583880062731F /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
 		40F7DE441C8583880062731F /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
-		474B5C021C18161300E6770D /* DrawerContentConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerContentConfig.h; sourceTree = "<group>"; };
-		474B5C031C18161300E6770D /* DrawerContentConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerContentConfig.m; sourceTree = "<group>"; };
-		474B5C051C18168200E6770D /* DrawerContent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DrawerContent.xib; path = ../DrawerContent.xib; sourceTree = "<group>"; };
-		474B5C071C181AEF00E6770D /* UIView+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extend.h"; sourceTree = "<group>"; };
-		474B5C081C181AEF00E6770D /* UIView+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extend.m"; sourceTree = "<group>"; };
-		474B5C0C1C1824B200E6770D /* DrawerContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerContentView.h; sourceTree = "<group>"; };
-		474B5C0D1C1824B200E6770D /* DrawerContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerContentView.m; sourceTree = "<group>"; };
 		47EC91241C015B24008B69C8 /* AiDuiJiang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AiDuiJiang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EC91281C015B24008B69C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		47EC912A1C015B24008B69C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -548,8 +539,9 @@
 		4061225B1C191EFC00EFE9F2 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				40F7DE3F1C8580DA0062731F /* btn_click@2x.png */,
-				40F7DE401C8580DA0062731F /* btn_unclick@2x.png */,
+				40E3BB641C86D700008244D1 /* icon_user.png */,
+				40E3BB601C86D6E9008244D1 /* btn_click@2x.png */,
+				40E3BB611C86D6E9008244D1 /* btn_unclick@2x.png */,
 				40305F321C7D8F6C009E3D48 /* icon_delete_btn.png */,
 				40305F331C7D8F6C009E3D48 /* icon_manage_add.png */,
 				40305F341C7D8F6C009E3D48 /* icon_manage_delete.png */,
@@ -724,17 +716,8 @@
 				40D049B61C23E2FD002B59E4 /* login */,
 				4061225E1C1924CC00EFE9F2 /* channel */,
 				4061225B1C191EFC00EFE9F2 /* images */,
-				474B5C051C18168200E6770D /* DrawerContent.xib */,
 				40A0F3DB1C0BFCCF005E5FCD /* navi */,
-				40A0F3D91C0BF922005E5FCD /* DrawerLayout.m */,
-				474B5C021C18161300E6770D /* DrawerContentConfig.h */,
-				474B5C031C18161300E6770D /* DrawerContentConfig.m */,
-				474B5C071C181AEF00E6770D /* UIView+Extend.h */,
-				474B5C081C181AEF00E6770D /* UIView+Extend.m */,
-				40A0F3D81C0BF914005E5FCD /* DrawerLayout.h */,
 				47EC912A1C015B24008B69C8 /* AppDelegate.h */,
-				474B5C0C1C1824B200E6770D /* DrawerContentView.h */,
-				474B5C0D1C1824B200E6770D /* DrawerContentView.m */,
 				47EC912B1C015B24008B69C8 /* AppDelegate.m */,
 				47EC91361C015B24008B69C8 /* Assets.xcassets */,
 				47EC91381C015B24008B69C8 /* LaunchScreen.storyboard */,
@@ -745,6 +728,8 @@
 				40EEA8CF1C4F36A200FAF0F2 /* HomeViewController.m */,
 				409997EC1C50C01A0007C39E /* MenuViewController.h */,
 				409997ED1C50C01A0007C39E /* MenuViewController.m */,
+				40E3BB571C869DDD008244D1 /* Utils.h */,
+				40E3BB581C869DDD008244D1 /* Utils.m */,
 			);
 			path = AiDuiJiang;
 			sourceTree = "<group>";
@@ -901,7 +886,7 @@
 				4001C73B1C5A215900390917 /* home_icon_cy_p.png in Resources */,
 				4014C49B1C19696C00735DA6 /* ic_indicator.png in Resources */,
 				4023FB0D1C58AE67000B9AB5 /* icon_mob@2x.png in Resources */,
-				40F7DE411C8580DA0062731F /* btn_click@2x.png in Resources */,
+				40E3BB651C86D700008244D1 /* icon_user.png in Resources */,
 				4001C73F1C5A215900390917 /* home_icon_mdm_p.png in Resources */,
 				4016419C1C7C0E650051F63B /* home_bg_1.png in Resources */,
 				40D049BB1C23F8EC002B59E4 /* pic.png in Resources */,
@@ -917,17 +902,17 @@
 				40D049C11C240029002B59E4 /* btn_p@2x.png in Resources */,
 				40D049BD1C23FCFF002B59E4 /* slogan.png in Resources */,
 				4016419A1C7C0BC00051F63B /* voice_p@2x.png in Resources */,
-				40F7DE421C8580DA0062731F /* btn_unclick@2x.png in Resources */,
 				409997F31C50DE9B0007C39E /* icon_friends@2x.png in Resources */,
 				4001C7311C5A1AE900390917 /* icon_exit@2x.png in Resources */,
 				4023FB001C589AD5000B9AB5 /* img_setting.png in Resources */,
 				4001C73E1C5A215900390917 /* home_icon_mdm_n.png in Resources */,
 				40793B791C5716B500EBFDD6 /* icon_go@2x.png in Resources */,
-				474B5C061C18168200E6770D /* DrawerContent.xib in Resources */,
 				4023FB0E1C58AE67000B9AB5 /* icon_qq@2x.png in Resources */,
+				40E3BB631C86D6E9008244D1 /* btn_unclick@2x.png in Resources */,
 				4001C7331C5A1BED00390917 /* point_big.png in Resources */,
 				40305F371C7D8F6C009E3D48 /* icon_manage_delete.png in Resources */,
 				4023FB0F1C58AE67000B9AB5 /* icon_weixin@2x.png in Resources */,
+				40E3BB621C86D6E9008244D1 /* btn_click@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,7 +937,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				474B5C041C18161300E6770D /* DrawerContentConfig.m in Sources */,
 				4018F5941C328D2A0021EC48 /* UIRefreshControl+AFNetworking.m in Sources */,
 				405E43DE1C27E96C005FC2DC /* SDWebImagePrefetcher.m in Sources */,
 				47EC91351C015B24008B69C8 /* AiDuiJiang.xcdatamodeld in Sources */,
@@ -974,6 +958,7 @@
 				4018F5741C32833A0021EC48 /* AFSecurityPolicy.m in Sources */,
 				405E43E31C27E96C005FC2DC /* UIImageView+HighlightedWebCache.m in Sources */,
 				40D049C71C2404AA002B59E4 /* UIImage+Color.m in Sources */,
+				40E3BB591C869DDD008244D1 /* Utils.m in Sources */,
 				409997EB1C50BD300007C39E /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				4018F5931C328D2A0021EC48 /* UIProgressView+AFNetworking.m in Sources */,
 				4001C7431C5A2B5600390917 /* ChannelCreateViewController.m in Sources */,
@@ -987,7 +972,6 @@
 				47EC912C1C015B24008B69C8 /* AppDelegate.m in Sources */,
 				405E43D81C27E96C005FC2DC /* SDImageCache.m in Sources */,
 				405E43B31C27B176005FC2DC /* UserAccoutManager.m in Sources */,
-				474B5C0E1C1824B200E6770D /* DrawerContentView.m in Sources */,
 				405E43DD1C27E96C005FC2DC /* SDWebImageManager.m in Sources */,
 				4023FB221C58DB6E000B9AB5 /* MessageItemCell.m in Sources */,
 				405E43E51C27E96C005FC2DC /* UIView+WebCacheOperation.m in Sources */,
@@ -1009,13 +993,11 @@
 				4023FB131C58BC4F000B9AB5 /* MBProgressHUD.m in Sources */,
 				47EC91291C015B24008B69C8 /* main.m in Sources */,
 				40F7DE451C8583880062731F /* UserTableViewCell.m in Sources */,
-				474B5C091C181AEF00E6770D /* UIView+Extend.m in Sources */,
 				4018F58D1C328D2A0021EC48 /* AFAutoPurgingImageCache.m in Sources */,
 				405E43E11C27E96C005FC2DC /* UIImage+MultiFormat.m in Sources */,
 				4018F5981C32991B0021EC48 /* SGAHttpRequest.m in Sources */,
 				409997E71C5092AC0007C39E /* SlideNavigationController.m in Sources */,
 				4023FB091C58A99B000B9AB5 /* AddUserViewController.m in Sources */,
-				40A0F3DA1C0BF922005E5FCD /* DrawerLayout.m in Sources */,
 				405E43D91C27E96C005FC2DC /* SDWebImageCompat.m in Sources */,
 				4018F5731C32833A0021EC48 /* AFNetworkReachabilityManager.m in Sources */,
 				40B9777D1C7B00BF00FF06C0 /* Channel.m in Sources */,

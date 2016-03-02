@@ -22,7 +22,7 @@
 
 @end
 
-@interface ChannelViewController : UIViewController<SendDataProtocol, CLLocationManagerDelegate, MBProgressHUDDelegate, SendDataBackDelegate, UserAddedDelegate>
+@interface ChannelViewController : UIViewController<SendDataProtocol, MBProgressHUDDelegate, SendDataBackDelegate, UserAddedDelegate>
 
 @property (nonatomic, assign) id<OnTargetSetProtocol> delegate;
 
