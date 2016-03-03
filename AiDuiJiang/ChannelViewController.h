@@ -16,17 +16,21 @@
 
 @class SearchItem;
 
-@protocol OnTargetSetProtocol <NSObject>
+@protocol ChannelChangeDelegate <NSObject>
 
--(void)onTargetSet:(SearchItem *)item;
+- (void)onTargetSet:(SearchItem *)item;
+
+- (void)onExitChannel;
 
 @end
 
 @interface ChannelViewController : UIViewController<SendDataProtocol, MBProgressHUDDelegate, SendDataBackDelegate, UserAddedDelegate>
 
-@property (nonatomic, assign) id<OnTargetSetProtocol> delegate;
+@property (nonatomic, assign) id<ChannelChangeDelegate> delegate;
 
-@property (nonatomic, strong) Channel *channel;
+@property (nonatomic, strong) NSString *channelId;
+
+@property (nonatomic, strong) NSString *channelTilte;
 
 @property (nonatomic, assign) id<ChannelInfoChangeDelegate> infoChangeDelegate;
 

@@ -15,6 +15,9 @@
 #import "UserAccoutManager.h"
 #import "UserInfo.h"
 #import "UIImageView+WebCache.h"
+#import "AFHTTPSessionManager.h"
+#import "Utils.h"
+#import "ChannelDetails.h"
 
 @interface RouteViewController ()
 
@@ -39,6 +42,8 @@
     BOOL startCalRoute;
     
     NSMutableArray *routePoints;
+    
+    ChannelDetails *channelDetails;
 }
 
 - (void)viewDidLoad {
@@ -58,7 +63,6 @@
     
     startPoint = [[MAPointAnnotation alloc] init];
     
-    self.title = [NSString stringWithFormat:@"%@（%ld人）", self.channel.name, self.channel.followers];
     routeMapView = [[MAMapView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:routeMapView];
     
@@ -81,6 +85,25 @@
     [navButton setBackgroundImage:[UIImage imageNamed:@"ic_nav.png"] forState:UIControlStateNormal];
     [navButton addTarget:self action:@selector(setDestination) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:navButton];
+    
+    [self request];
+}
+
+- (void)request {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channelId, @"cid", nil];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/detail.html?" params:params];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            channelDetails = [[ChannelDetails alloc] initWithDict:[responseObject objectForKey:@"data"]];
+            self.title = [NSString stringWithFormat:@"%@（%ld人）", channelDetails.name, channelDetails.followers];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
 }
 
 - (void)onChannelInfoChanged {
@@ -91,7 +114,8 @@
 
 - (void)onRightButtonClicked {
     ChannelViewController *controller = [[ChannelViewController alloc] init];
-    controller.channel = self.channel;
+    controller.channelId = self.channelId;
+    controller.channelTilte = [NSString stringWithFormat:@"%@（%ld人）", channelDetails.name, (long)channelDetails.followers];
     controller.delegate = self;
     controller.infoChangeDelegate = self;
     
@@ -120,6 +144,10 @@
 - (void)onTargetSet:(SearchItem *)item {
     [self startCalculateRoute:item.location.latitude withLng:item.location.longitude];
     [self onChannelInfoChanged];
+}
+
+- (void)onExitChannel {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)startCalculateRoute:(CGFloat)lat withLng:(CGFloat)lng {
@@ -211,13 +239,15 @@
         
         [routeMapView addAnnotation:startPoint];
         
-        NSString *loc = self.channel.loc;
-        if (calRouteSuccess == NO && startCalRoute == NO &&
-            loc && loc.length > 0) {
-            NSArray *latlng = [loc componentsSeparatedByString:@","];
-            CGFloat targetLat = [[latlng objectAtIndex:0] floatValue];
-            CGFloat targetLng = [[latlng objectAtIndex:1] floatValue];
-            [self startCalculateRoute:targetLat withLng:targetLng];
+        if (channelDetails) {
+            NSString *loc = channelDetails.loc;
+            if (calRouteSuccess == NO && startCalRoute == NO &&
+                loc && loc.length > 0) {
+                NSArray *latlng = [loc componentsSeparatedByString:@","];
+                CGFloat targetLat = [[latlng objectAtIndex:0] floatValue];
+                CGFloat targetLng = [[latlng objectAtIndex:1] floatValue];
+                [self startCalculateRoute:targetLat withLng:targetLng];
+            }
         }
     }
 }

@@ -53,7 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:242.f / 255 green:242.f / 255 blue:242.f / 255 alpha:1.0f];
-    self.title = [NSString stringWithFormat:@"%@（%ld人）", self.channel.name, (long)self.channel.followers];
+    self.title = self.channelTilte;
     
     confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44.f, 44.f)];
     [confirmButton setTitle:@"完成" forState:UIControlStateNormal];
@@ -83,6 +83,7 @@
     [exitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [exitButton setBackgroundColor:[UIColor colorWithRed:235.f / 255 green:98.f / 255 blue:24.f / 255 alpha:1]];
     exitButton.frame = CGRectMake(0, self.view.frame.size.height - 54.f, self.view.frame.size.width, 54.f);
+    [exitButton addTarget:self action:@selector(exitChannel) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:exitButton];
     
     userList = [[NSMutableArray alloc] initWithCapacity:0];
@@ -90,7 +91,7 @@
 }
 
 - (void)request {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid", nil];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channelId, @"cid", nil];
     NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/detail.html?" params:params];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -122,6 +123,42 @@
     }];
 }
 
+- (void)exitChannel {
+    [self showProgress];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channelId, @"cid", nil];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/quit.html?" params:params];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [progress hide:YES];
+        
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            NSInteger code = [[responseObject objectForKey:@"errno"] integerValue];
+            
+            if (code == 0) {
+                if (self.infoChangeDelegate) {
+                    [self.infoChangeDelegate onChannelInfoChanged];
+                }
+                
+                if (self.delegate) {
+                    [self.delegate onExitChannel];
+                }
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [self showToast:@"频道退出失败，请稍后再试"];
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [progress hide:YES];
+        [self showToast:@"修改失败，请稍后再试"];
+    }];
+}
+
 - (void)hudWasHidden:(MBProgressHUD *)hud {
     [progress removeFromSuperview];
     progress = nil;
@@ -138,7 +175,7 @@
 - (void)setChannelName:(NSString *)name {
     [self showProgress];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channelId, @"cid",
                                    [name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"name", nil];
     NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/name.html?" params:params];
     
@@ -166,7 +203,7 @@
 - (void)setDestination:(NSString *)destination {
     [self showProgress];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channelId, @"cid",
                                    [destination stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"des",
                                    [NSString stringWithFormat:@"%f,%f", lat, lng], @"loc", nil];
     NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/location.html?" params:params];
@@ -370,7 +407,7 @@
     if (tag == TAG_USER_ADD) {
         if (confirmButton.hidden == YES) {
             AddListViewController *viewController = [[AddListViewController alloc] init];
-            viewController.channelId = self.channel.cid;
+            viewController.channelId = self.channelId;
             viewController.delegate = self;
             [self.navigationController pushViewController:viewController animated:YES];
         }
@@ -396,7 +433,7 @@
 - (void)deleteMember:(NSString *)userId {
     [self showProgress];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channel.cid, @"cid",
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.channelId, @"cid",
     userId, @"user", nil];
     NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/kick.html?" params:params];
     

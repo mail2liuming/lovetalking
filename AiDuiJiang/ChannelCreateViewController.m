@@ -12,6 +12,7 @@
 #import "UserInfo.h"
 #import "AFHTTPSessionManager.h"
 #import "RouteViewController.h"
+#import "Utils.h"
 
 @implementation ChannelCreateViewController {
     
@@ -32,6 +33,10 @@
     NSMutableArray *userList;
     
     UserAddWattingView *wattingView;
+    
+    NSTimer *timerTask;
+    
+    NSMutableArray *waitList;
 }
 
 - (void)viewDidLoad {
@@ -42,6 +47,7 @@
     
     codeArray = [[NSMutableArray alloc] initWithCapacity:0];
     userList = [[NSMutableArray alloc] initWithCapacity:0];
+    waitList = [[NSMutableArray alloc] initWithCapacity:0];
     
     [self appendButtons];
     [self appendGrids];
@@ -87,6 +93,35 @@
     [locationManager startUpdatingLocation];
 }
 
+- (void)updateUserList {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:channelKey, @"key", nil];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/faceuser.html?" params:params];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            NSInteger code = [[responseObject objectForKey:@"errno"] integerValue];
+            if (code == 0) {
+                [waitList removeAllObjects];
+                
+                NSArray *array = [responseObject objectForKey:@"data"];
+                for (NSDictionary *user in array) {
+                    UserInfo *userInfo = [[UserInfo alloc] initWithDictionary:user];
+                    [waitList addObject:userInfo];
+                }
+                
+                if (waitList.count > 0) {
+                    [wattingView setUserList:waitList];
+                }
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
+}
+
 - (void)pushupWattingView {
     wattingView = [[UserAddWattingView alloc] initWithFrame:CGRectMake(0, numberView.frame.origin.y - 64.f - 44.f, self.view.frame.size.width, self.view.frame.size.height)];
     wattingView.delegate = self;
@@ -98,6 +133,8 @@
         wattingView.frame = CGRectMake(0, numberView.frame.origin.y - 64.f - 44.f, self.view.frame.size.width, self.view.frame.size.height);
         wattingView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     }];
+    
+    timerTask = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(updateUserList) userInfo:nil repeats:YES];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -109,22 +146,49 @@
 }
 
 - (void)onJoinButtonClicked {
-    RouteViewController *viewController = [[RouteViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];
+    [self showProgress];
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:channelKey, @"key", nil];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/enterface.html?" params:params];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        progress.hidden = YES;
+        
+        if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+            NSInteger code = [[responseObject objectForKey:@"errno"] integerValue];
+            if (code == 0) {
+                NSDictionary *data = [responseObject objectForKey:@"data"];
+                NSString *channelId = [data objectForKey:@"cid"];
+                RouteViewController *viewController = [[RouteViewController alloc] init];
+                viewController.channelId = channelId;
+                [self.navigationController pushViewController:viewController animated:YES];
+            } else {
+                [self showToast:@"进群失败，请稍后再试"];
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        progress.hidden = YES;
+        [self showToast:@"进群失败，请稍后再试"];
+    }];
 }
 
-- (void)createChannel {
+- (void)showProgress {
     progress = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:progress];
     progress.delegate = self;
     [progress show:YES];
+}
+
+- (void)createChannel {
+    [self showProgress];
     
-    UserAccoutManager *accountManager = [UserAccoutManager sharedManager];
-    UserInfo *userInfo = [accountManager getUserInfo];
-    NSString *sgid = userInfo.sgid;
-    NSString *timestamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970] * 1000];
-    
-    NSString *url = [NSString stringWithFormat:@"http://m.icall.sogou.com/channel/1.0/face2face.html?sgid=%@&t=%@&lat=%f&lng=%f&code=%@", sgid, timestamp, lat, lng, channelCode];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[[NSNumber numberWithDouble:lat] stringValue] , @"lat",
+                                   [[NSNumber numberWithDouble:lng] stringValue], @"lng", channelCode, @"code", nil];
+    NSString *url = [[Utils sharedUtils] getUrl:@"http://m.icall.sogou.com/channel/1.0/face2face.html?" params:params];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -170,9 +234,14 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (nil == locationManager) {
+    if (locationManager) {
         [locationManager stopUpdatingLocation];
         locationManager = nil;
+    }
+    
+    if (timerTask) {
+        [timerTask invalidate];
+        timerTask = nil;
     }
 }
 

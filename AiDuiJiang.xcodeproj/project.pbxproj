@@ -103,6 +103,7 @@
 		40793B801C57691D00EBFDD6 /* DistrictViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40793B7F1C57691D00EBFDD6 /* DistrictViewController.m */; };
 		40793B821C576A8800EBFDD6 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40793B811C576A8800EBFDD6 /* ProvincesAndCities.plist */; };
 		40793B851C5773D300EBFDD6 /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40793B841C5773D300EBFDD6 /* CityViewController.m */; };
+		40846CB81C882E54009777E4 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40846CB71C882E54009777E4 /* AlertView.m */; };
 		408775031C1AD75100AE7407 /* SearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 408775021C1AD75000AE7407 /* SearchItem.m */; };
 		408FB95F1C4F8A6400FC338B /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408FB95E1C4F8A6400FC338B /* menu@2x.png */; };
 		409997E71C5092AC0007C39E /* SlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 409997E61C5092AC0007C39E /* SlideNavigationController.m */; };
@@ -317,6 +318,8 @@
 		40793B811C576A8800EBFDD6 /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
 		40793B831C5773D300EBFDD6 /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
 		40793B841C5773D300EBFDD6 /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
+		40846CB61C882E54009777E4 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
+		40846CB71C882E54009777E4 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		408775011C1AD75000AE7407 /* SearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchItem.h; sourceTree = "<group>"; };
 		408775021C1AD75000AE7407 /* SearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchItem.m; sourceTree = "<group>"; };
 		408FB95E1C4F8A6400FC338B /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -610,6 +613,8 @@
 				40C848811C84458300156018 /* AddListViewController.m */,
 				40F7DE431C8583880062731F /* UserTableViewCell.h */,
 				40F7DE441C8583880062731F /* UserTableViewCell.m */,
+				40846CB61C882E54009777E4 /* AlertView.h */,
+				40846CB71C882E54009777E4 /* AlertView.m */,
 			);
 			name = channel;
 			sourceTree = "<group>";
@@ -952,6 +957,7 @@
 				40013A9A1C562B4F00293E3D /* InfoViewController.m in Sources */,
 				409997EE1C50C01A0007C39E /* MenuViewController.m in Sources */,
 				4018F5751C32833A0021EC48 /* AFURLRequestSerialization.m in Sources */,
+				40846CB81C882E54009777E4 /* AlertView.m in Sources */,
 				405E43DC1C27E96C005FC2DC /* SDWebImageDownloaderOperation.m in Sources */,
 				4023FAFE1C58852B000B9AB5 /* SettingsViewController.m in Sources */,
 				4014C49E1C196F8900735DA6 /* DestinationViewController.m in Sources */,

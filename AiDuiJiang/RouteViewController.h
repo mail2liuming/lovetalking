@@ -18,11 +18,11 @@
 #import "ChannelInfoChangeDelegate.h"
 
 @interface RouteViewController : UIViewController <MAMapViewDelegate, AMapNaviManagerDelegate,
-IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, ChannelInfoChangeDelegate, OnTargetSetProtocol>
+IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, ChannelInfoChangeDelegate, ChannelChangeDelegate>
 
 @property (nonatomic, strong) NSArray *annotations;
 
-@property (nonatomic, strong) Channel *channel;
+@property (nonatomic, strong) NSString *channelId;
 
 @property (nonatomic, assign) id<ChannelInfoChangeDelegate> infoChangeDelegate;
 

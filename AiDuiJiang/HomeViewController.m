@@ -290,7 +290,7 @@
     Channel *channel = [channelList objectAtIndex:index];
     
     RouteViewController *viewController = [[RouteViewController alloc] init];
-    viewController.channel = channel;
+    viewController.channelId = channel.cid;
     viewController.infoChangeDelegate = self;
     [self.navigationController pushViewController:viewController animated:YES];
 }
