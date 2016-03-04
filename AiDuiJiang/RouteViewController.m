@@ -18,6 +18,7 @@
 #import "AFHTTPSessionManager.h"
 #import "Utils.h"
 #import "ChannelDetails.h"
+#import "AlertView.h"
 
 @interface RouteViewController ()
 
@@ -101,9 +102,22 @@
         if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
             channelDetails = [[ChannelDetails alloc] initWithDict:[responseObject objectForKey:@"data"]];
             self.title = [NSString stringWithFormat:@"%@（%ld人）", channelDetails.name, channelDetails.followers];
+            
+            NSString *loc = channelDetails.loc;
+            if (loc == nil || loc.length == 0) {
+                AlertView *alertView = [[AlertView alloc] initWithFrame:CGRectMake(0, 0 , self.view.frame.size.width, self.view.frame.size.height)];
+                alertView.delegate = self;
+                [alertView setTitle:@"请设置目的地" withMessage:@"现在就设置好目的地吧，在旅途中开心地和小伙伴一起用爱对讲随时沟通"];
+                
+                [self.view addSubview:alertView];
+            }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
     }];
+}
+
+- (void)onConfirmed {
+    [self onRightButtonClicked];
 }
 
 - (void)onChannelInfoChanged {

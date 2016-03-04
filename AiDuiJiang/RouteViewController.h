@@ -16,9 +16,10 @@
 #import "ChannelViewController.h"
 #import "Channel.h"
 #import "ChannelInfoChangeDelegate.h"
+#import "AlertView.h"
 
 @interface RouteViewController : UIViewController <MAMapViewDelegate, AMapNaviManagerDelegate,
-IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, ChannelInfoChangeDelegate, ChannelChangeDelegate>
+IFlySpeechSynthesizerDelegate, AMapNaviViewControllerDelegate, ChannelInfoChangeDelegate, AlertViewDelegate, ChannelChangeDelegate>
 
 @property (nonatomic, strong) NSArray *annotations;
 
