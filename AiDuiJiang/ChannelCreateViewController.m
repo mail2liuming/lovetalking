@@ -161,6 +161,9 @@
         if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
             NSInteger code = [[responseObject objectForKey:@"errno"] integerValue];
             if (code == 0) {
+                if (self.infoChangeDelegate) {
+                    [self.infoChangeDelegate onChannelInfoChanged];
+                }
                 NSDictionary *data = [responseObject objectForKey:@"data"];
                 NSString *channelId = [data objectForKey:@"cid"];
                 RouteViewController *viewController = [[RouteViewController alloc] init];

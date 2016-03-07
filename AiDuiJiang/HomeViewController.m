@@ -152,6 +152,7 @@
 
 - (void)onButtonClicked:(id)sender {
     ChannelCreateViewController *viewController = [[ChannelCreateViewController alloc] init];
+    viewController.infoChangeDelegate = self;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

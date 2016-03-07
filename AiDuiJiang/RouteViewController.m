@@ -101,7 +101,7 @@
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
             channelDetails = [[ChannelDetails alloc] initWithDict:[responseObject objectForKey:@"data"]];
-            self.title = [NSString stringWithFormat:@"%@（%ld人）", channelDetails.name, channelDetails.followers];
+            self.title = [NSString stringWithFormat:@"%@（%ld人）", channelDetails.name, (long)channelDetails.followers];
             
             NSString *loc = channelDetails.loc;
             if (loc == nil || loc.length == 0) {

@@ -10,7 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MBProgressHUD.h"
 #import "UserAddWattingView.h"
+#import "ChannelInfoChangeDelegate.h"
 
-@interface ChannelCreateViewController : UIViewController <CLLocationManagerDelegate, GroupAddDelegate, MBProgressHUDDelegate>
+@interface ChannelCreateViewController : UIViewController <CLLocationManagerDelegate, GroupAddDelegate, MBProgressHUDDelegate, ChannelInfoChangeDelegate>
+
+@property (nonatomic, assign) id<ChannelInfoChangeDelegate> infoChangeDelegate;
 
 @end
